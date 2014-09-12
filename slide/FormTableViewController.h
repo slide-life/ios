@@ -12,5 +12,7 @@
 @interface FormTableViewController : XLFormViewController
 
 @property (nonatomic, strong) NSDictionary *formData;
+@property (nonatomic, strong) NSMutableArray *rows;
+@property (nonatomic, strong) NSString *formId;
 
 @end

@@ -55,6 +55,7 @@
 - (void)showForm {
     FormTableViewController *formEditor = [self.storyboard instantiateViewControllerWithIdentifier:@"FormTableViewController"];
     formEditor.formData = _form;
+    formEditor.formId = metadataObj.stringValue;
     [self.navigationController pushViewController:formEditor animated:YES];
 }
 

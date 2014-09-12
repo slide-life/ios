@@ -57,7 +57,6 @@
         <!--Form Table View Controller-->
         <scene sceneID="pTJ-nO-1ci">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="M9j-Fh-A0a" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="FormTableViewController" id="0it-Sc-3z1" customClass="FormTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="4tE-Oh-Pan">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -80,6 +79,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="CWc-wP-sdf"/>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M9j-Fh-A0a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="772" y="476"/>
         </scene>
@@ -99,7 +99,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l4U-6s-R14" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1093" y="578"/>
+            <point key="canvasLocation" x="1117" y="476"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
