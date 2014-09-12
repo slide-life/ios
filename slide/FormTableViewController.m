@@ -28,17 +28,24 @@
     for( NSDictionary *field in fields ) {
         NSDictionary *types = @{
           @"text": XLFormRowDescriptorTypeText,
-          @"email": XLFormRowDescriptorTypeEmail
+          @"email": XLFormRowDescriptorTypeEmail,
+          @"checkbox": XLFormRowDescriptorTypeBooleanSwitch
         };
-        row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:types[field[@"type"]]];
-        [row.cellConfigAtConfigure setObject:field[@"fieldName"] forKey:@"textField.placeholder"];
-        [section addFormRow:row];
+        NSString *fieldType = field[@"typeName"];
+        if(fieldType) {
+            row = [XLFormRowDescriptor formRowDescriptorWithTag:@"notes" rowType:types[fieldType]];
+            row.title = field[@"fieldName"];
+            [section addFormRow:row];
+        } else {
+            NSLog(@"Ignoring field with unresolved type.");
+        }
     }
     
     self.form = form;
 }
 - (void)viewDidLoad {
     [self initForm];
+    self.navigationItem.title = _formData[@"name"];
 }
 
 @end

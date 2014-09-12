@@ -58,7 +58,7 @@
     [self.navigationController pushViewController:formEditor animated:YES];
 }
 
-- (void)queryBackend {    
+- (void)queryBackend {
      AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
      NSString *path = [NSString stringWithFormat:@"http://slide-dev.ngrok.com/forms/%@", [metadataObj stringValue]];
      [manager GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
