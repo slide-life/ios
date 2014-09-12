@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "XLFormViewController.h"
 
-@interface FormTableViewController : UITableViewController
+@interface FormTableViewController : XLFormViewController
 
-@property (nonatomic, strong) NSDictionary *form;
+@property (nonatomic, strong) NSDictionary *formData;
 
 @end

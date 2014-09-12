@@ -6,28 +6,39 @@
 //  Copyright (c) 2014 slide. All rights reserved.
 //
 
+#import "XLForm.h"
 #import "FormTableViewController.h"
-#import "XLFormViewController.h"
-
-@interface FormTableViewController ()
-
-@end
 
 @implementation FormTableViewController
 
+-(void)initForm {
+    NSLog(@"%@", _formData);
+    
+    XLFormDescriptor * form;
+    XLFormSectionDescriptor * section;
+    XLFormRowDescriptor * row;
+    
+    form = [XLFormDescriptor formDescriptorWithTitle:@"Add Event"];
+    
+    // First section
+    section = [XLFormSectionDescriptor formSection];
+    [form addFormSection:section];
+    
+    NSArray *fields = _formData[@"fields"];
+    for( NSDictionary *field in fields ) {
+        NSDictionary *types = @{
+          @"text": XLFormRowDescriptorTypeText,
+          @"email": XLFormRowDescriptorTypeEmail
+        };
+        row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:types[field[@"type"]]];
+        [row.cellConfigAtConfigure setObject:field[@"fieldName"] forKey:@"textField.placeholder"];
+        [section addFormRow:row];
+    }
+    
+    self.form = form;
+}
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    NSLog(@"%@", _form);
-}
-
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    return 0;
+    [self initForm];
 }
 
 @end

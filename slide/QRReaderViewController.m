@@ -54,27 +54,23 @@
 
 - (void)showForm {
     FormTableViewController *formEditor = [self.storyboard instantiateViewControllerWithIdentifier:@"FormTableViewController"];
-    formEditor.form = _form;
+    formEditor.formData = _form;
     [self.navigationController pushViewController:formEditor animated:YES];
 }
 
-- (void)queryBackend {
-    _form = @{};
-    /*
+- (void)queryBackend {    
      AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-     NSString *path = [NSString stringWithFormat:@"http://169.254.216.164:3000/forms/%@", [metadataObj stringValue]];
+     NSString *path = [NSString stringWithFormat:@"http://slide-dev.ngrok.com/forms/%@", [metadataObj stringValue]];
      [manager GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-     NSLog(@"JSON: %@", responseObject);
-     _form = (NSDictionary *)responseObject;
-     [self performSegueWithIdentifier:@"readerToDisplay" sender:self];
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-     NSLog(@"Error");
-     }];
-     */
-    [self showForm];
+         NSLog(@"JSON: %@", responseObject);
+         _form = (NSDictionary *)responseObject;
+         [self showForm];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error");
+        }];
 }
 
-- (void)stopReading {
+- (void)stopReading  {
     [_captureSession stopRunning];
     _captureSession = nil;
     [_videoPreviewLayer removeFromSuperlayer];
@@ -84,9 +80,9 @@
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection {
     if (metadataObjects != nil && [metadataObjects count] > 0) {
-        AVMetadataMachineReadableCodeObject *metadataObj = [metadataObjects objectAtIndex:0];
+        metadataObj = [metadataObjects objectAtIndex:0];
         if ([[metadataObj type] isEqualToString:AVMetadataObjectTypeQRCode] && !_stoppedCapture) {
-            [self performSelectorOnMainThread:@selector(stopReading) withObject:nil waitUntilDone:NO];
+            [self performSelectorOnMainThread:@selector(stopReading) withObject:metadataObj waitUntilDone:NO];
             _stoppedCapture = YES;
             
             return;

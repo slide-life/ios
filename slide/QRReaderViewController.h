@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
-@interface QRReaderViewController : UIViewController <AVCaptureMetadataOutputObjectsDelegate>
+@interface QRReaderViewController : UIViewController <AVCaptureMetadataOutputObjectsDelegate> {
+    AVMetadataMachineReadableCodeObject *metadataObj;
+}
 
 @property (weak, nonatomic) IBOutlet UIView *scanPreview;
 @property (nonatomic, strong) NSDictionary *form;
