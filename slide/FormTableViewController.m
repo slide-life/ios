@@ -60,7 +60,7 @@
     [row.cellConfigAtConfigure setObject:[UIColor whiteColor] forKey:@"textLabel.color"];
     self.form = form;
 }
-- (void)send {
+- (void)send: (id)sender {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     NSString *path = [NSString stringWithFormat:@"http://slide-dev.ngrok.com/forms/%@/responses", _formId];
@@ -74,7 +74,13 @@
     }
     [[FieldsDataStore sharedInstance] patch:fieldValues];
     [manager POST:path parameters:fieldValues success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Response: %@", responseObject);
+        UIViewController *thanks = [self.storyboard instantiateViewControllerWithIdentifier:@"thanks"];
+        NSMutableArray *controllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
+        [controllers removeLastObject];
+        [controllers addObject:thanks];
+        
+        [self.navigationController setViewControllers:controllers animated:YES];
+
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
@@ -85,7 +91,7 @@
 }
 - (void)didSelectFormRow:(XLFormRowDescriptor *)formRow {
     if( [formRow.tag isEqualToString:@"sendButton"] ) {
-        [self send];
+        [self send:formRow];
     }
 }
 

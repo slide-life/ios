@@ -101,6 +101,36 @@
             </objects>
             <point key="canvasLocation" x="1117" y="476"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="YiO-K0-cZJ">
+            <objects>
+                <viewController storyboardIdentifier="thanks" id="XJe-Od-SPB" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Byc-yh-uTr"/>
+                        <viewControllerLayoutGuide type="bottom" id="yyV-Ch-mK3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="HJ3-y9-qKP">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Thanks, your response has been recorded" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vHz-xf-AKy">
+                                <rect key="frame" x="-171" y="197" width="662" height="53"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="vHz-xf-AKy" secondAttribute="centerX" id="fAp-8Y-9I5"/>
+                            <constraint firstAttribute="centerY" secondItem="vHz-xf-AKy" secondAttribute="centerY" constant="60.5" id="m7V-Qk-GtR"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RRr-8c-BM7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1474" y="476"/>
+        </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
