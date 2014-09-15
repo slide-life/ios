@@ -13,7 +13,7 @@
 @implementation QRReaderViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+    [super viewDidLoad];    
 }
 
 - (void)viewDidAppear:(BOOL)animated {

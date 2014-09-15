@@ -9,6 +9,7 @@
 #import "XLForm.h"
 #import "FormTableViewController.h"
 #import "AFHTTPRequestOperationManager.h"
+#import "FieldsDataStore.h"
 
 @implementation FormTableViewController
 
@@ -38,6 +39,13 @@
         if(fieldType) {
             row = [XLFormRowDescriptor formRowDescriptorWithTag:@"notes" rowType:types[fieldType]];
             row.title = field[@"fieldName"];
+            NSString *value = [[FieldsDataStore sharedInstance] getField:field[@"id"]];
+            if(field[@"aliasId"]) {
+                value = value ? value : [[FieldsDataStore sharedInstance] getField:field[@"aliasId"]];
+            }
+            if( value ) {
+                row.value = value;
+            }
             [_rows addObject:@{@"row": row, @"field": field}];
             [section addFormRow:row];
         } else {
@@ -60,8 +68,11 @@
     for( NSDictionary *field in _rows ) {
         XLFormRowDescriptor *row = field[@"row"];
         NSDictionary *fieldInfo = field[@"field"];
-        fieldValues[fieldInfo[@"id"]] = row.value;
+        if(row.value) {
+            fieldValues[fieldInfo[@"id"]] = row.value;
+        }
     }
+    [[FieldsDataStore sharedInstance] patch:fieldValues];
     [manager POST:path parameters:fieldValues success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Response: %@", responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

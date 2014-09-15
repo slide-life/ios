@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		433EDBD494374E9FBE8F4E15 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5472BF9ABC994393BF6ABED1 /* libPods.a */; };
+		AD45C57319C693DB00198F95 /* FieldsDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AD45C57219C693DB00198F95 /* FieldsDataStore.m */; };
 		AD81363E19C2C326000FD998 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD81363D19C2C326000FD998 /* NavigationController.m */; };
 		E70140F219C104AA00476F42 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70140F119C104AA00476F42 /* Foundation.framework */; };
 		E70140F419C104AA00476F42 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70140F319C104AA00476F42 /* CoreGraphics.framework */; };
@@ -40,6 +41,8 @@
 /* Begin PBXFileReference section */
 		102B85BA405B43108D479D86 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		5472BF9ABC994393BF6ABED1 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD45C57219C693DB00198F95 /* FieldsDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldsDataStore.m; sourceTree = "<group>"; };
+		AD45C57419C693E200198F95 /* FieldsDataStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FieldsDataStore.h; sourceTree = "<group>"; };
 		AD81363D19C2C326000FD998 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		AD81363F19C2C338000FD998 /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		E70140EE19C104AA00476F42 /* slide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = slide.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +135,8 @@
 				E701410119C104AA00476F42 /* AppDelegate.m */,
 				E701410319C104AA00476F42 /* QRReaderViewController.h */,
 				E701410419C104AA00476F42 /* QRReaderViewController.m */,
+				AD45C57419C693E200198F95 /* FieldsDataStore.h */,
+				AD45C57219C693DB00198F95 /* FieldsDataStore.m */,
 				AD81363F19C2C338000FD998 /* NavigationController.h */,
 				AD81363D19C2C326000FD998 /* NavigationController.m */,
 				E701410C19C104AA00476F42 /* Main.storyboard */,
@@ -307,6 +312,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD45C57319C693DB00198F95 /* FieldsDataStore.m in Sources */,
 				E701410219C104AA00476F42 /* AppDelegate.m in Sources */,
 				E70140FE19C104AA00476F42 /* main.m in Sources */,
 				AD81363E19C2C326000FD998 /* NavigationController.m in Sources */,
