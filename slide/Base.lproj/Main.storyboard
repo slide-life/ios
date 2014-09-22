@@ -33,20 +33,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hQc-f7-Cht">
-                                <rect key="frame" x="0.0" y="27" width="320" height="513"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vR1-Ue-kRA">
+                                <rect key="frame" x="0.0" y="20" width="320" height="554"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="8Yh-h8-jIR" firstAttribute="top" secondItem="hQc-f7-Cht" secondAttribute="bottom" constant="40" id="UJK-Z4-6hS"/>
-                            <constraint firstItem="hQc-f7-Cht" firstAttribute="top" secondItem="17i-ZA-3zy" secondAttribute="bottom" constant="19" id="zue-NM-MgA"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="jtp-07-D4D"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="scanPreview" destination="hQc-f7-Cht" id="Ovd-eQ-Aa9"/>
+                        <outlet property="scanPreview" destination="vR1-Ue-kRA" id="tSb-ny-9gn"/>
                         <segue destination="0it-Sc-3z1" kind="push" identifier="" id="7dG-93-PZX"/>
                     </connections>
                 </viewController>

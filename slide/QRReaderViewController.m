@@ -13,7 +13,8 @@
 @implementation QRReaderViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];    
+    [super viewDidLoad];
+    self.navigationController.navigationBar.hidden = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -73,6 +74,7 @@
 
 - (void)stopReading  {
     [_captureSession stopRunning];
+    self.navigationController.navigationBar.hidden = NO;
     _captureSession = nil;
     [_videoPreviewLayer removeFromSuperlayer];
     
