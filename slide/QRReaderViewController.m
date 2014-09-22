@@ -67,7 +67,7 @@
          _form = (NSDictionary *)responseObject;
          [self showForm];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"Error");
+            NSLog(@"Error: %@", error.description);
         }];
 }
 

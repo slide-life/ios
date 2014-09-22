@@ -33,7 +33,9 @@
         NSDictionary *types = @{
           @"text": XLFormRowDescriptorTypeText,
           @"email": XLFormRowDescriptorTypeEmail,
-          @"checkbox": XLFormRowDescriptorTypeBooleanSwitch
+          @"checkbox": XLFormRowDescriptorTypeBooleanSwitch,
+          @"date": XLFormRowDescriptorTypeDateInline,
+          @"number": XLFormRowDescriptorTypePhone
         };
         NSString *fieldType = field[@"typeName"];
         if(fieldType) {
