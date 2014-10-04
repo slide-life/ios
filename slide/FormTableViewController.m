@@ -14,8 +14,6 @@
 @implementation FormTableViewController
 
 -(void)initForm {
-    NSLog(@"%@", _formData);
-    
     _rows = [[NSMutableArray alloc] initWithCapacity:((NSArray *) _formData[@"fields"]).count];
     
     XLFormDescriptor * form;
@@ -34,19 +32,23 @@
           @"text": XLFormRowDescriptorTypeText,
           @"email": XLFormRowDescriptorTypeEmail,
           @"checkbox": XLFormRowDescriptorTypeBooleanSwitch,
-          @"date": XLFormRowDescriptorTypeDateInline,
-          @"number": XLFormRowDescriptorTypePhone
+          @"date": XLFormRowDescriptorTypeDatePicker,
+          @"number": XLFormRowDescriptorTypePhone,
+          @"password": XLFormRowDescriptorTypePassword
         };
         NSString *fieldType = field[@"typeName"];
         if(fieldType) {
             row = [XLFormRowDescriptor formRowDescriptorWithTag:@"notes" rowType:types[fieldType]];
-            row.title = field[@"fieldName"];
-            NSString *value = [[FieldsDataStore sharedInstance] getField:field[@"id"]];
-            if(field[@"aliasId"]) {
-                value = value ? value : [[FieldsDataStore sharedInstance] getField:field[@"aliasId"]];
+            if( [fieldType isEqualToString:@"text"] || [fieldType isEqualToString:@"email"] || [fieldType isEqualToString:@"number"] || [fieldType isEqualToString:@"password"] ) {
+                [row.cellConfig setObject:@(NSTextAlignmentRight) forKey:@"textField.textAlignment"];
             }
-            if( value ) {
-                row.value = value;
+            row.title = field[@"fieldName"];
+            NSArray *values = [[FieldsDataStore sharedInstance] getField:field[@"id"]];
+            if(field[@"aliasId"]) {
+                values = values.count ? values : [[FieldsDataStore sharedInstance] getField:field[@"aliasId"]];
+            }
+            if( values.count ) {
+                row.value = values.lastObject;
             }
             [_rows addObject:@{@"row": row, @"field": field}];
             [section addFormRow:row];
@@ -65,7 +67,7 @@
 - (void)send: (id)sender {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    NSString *path = [NSString stringWithFormat:@"http://slide-dev.ngrok.com/forms/%@/responses", _formId];
+    NSString *path = [NSString stringWithFormat:@"http://bonds.io:3000/forms/%@/responses", _formId];
     NSMutableDictionary *fieldValues = [[NSMutableDictionary alloc] initWithCapacity:_rows.count];
     for( NSDictionary *field in _rows ) {
         XLFormRowDescriptor *row = field[@"row"];

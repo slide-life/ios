@@ -17,7 +17,7 @@ NSString *const filestore = @"keystore.json";
     NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
     NSString *file = [basePath stringByAppendingPathComponent:fileName];
     if( ![[NSFileManager defaultManager] fileExistsAtPath:file] ) {
-        NSData *dataBuffer = [@"{}" dataUsingEncoding:NSStringEncodingConversionExternalRepresentation];
+        NSData *dataBuffer = [@"[]" dataUsingEncoding:NSStringEncodingConversionExternalRepresentation];
         [[NSFileManager defaultManager] createFileAtPath:file contents:dataBuffer attributes:nil];
     }
     return file;
@@ -25,18 +25,24 @@ NSString *const filestore = @"keystore.json";
 
 - (void)setField: (NSString *)value forKey: (NSString *)key {
     NSError *error;
-    NSMutableDictionary *keystore = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[self documentsDirectoryFile:filestore]] options:NSJSONReadingMutableContainers error:&error];
+    NSMutableArray *keystore = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[self documentsDirectoryFile:filestore]] options:NSJSONReadingMutableContainers error:&error];
     if (value) {
-        keystore[key] = value;
+        [keystore addObject:@{@"key": key, @"value": value}];
         NSData *data = [NSJSONSerialization dataWithJSONObject:keystore options:0 error:&error];
         [data writeToFile:[self documentsDirectoryFile:filestore] atomically:YES];
     }
 }
 
-- (NSString *)getField: (NSString *)key {
+- (NSArray *)getField: (NSString *)key {
     NSError *error;
-    NSDictionary *keystore = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[self documentsDirectoryFile:filestore]] options:0 error:&error];
-    return keystore[key];
+    NSArray *kvs = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[self documentsDirectoryFile:filestore]] options:0 error:&error];
+    NSMutableArray *values = [[NSMutableArray alloc] initWithCapacity:kvs.count];
+    for( NSDictionary *kv in kvs ) {
+        if( [kv[@"key"] isEqualToString:key] ) {
+            [values addObject:kv[@"value"]];
+        }
+    }
+    return values;
 }
 
 - (void)patch: (NSDictionary *)values {

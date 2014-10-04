@@ -11,7 +11,7 @@
 @interface FieldsDataStore : NSObject
 
 - (void)setField: (NSString *)value forKey: (NSString *)key;
-- (NSString *)getField: (NSString *)key;
+- (NSArray *)getField: (NSString *)key;
 - (void)patch: (NSDictionary *)values;
 + (id)sharedInstance;
 
