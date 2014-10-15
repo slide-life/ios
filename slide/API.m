@@ -15,14 +15,15 @@ static API *sharedInstance;
     self.manager = [AFHTTPRequestOperationManager manager];
     self.jsonManager = [AFHTTPRequestOperationManager manager];
     self.jsonManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    self.domain = @"https://slide-dev.ngrok.com";
     return self;
 }
 - (void)getForm: (NSString *)formId onSuccess: (void (^)(AFHTTPRequestOperation *, id))success onFailure: (void (^)(AFHTTPRequestOperation *, id))failure {
-    NSString *path = [NSString stringWithFormat:@"http://bonds.io:3000/forms/%@", formId];
+    NSString *path = [NSString stringWithFormat:@"%@/forms/%@", self.domain, formId];
     [self.manager GET:path parameters:nil success:success failure:failure];
 }
 - (void)postForm: (NSString *)formId withValues: (NSDictionary *)values onSuccess: (void (^)(AFHTTPRequestOperation *, id))success onFailure: (void (^)(AFHTTPRequestOperation *, id))failure {
-    NSString *path = [NSString stringWithFormat:@"http://bonds.io:3000/forms/%@/responses", formId];
+    NSString *path = [NSString stringWithFormat:@"%@/forms/%@/responses", self.domain, formId];
     [self.jsonManager POST:path parameters:values success:success failure:failure];
 }
 + (instancetype)sharedInstance {

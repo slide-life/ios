@@ -35,8 +35,9 @@
     section = [XLFormSectionDescriptor formSection];
     [form addFormSection:section];
     
-    NSArray *fields = _formData[@"fields"];
-    for( NSDictionary *field in fields ) {
+    NSArray *fields = _formData[@"form"][@"fields"];
+    for( NSDictionary *fieldInfo in fields ) {
+        NSDictionary *field = fieldInfo[@"field"];
         NSDictionary *types = @{
           @"text": XLFormRowDescriptorTypeText,
           @"email": XLFormRowDescriptorTypeEmail,
@@ -52,11 +53,13 @@
             if(isTextField) {
                 [row.cellConfig setObject:@(NSTextAlignmentRight) forKey:@"textField.textAlignment"];
             }
-            row.title = field[@"fieldName"];
-            NSArray *values = [[FieldsDataStore sharedInstance] getField:field[@"fieldId"]];
-            if(field[@"aliasId"]) {
+            row.title = field[@"name"];
+            NSArray *values = [[FieldsDataStore sharedInstance] getField:field[@"id"]];
+            /*
+             TODO: Add alias support back in.
+             if(field[@"aliasId"]) {
                 values = values.count ? values : [[FieldsDataStore sharedInstance] getField:field[@"aliasId"]];
-            }
+             } */
             values = [self uniqueValues:values];
             if( values.count == 1 ) {
                 row.value = values.lastObject;
@@ -98,7 +101,7 @@
         }
     }
     // Update the keystore
-    [[FieldsDataStore sharedInstance] patch:fieldValues forForm:_formData];
+    [[FieldsDataStore sharedInstance] patch:fieldValues forForm:_formData[@"form"]];
     // Push the response to the backend.
     [[API sharedInstance] postForm:_formId withValues:postValues onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         UIViewController *thanks = [self.storyboard instantiateViewControllerWithIdentifier:@"thanks"];

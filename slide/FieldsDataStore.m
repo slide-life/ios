@@ -27,7 +27,7 @@ NSString *const filestore = @"keystore.json";
     NSError *error;
     NSMutableArray *keystore = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[self documentsDirectoryFile:filestore]] options:NSJSONReadingMutableContainers error:&error];
     if (value) {
-        [keystore addObject:@{@"key": key[@"fieldId"], @"value": value, @"form": @{@"name": form[@"name"]}, @"field": key}];
+        [keystore addObject:@{@"key": key[@"id"], @"value": value, @"form": @{@"name": form[@"name"]}, @"field": key}];
         NSData *data = [NSJSONSerialization dataWithJSONObject:keystore options:0 error:&error];
         [data writeToFile:[self documentsDirectoryFile:filestore] atomically:YES];
     }
