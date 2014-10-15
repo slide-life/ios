@@ -10,9 +10,17 @@
 #import "FormTableViewController.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "FieldsDataStore.h"
+#import "AlternativePickerViewController.h"
 
 @implementation FormTableViewController
 
+- (NSArray *)uniqueValues: (NSArray *)values {
+    NSMutableDictionary *hash = [[NSMutableDictionary alloc] initWithCapacity:values.count];
+    for( NSString *value in values ) {
+        hash[value] = @YES;
+    }
+    return hash.allKeys;
+}
 -(void)initForm {
     _rows = [[NSMutableArray alloc] initWithCapacity:((NSArray *) _formData[@"fields"]).count];
     
@@ -39,7 +47,8 @@
         NSString *fieldType = field[@"typeName"];
         if(fieldType) {
             row = [XLFormRowDescriptor formRowDescriptorWithTag:@"notes" rowType:types[fieldType]];
-            if( [fieldType isEqualToString:@"text"] || [fieldType isEqualToString:@"email"] || [fieldType isEqualToString:@"number"] || [fieldType isEqualToString:@"password"] ) {
+            BOOL isTextField = [fieldType isEqualToString:@"text"] || [fieldType isEqualToString:@"email"] || [fieldType isEqualToString:@"number"] || [fieldType isEqualToString:@"password"];
+            if(isTextField) {
                 [row.cellConfig setObject:@(NSTextAlignmentRight) forKey:@"textField.textAlignment"];
             }
             row.title = field[@"fieldName"];
@@ -47,7 +56,18 @@
             if(field[@"aliasId"]) {
                 values = values.count ? values : [[FieldsDataStore sharedInstance] getField:field[@"aliasId"]];
             }
-            if( values.count ) {
+            values = [self uniqueValues:values];
+            if( values.count == 1 ) {
+                row.value = values.lastObject;
+            } else if( values.count && isTextField ) {
+                AlternativePickerViewController *alts = [[AlternativePickerViewController alloc] initWithData:values forUpdate:^(NSString *choice) {
+                    [row.cellConfig setValue:choice forKey:@"textField.text"];
+                    [self reloadFormRow:row];
+                }];
+                [altViews addObject:alts];
+                [row.cellConfig setObject:((AlternativePickerViewController *)altViews.lastObject).picker forKey:@"textField.inputView"];
+                row.value = values.lastObject;
+            } else if( values.count ) {
                 row.value = values.lastObject;
             }
             [_rows addObject:@{@"row": row, @"field": field}];
@@ -76,7 +96,7 @@
             fieldValues[fieldInfo[@"id"]] = row.value;
         }
     }
-    [[FieldsDataStore sharedInstance] patch:fieldValues];
+    [[FieldsDataStore sharedInstance] patch:fieldValues forForm:_formId];
     [manager POST:path parameters:fieldValues success:^(AFHTTPRequestOperation *operation, id responseObject) {
         UIViewController *thanks = [self.storyboard instantiateViewControllerWithIdentifier:@"thanks"];
         NSMutableArray *controllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
@@ -90,6 +110,7 @@
     }];
 }
 - (void)viewDidLoad {
+    altViews = [[NSMutableArray alloc] initWithCapacity:255];
     [self initForm];
     self.navigationItem.title = _formData[@"name"];
 }

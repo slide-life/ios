@@ -7,6 +7,7 @@
 //
 
 #import "ProfileViewController.h"
+#import "FieldsDataStore.h"
 #import <AddressBook/AddressBook.h>
 
 @implementation ProfileViewController
@@ -26,6 +27,8 @@
                 NSString *lastName = (__bridge NSString *)ABRecordCopyValue(record, kABPersonLastNameProperty);
                 NSArray *addressDicts = (__bridge NSArray*)ABMultiValueCopyArrayOfAllValues(ABRecordCopyValue(record, kABPersonAddressProperty));
                 NSDictionary *addressFields = addressDicts[0];
+                // TODO: How can we take these values and fill them
+                // in for the appropriate ID keys in the keystore.
                 [fields addObject:@{@"value": firstName, @"field": @"First Name"}];
                 [fields addObject:@{@"value": lastName, @"field": @"Last Name"}];
                 [fields addObject:@{@"value": addressFields[@"City"], @"field": @"City"}];
@@ -62,22 +65,24 @@
     }
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    [self query:[alertView textFieldAtIndex:0].text];
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSString *phone = [alertView textFieldAtIndex:0].text;
+    [self query:phone];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Your Phone Number" message:@"Please provide your phone number." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    alert.delegate = self;
-    UITextField * alertTextField = [alert textFieldAtIndex:0];
-    alertTextField.keyboardType = UIKeyboardTypePhonePad;
-    alertTextField.placeholder = @"5555555555";
-    [alert show];
-    
     fields = [[NSMutableArray alloc] initWithCapacity:128];
+    
+    if( [[FieldsDataStore sharedInstance] getKVs].count == 0 ) {
+        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Your Phone Number" message:@"Please provide your phone number." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+        alert.delegate = self;
+        UITextField * alertTextField = [alert textFieldAtIndex:0];
+        alertTextField.keyboardType = UIKeyboardTypePhonePad;
+        alertTextField.placeholder = @"5555555555";
+        [alert show];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

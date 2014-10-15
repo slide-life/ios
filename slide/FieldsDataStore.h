@@ -10,9 +10,10 @@
 
 @interface FieldsDataStore : NSObject
 
-- (void)setField: (NSString *)value forKey: (NSString *)key;
+- (void)setField: (NSString *)value forKey: (NSString *)key onForm: (NSString *)form;
 - (NSArray *)getField: (NSString *)key;
-- (void)patch: (NSDictionary *)values;
+- (NSArray *)getKVs;
+- (void)patch: (NSDictionary *)values forForm: (NSString *)form;
 + (id)sharedInstance;
 
 @end

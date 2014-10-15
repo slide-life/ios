@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "XLFormViewController.h"
 
-@interface FormTableViewController : XLFormViewController
+@interface FormTableViewController : XLFormViewController {
+    NSMutableArray *altViews;
+}
 
 @property (nonatomic, strong) NSDictionary *formData;
 @property (nonatomic, strong) NSMutableArray *rows;
