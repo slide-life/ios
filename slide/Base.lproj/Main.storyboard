@@ -18,6 +18,7 @@
                     <connections>
                         <segue destination="mYP-Rb-5jY" kind="relationship" relationship="viewControllers" id="49o-vo-25p"/>
                         <segue destination="DVt-wA-x9T" kind="relationship" relationship="viewControllers" id="UZ1-Rs-aLj"/>
+                        <segue destination="BDX-3G-Ih7" kind="relationship" relationship="viewControllers" id="EEy-Fo-YnY"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uVt-H4-tw0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -97,6 +98,50 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tgI-GY-idX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="154" y="1201"/>
+        </scene>
+        <!--Wallet-->
+        <scene sceneID="IQW-WK-ROU">
+            <objects>
+                <tableViewController id="yDk-zy-RGf" customClass="WalletViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ecj-K4-7Kp">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ffs-lo-d4o">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ffs-lo-d4o" id="aTh-33-Nc1">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="yDk-zy-RGf" id="cNk-t3-889"/>
+                            <outlet property="delegate" destination="yDk-zy-RGf" id="Psz-fv-aY8"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Wallet" id="ooS-n3-j3h"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pXl-ie-B42" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="154" y="1840"/>
+        </scene>
+        <!--Wallet-->
+        <scene sceneID="9zE-WK-mEf">
+            <objects>
+                <navigationController id="BDX-3G-Ih7" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Wallet" id="yWe-ix-sop"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZgW-81-eOB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="yDk-zy-RGf" kind="relationship" relationship="rootViewController" id="Ysc-rZ-Y5t"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="v8r-0k-EhB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-301" y="1840"/>
         </scene>
         <!--Profile-->
         <scene sceneID="XZO-dU-QmP">

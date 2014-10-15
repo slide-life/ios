@@ -50,6 +50,15 @@ NSString *const filestore = @"keystore.json";
     return [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[self documentsDirectoryFile:filestore]] options:0 error:&error];
 }
 
+- (NSArray *)getForms {
+    NSArray *kvs = [self getKVs];
+    NSMutableDictionary *hash = [[NSMutableDictionary alloc] initWithCapacity:kvs.count];
+    for( NSDictionary *kv in kvs ) {
+        hash[kv[@"form"]] = @YES;
+    }
+    return hash.allKeys;
+}
+
 - (void)patch: (NSDictionary *)values forForm: (NSString *)form {
     for( NSString *key in values ) {
         [self setField:values[key] forKey:key onForm:form];

@@ -29,13 +29,13 @@
                 NSDictionary *addressFields = addressDicts[0];
                 // TODO: How can we take these values and fill them
                 // in for the appropriate ID keys in the keystore.
-                [fields addObject:@{@"value": firstName, @"field": @"First Name"}];
-                [fields addObject:@{@"value": lastName, @"field": @"Last Name"}];
-                [fields addObject:@{@"value": addressFields[@"City"], @"field": @"City"}];
-                [fields addObject:@{@"value": addressFields[@"State"], @"field": @"State"}];
-                [fields addObject:@{@"value": addressFields[@"Country"], @"field": @"Country"}];
-                [fields addObject:@{@"value": addressFields[@"Street"], @"field": @"Street Address"}];
-                [fields addObject:@{@"value": addressFields[@"ZIP"], @"field": @"Zip Code"}];
+                [fields addObject:@{@"value": firstName, @"key": @"First Name"}];
+                [fields addObject:@{@"value": lastName, @"key": @"Last Name"}];
+                [fields addObject:@{@"value": addressFields[@"City"], @"key": @"City"}];
+                [fields addObject:@{@"value": addressFields[@"State"], @"key": @"State"}];
+                [fields addObject:@{@"value": addressFields[@"Country"], @"key": @"Country"}];
+                [fields addObject:@{@"value": addressFields[@"Street"], @"key": @"Street Address"}];
+                [fields addObject:@{@"value": addressFields[@"ZIP"], @"key": @"Zip Code"}];
                 [self.tableView reloadData];
             }
         }
@@ -82,6 +82,8 @@
         alertTextField.keyboardType = UIKeyboardTypePhonePad;
         alertTextField.placeholder = @"5555555555";
         [alert show];
+    } else {
+        fields = [NSMutableArray arrayWithArray:[[FieldsDataStore sharedInstance] getKVs]];        
     }
 }
 
@@ -100,7 +102,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
     NSDictionary *field = fields[indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@: %@", field[@"field"], field[@"value"]];
+    cell.textLabel.text = [NSString stringWithFormat:@"Field %@: %@", field[@"key"], field[@"value"]];
     return cell;
 }
 

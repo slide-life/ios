@@ -13,6 +13,7 @@
 - (void)setField: (NSString *)value forKey: (NSString *)key onForm: (NSString *)form;
 - (NSArray *)getField: (NSString *)key;
 - (NSArray *)getKVs;
+- (NSArray *)getForms;
 - (void)patch: (NSDictionary *)values forForm: (NSString *)form;
 + (id)sharedInstance;
 

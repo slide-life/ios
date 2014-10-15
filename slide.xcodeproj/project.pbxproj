@@ -11,6 +11,7 @@
 		AD45C57319C693DB00198F95 /* FieldsDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AD45C57219C693DB00198F95 /* FieldsDataStore.m */; };
 		AD81363E19C2C326000FD998 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD81363D19C2C326000FD998 /* NavigationController.m */; };
 		AD9CFBBB19EE47CB005BA97F /* AlternativePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD9CFBBA19EE47CB005BA97F /* AlternativePickerViewController.m */; };
+		AD9CFBBE19EE5AF4005BA97F /* WalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD9CFBBD19EE5AF4005BA97F /* WalletViewController.m */; };
 		ADE93F5819DF9A5D00C187FA /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE93F5719DF9A5D00C187FA /* ProfileViewController.m */; };
 		ADE93F5A19DF9AAE00C187FA /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE93F5919DF9AAE00C187FA /* AddressBook.framework */; };
 		E70140F219C104AA00476F42 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70140F119C104AA00476F42 /* Foundation.framework */; };
@@ -50,6 +51,8 @@
 		AD81363F19C2C338000FD998 /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		AD9CFBB919EE47CB005BA97F /* AlternativePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlternativePickerViewController.h; sourceTree = "<group>"; };
 		AD9CFBBA19EE47CB005BA97F /* AlternativePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlternativePickerViewController.m; sourceTree = "<group>"; };
+		AD9CFBBC19EE5AF4005BA97F /* WalletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletViewController.h; sourceTree = "<group>"; };
+		AD9CFBBD19EE5AF4005BA97F /* WalletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletViewController.m; sourceTree = "<group>"; };
 		ADE93F5619DF9A5D00C187FA /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		ADE93F5719DF9A5D00C187FA /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		ADE93F5919DF9AAE00C187FA /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -156,6 +159,8 @@
 				E79B8D4019C14E4600DE3111 /* FormTableViewController.m */,
 				AD9CFBB919EE47CB005BA97F /* AlternativePickerViewController.h */,
 				AD9CFBBA19EE47CB005BA97F /* AlternativePickerViewController.m */,
+				AD9CFBBC19EE5AF4005BA97F /* WalletViewController.h */,
+				AD9CFBBD19EE5AF4005BA97F /* WalletViewController.m */,
 				E701410F19C104AA00476F42 /* Images.xcassets */,
 				E70140F819C104AA00476F42 /* Supporting Files */,
 			);
@@ -329,6 +334,7 @@
 				AD9CFBBB19EE47CB005BA97F /* AlternativePickerViewController.m in Sources */,
 				AD45C57319C693DB00198F95 /* FieldsDataStore.m in Sources */,
 				E701410219C104AA00476F42 /* AppDelegate.m in Sources */,
+				AD9CFBBE19EE5AF4005BA97F /* WalletViewController.m in Sources */,
 				E70140FE19C104AA00476F42 /* main.m in Sources */,
 				AD81363E19C2C326000FD998 /* NavigationController.m in Sources */,
 				ADE93F5819DF9A5D00C187FA /* ProfileViewController.m in Sources */,
