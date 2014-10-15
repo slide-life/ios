@@ -9,6 +9,7 @@
 #import "QRReaderViewController.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "FormTableViewController.h"
+#import "API.h"
 
 @implementation QRReaderViewController
 
@@ -61,15 +62,12 @@
 }
 
 - (void)queryBackend {
-     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-     NSString *path = [NSString stringWithFormat:@"http://bonds.io:3000/forms/%@", [metadataObj stringValue]];
-     [manager GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-         NSLog(@"JSON: %@", responseObject);
-         _form = (NSDictionary *)responseObject;
-         [self showForm];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"Error: %@", error.description);
-        }];
+     [[API sharedInstance] getForm:[metadataObj stringValue] onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        _form = (NSDictionary *)responseObject;
+        [self showForm];
+     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         NSLog(@"Error: %@", error.description);
+     }];
 }
 
 - (void)stopReading  {

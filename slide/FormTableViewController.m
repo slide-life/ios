@@ -11,6 +11,7 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "FieldsDataStore.h"
 #import "AlternativePickerViewController.h"
+#import "API.h"
 
 @implementation FormTableViewController
 
@@ -85,9 +86,7 @@
     self.form = form;
 }
 - (void)send: (id)sender {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    NSString *path = [NSString stringWithFormat:@"http://bonds.io:3000/forms/%@/responses", _formId];
+    // Read in the user's input.
     NSMutableDictionary *fieldValues = [[NSMutableDictionary alloc] initWithCapacity:_rows.count];
     NSMutableDictionary *postValues = [[NSMutableDictionary alloc] initWithCapacity:_rows.count];
     for( NSDictionary *field in _rows ) {
@@ -98,16 +97,17 @@
             postValues[[NSString stringWithFormat:@"%@", fieldInfo[@"id"]]] = row.value;
         }
     }
+    // Update the keystore
     [[FieldsDataStore sharedInstance] patch:fieldValues forForm:_formData];
-    [manager POST:path parameters:postValues success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    // Push the response to the backend.
+    [[API sharedInstance] postForm:_formId withValues:postValues onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         UIViewController *thanks = [self.storyboard instantiateViewControllerWithIdentifier:@"thanks"];
         NSMutableArray *controllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
         [controllers removeLastObject];
         [controllers addObject:thanks];
         
         [self.navigationController setViewControllers:controllers animated:YES];
-
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
 }
