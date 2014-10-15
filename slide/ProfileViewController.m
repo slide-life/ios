@@ -102,7 +102,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
     NSDictionary *field = fields[indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"Field %@: %@", field[@"key"], field[@"value"]];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@: %@", field[@"field"][@"fieldName"], field[@"value"]];
     return cell;
 }
 

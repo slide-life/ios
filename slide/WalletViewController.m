@@ -31,8 +31,8 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
-    NSString *form = forms[indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"Form %@", form];
+    NSDictionary *form = forms[indexPath.row];
+    cell.textLabel.text = form[@"name"];
     return cell;
 }
 

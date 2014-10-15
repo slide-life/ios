@@ -23,11 +23,11 @@ NSString *const filestore = @"keystore.json";
     return file;
 }
 
-- (void)setField: (NSString *)value forKey: (NSString *)key onForm: (NSString *)form {
+- (void)setField: (NSString *)value forKey: (NSDictionary *)key onForm: (NSDictionary *)form {
     NSError *error;
     NSMutableArray *keystore = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[self documentsDirectoryFile:filestore]] options:NSJSONReadingMutableContainers error:&error];
     if (value) {
-        [keystore addObject:@{@"key": key, @"value": value, @"form": form}];
+        [keystore addObject:@{@"key": key[@"fieldId"], @"value": value, @"form": @{@"name": form[@"name"]}, @"field": key}];
         NSData *data = [NSJSONSerialization dataWithJSONObject:keystore options:0 error:&error];
         [data writeToFile:[self documentsDirectoryFile:filestore] atomically:YES];
     }
@@ -59,8 +59,8 @@ NSString *const filestore = @"keystore.json";
     return hash.allKeys;
 }
 
-- (void)patch: (NSDictionary *)values forForm: (NSString *)form {
-    for( NSString *key in values ) {
+- (void)patch: (NSDictionary *)values forForm: (NSDictionary *)form {
+    for( NSDictionary *key in values ) {
         [self setField:values[key] forKey:key onForm:form];
     }
 }

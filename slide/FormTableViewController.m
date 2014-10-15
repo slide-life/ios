@@ -16,7 +16,7 @@
 
 - (NSArray *)uniqueValues: (NSArray *)values {
     NSMutableDictionary *hash = [[NSMutableDictionary alloc] initWithCapacity:values.count];
-    for( NSString *value in values ) {
+    for( NSDictionary *value in values ) {
         hash[value] = @YES;
     }
     return hash.allKeys;
@@ -52,7 +52,7 @@
                 [row.cellConfig setObject:@(NSTextAlignmentRight) forKey:@"textField.textAlignment"];
             }
             row.title = field[@"fieldName"];
-            NSArray *values = [[FieldsDataStore sharedInstance] getField:field[@"id"]];
+            NSArray *values = [[FieldsDataStore sharedInstance] getField:field[@"fieldId"]];
             if(field[@"aliasId"]) {
                 values = values.count ? values : [[FieldsDataStore sharedInstance] getField:field[@"aliasId"]];
             }
@@ -89,15 +89,17 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     NSString *path = [NSString stringWithFormat:@"http://bonds.io:3000/forms/%@/responses", _formId];
     NSMutableDictionary *fieldValues = [[NSMutableDictionary alloc] initWithCapacity:_rows.count];
+    NSMutableDictionary *postValues = [[NSMutableDictionary alloc] initWithCapacity:_rows.count];
     for( NSDictionary *field in _rows ) {
         XLFormRowDescriptor *row = field[@"row"];
         NSDictionary *fieldInfo = field[@"field"];
         if(row.value) {
-            fieldValues[fieldInfo[@"id"]] = row.value;
+            fieldValues[fieldInfo] = row.value;
+            postValues[[NSString stringWithFormat:@"%@", fieldInfo[@"id"]]] = row.value;
         }
     }
-    [[FieldsDataStore sharedInstance] patch:fieldValues forForm:_formId];
-    [manager POST:path parameters:fieldValues success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[FieldsDataStore sharedInstance] patch:fieldValues forForm:_formData];
+    [manager POST:path parameters:postValues success:^(AFHTTPRequestOperation *operation, id responseObject) {
         UIViewController *thanks = [self.storyboard instantiateViewControllerWithIdentifier:@"thanks"];
         NSMutableArray *controllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
         [controllers removeLastObject];
