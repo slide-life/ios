@@ -15,16 +15,32 @@ static API *sharedInstance;
     self.manager = [AFHTTPRequestOperationManager manager];
     self.jsonManager = [AFHTTPRequestOperationManager manager];
     self.jsonManager.requestSerializer = [AFJSONRequestSerializer serializer];
-    self.domain = @"https://slide-dev.ngrok.com";
+    self.domain = @"http://slide-dev.ngrok.com";
     return self;
 }
-- (void)getForm: (NSString *)formId onSuccess: (void (^)(AFHTTPRequestOperation *, id))success onFailure: (void (^)(AFHTTPRequestOperation *, id))failure {
-    NSString *path = [NSString stringWithFormat:@"%@/forms/%@", self.domain, formId];
-    [self.manager GET:path parameters:nil success:success failure:failure];
+- (void)getUser: (NSString *)userId onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure {
+    NSString *path = [NSString stringWithFormat:@"%@/users/%@", self.domain, userId];
+    [self.manager GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, id responseObject) {
+        failure(responseObject);
+    }];
 }
-- (void)postForm: (NSString *)formId withValues: (NSDictionary *)values onSuccess: (void (^)(AFHTTPRequestOperation *, id))success onFailure: (void (^)(AFHTTPRequestOperation *, id))failure {
+- (void)getForm: (NSString *)formId onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure {
+    NSString *path = [NSString stringWithFormat:@"%@/forms/%@", self.domain, formId];
+    [self.manager GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, id responseObject) {
+        failure(responseObject);
+    }];
+}
+- (void)postForm: (NSString *)formId withValues: (NSDictionary *)values onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure {
     NSString *path = [NSString stringWithFormat:@"%@/forms/%@/responses", self.domain, formId];
-    [self.jsonManager POST:path parameters:values success:success failure:failure];
+    [self.jsonManager POST:path parameters:values success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, id responseObject) {
+        failure(responseObject);
+    }];
 }
 + (instancetype)sharedInstance {
     static dispatch_once_t onceToken;

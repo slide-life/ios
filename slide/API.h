@@ -13,7 +13,8 @@
 @property AFHTTPRequestOperationManager *manager;
 @property AFHTTPRequestOperationManager *jsonManager;
 @property NSString *domain;
-- (void)getForm: (NSString *)formId onSuccess: (void (^)(AFHTTPRequestOperation *, id))success onFailure: (void (^)(AFHTTPRequestOperation *, id))failure;
-- (void)postForm: (NSString *)formId withValues: (NSDictionary *)values onSuccess: (void (^)(AFHTTPRequestOperation *, id))success onFailure: (void (^)(AFHTTPRequestOperation *, id))failure;
+- (void)getUser: (NSString *)userId onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure;
+- (void)getForm: (NSString *)formId onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure;
+- (void)postForm: (NSString *)formId withValues: (NSDictionary *)values onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure;
 + (id)sharedInstance;
 @end
