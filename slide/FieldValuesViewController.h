@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "XLFormViewController.h"
 
-@interface FieldValuesViewController : UITableViewController
+@interface FieldValuesViewController : XLFormViewController
 
+@property (nonatomic, strong) NSMutableArray *rows;
+@property (nonatomic, strong) NSArray *values;
+@property (nonatomic, strong) NSString *fieldType;
 @end

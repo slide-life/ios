@@ -10,9 +10,13 @@
 
 @interface FieldsDataStore : NSObject
 
+- (NSArray *)getRegisteredUsers;
+- (NSArray *)getUserForms: (NSString *)user;
+- (void)registerUserForm: (NSDictionary *)form forUser: (NSString *)user;
 - (void)setField: (NSString *)value forKey: (NSDictionary *)key onForm: (NSDictionary *)form;
-- (NSArray *)getField: (NSString *)key;
+- (NSArray *)getField: (NSString *)key withConstraints: (NSArray *)constraints;
 - (NSArray *)getKVs;
+- (NSArray *)getMergedKVs;
 - (NSArray *)getForms;
 - (void)patch: (NSDictionary *)values forForm: (NSDictionary *)form;
 + (id)sharedInstance;

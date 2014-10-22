@@ -11,14 +11,32 @@
 
 @implementation WalletViewController
 
+- (UIColor *)colorwithHexString:(NSString *)hexStr alpha:(CGFloat)alpha;
+{
+    unsigned int hexint = 0;
+    NSScanner *scanner = [NSScanner scannerWithString:hexStr];
+    [scanner setCharactersToBeSkipped:[NSCharacterSet
+                                       characterSetWithCharactersInString:@"#"]];
+    [scanner scanHexInt:&hexint];
+    UIColor *color =
+    [UIColor colorWithRed:((CGFloat) ((hexint & 0xFF0000) >> 16))/255
+                    green:((CGFloat) ((hexint & 0xFF00) >> 8))/255
+                     blue:((CGFloat) (hexint & 0xFF))/255
+                    alpha:alpha];
+    return color;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    forms = [[FieldsDataStore sharedInstance] getForms];
+    cards = [[FieldsDataStore sharedInstance] getRegisteredUsers];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 #pragma mark - Table view data source
@@ -27,12 +45,17 @@
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return forms.count;
+    return cards.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] init];
-    NSDictionary *form = forms[indexPath.row];
-    cell.textLabel.text = form[@"name"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"card"];
+    NSArray *sviews = cell.contentView.subviews;
+    UILabel *title = sviews[0];
+    UILabel *formCount = sviews[1];
+    NSDictionary *card = cards[indexPath.row];
+    cell.contentView.backgroundColor = [self colorwithHexString:card[@"color"] alpha:1.0];
+    title.text = card[@"orgName"];
+    formCount.text = [NSString stringWithFormat:@"%@ forms", card[@"formCount"]];
     return cell;
 }
 

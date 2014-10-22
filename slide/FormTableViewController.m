@@ -22,7 +22,7 @@
     }
     return hash.allKeys;
 }
--(void)initForm {
+- (void)initForm {
     _rows = [[NSMutableArray alloc] initWithCapacity:((NSArray *) _formData[@"fields"]).count];
     
     XLFormDescriptor * form;
@@ -54,7 +54,7 @@
                 [row.cellConfig setObject:@(NSTextAlignmentRight) forKey:@"textField.textAlignment"];
             }
             row.title = field[@"name"];
-            NSArray *values = [[FieldsDataStore sharedInstance] getField:field[@"id"]];
+            NSArray *values = [[FieldsDataStore sharedInstance] getField:field[@"id"] withConstraints:@[]];
             /*
              TODO: Add alias support back in.
              if(field[@"aliasId"]) {
@@ -101,16 +101,17 @@
         }
     }
     // Update the keystore
+    [[FieldsDataStore sharedInstance] registerUserForm:_formData[@"form"] forUser:_formData[@"form"][@"user"]];
     [[FieldsDataStore sharedInstance] patch:fieldValues forForm:_formData[@"form"]];
     // Push the response to the backend.
-    [[API sharedInstance] postForm:_formId withValues:postValues onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[API sharedInstance] postForm:_formId withValues:postValues onSuccess:^(id responseObject) {
         UIViewController *thanks = [self.storyboard instantiateViewControllerWithIdentifier:@"thanks"];
         NSMutableArray *controllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
         [controllers removeLastObject];
         [controllers addObject:thanks];
         
         [self.navigationController setViewControllers:controllers animated:YES];
-    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } onFailure:^(NSError *error) {
         NSLog(@"Error: %@", error);
     }];
 }

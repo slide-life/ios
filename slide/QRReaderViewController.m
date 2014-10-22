@@ -62,10 +62,10 @@
 }
 
 - (void)queryBackend {
-     [[API sharedInstance] getForm:[metadataObj stringValue] onSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+     [[API sharedInstance] getForm:[metadataObj stringValue] onSuccess:^(id responseObject) {
         _form = (NSDictionary *)responseObject;
         [self showForm];
-     } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+     } onFailure:^(NSError *error) {
          NSLog(@"Error: %@", error.description);
      }];
 }

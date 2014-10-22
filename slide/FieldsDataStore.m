@@ -7,10 +7,12 @@
 //
 
 #import "FieldsDataStore.h"
+#import "API.h"
 
 @implementation FieldsDataStore
 
 NSString *const filestore = @"keystore.json";
+NSString *const userstore = @"userstore.json";
 
 - (NSString *)documentsDirectoryFile: (NSString *)fileName {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -23,17 +25,85 @@ NSString *const filestore = @"keystore.json";
     return file;
 }
 
+- (void)addForm: (NSDictionary *)form forUser: (NSDictionary *)user {
+    NSError *error;
+    NSMutableArray *keystore = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[self documentsDirectoryFile:userstore]] options:NSJSONReadingMutableContainers error:&error];
+    [keystore addObject:@{@"user": user, @"form": form}];
+    NSData *data = [NSJSONSerialization dataWithJSONObject:keystore options:0 error:&error];
+    [data writeToFile:[self documentsDirectoryFile:userstore] atomically:YES];
+}
+
+- (void)registerUserForm: (NSDictionary *)form forUser: (NSString *)user {
+    NSLog(@"registering: %@ %@", form, user);
+    [[API sharedInstance] getUser:user onSuccess:^(NSDictionary *user) {
+        // TODO: save user details with a link to the form in a new table
+        [self addForm:form forUser:user];
+    } onFailure:^(NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+}
+
+- (NSArray *)getUserForms {
+    NSError *error;
+    NSMutableArray *keystore = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[self documentsDirectoryFile:userstore]] options:NSJSONReadingMutableContainers error:&error];
+    return keystore;
+}
+
+- (NSArray *)getUserForms: (NSString *)user {
+    NSArray *allForms = [self getUserForms];
+    NSMutableArray *userForms = [[NSMutableArray alloc] initWithCapacity:allForms.count];
+    for( NSDictionary *userForm in allForms ) {
+        if( [userForm[@"user"][@"id"] isEqualToString:user] ) {
+            [userForms addObject:userForm];
+        }
+    }
+    return userForms;
+}
+
+- (NSArray *)getRegisteredUserIds {
+    NSArray *userForms = [self getUserForms];
+    NSMutableDictionary *users = [[NSMutableDictionary alloc] initWithCapacity:userForms.count];
+    for( NSDictionary *userForm in userForms ) {
+        users[userForm[@"user"][@"id"]] = @YES;
+    }
+    return users.allKeys;
+}
+
+- (NSDictionary *)getUserInfo: (NSString *)user {
+    NSArray *userForms = [self getUserForms];
+    NSMutableDictionary *userInfo;
+    NSNumber *formCount = @0;
+    for( NSDictionary *userForm in userForms ) {
+        if( [userForm[@"user"][@"id"] isEqualToString:user] ) {
+            userInfo = userForm[@"user"];
+            formCount = [NSNumber numberWithInt:formCount.intValue + 1];
+        }
+    }
+    userInfo[@"formCount"] = formCount;
+    return userInfo;
+}
+
+- (NSArray *)getRegisteredUsers {
+    NSArray *userIds = [self getRegisteredUserIds];
+    NSMutableArray *users = [[NSMutableArray alloc] initWithCapacity:userIds.count];
+    for( NSString *userId in userIds ) {
+        [users addObject:[self getUserInfo:userId]];
+    }
+    return users;
+}
+
 - (void)setField: (NSString *)value forKey: (NSDictionary *)key onForm: (NSDictionary *)form {
     NSError *error;
     NSMutableArray *keystore = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[self documentsDirectoryFile:filestore]] options:NSJSONReadingMutableContainers error:&error];
     if (value) {
-        [keystore addObject:@{@"key": key[@"id"], @"value": value, @"form": @{@"name": form[@"name"]}, @"field": key}];
+        NSMutableDictionary *formDetails = [NSMutableDictionary dictionaryWithDictionary:@{@"name": form[@"name"], @"user": form[@"user"]}];        
+        [keystore addObject:@{@"key": key[@"id"], @"value": value, @"form": formDetails, @"field": key}];
         NSData *data = [NSJSONSerialization dataWithJSONObject:keystore options:0 error:&error];
         [data writeToFile:[self documentsDirectoryFile:filestore] atomically:YES];
     }
 }
 
-- (NSArray *)getField: (NSString *)key {
+- (NSArray *)getField: (NSString *)key withConstraints: (NSArray *)constraints {
     NSError *error;
     NSArray *kvs = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[self documentsDirectoryFile:filestore]] options:0 error:&error];
     NSMutableArray *values = [[NSMutableArray alloc] initWithCapacity:kvs.count];
@@ -50,13 +120,34 @@ NSString *const filestore = @"keystore.json";
     return [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[self documentsDirectoryFile:filestore]] options:0 error:&error];
 }
 
+- (NSArray *)getMergedKVs {
+    NSArray *kvs = [self getKVs];
+    NSMutableDictionary *merged = [[NSMutableDictionary alloc] initWithCapacity:kvs.count];
+    for( NSDictionary *kv in kvs ) {
+        merged[kv[@"key"]] = merged[kv[@"key"]] == nil ? @{@"values": [[NSMutableArray alloc] initWithCapacity:kvs.count], @"field": kv[@"field"]} : merged[kv[@"key"]];
+        [merged[kv[@"key"]][@"values"] addObject:kv[@"value"]];
+    }
+    NSMutableArray *flat = [[NSMutableArray alloc] initWithCapacity:kvs.count];
+    for( NSString *key in merged.allKeys ) {
+        [flat addObject:@{@"key": key, @"values": merged[key][@"values"], @"field": merged[key][@"field"]}];
+    }
+    return flat;
+}
+
 - (NSArray *)getForms {
     NSArray *kvs = [self getKVs];
     NSMutableDictionary *hash = [[NSMutableDictionary alloc] initWithCapacity:kvs.count];
     for( NSDictionary *kv in kvs ) {
-        hash[kv[@"form"]] = @YES;
+        if( hash[kv[@"form"]] == nil ) {
+            hash[kv[@"form"]] = @0;
+        }
+        hash[kv[@"form"]] = [NSNumber numberWithInt:((NSNumber *)hash[kv[@"form"]]).intValue + 1];
     }
-    return hash.allKeys;
+    NSMutableArray *orgs = [[NSMutableArray alloc] initWithCapacity:255];
+    for( NSString *form in hash.allKeys ) {
+        [orgs addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"form": form, @"count": hash[form]}]];
+    }
+    return orgs;
 }
 
 - (void)patch: (NSDictionary *)values forForm: (NSDictionary *)form {

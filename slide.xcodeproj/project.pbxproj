@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		433EDBD494374E9FBE8F4E15 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5472BF9ABC994393BF6ABED1 /* libPods.a */; };
+		AD15DAA019F775CA0041EBE1 /* ProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD15DA9F19F775CA0041EBE1 /* ProfileTableViewController.m */; };
+		AD15DAA319F782290041EBE1 /* FieldValuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD15DAA219F782290041EBE1 /* FieldValuesViewController.m */; };
 		AD45C57319C693DB00198F95 /* FieldsDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AD45C57219C693DB00198F95 /* FieldsDataStore.m */; };
 		AD81363E19C2C326000FD998 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD81363D19C2C326000FD998 /* NavigationController.m */; };
 		AD9CFBBB19EE47CB005BA97F /* AlternativePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD9CFBBA19EE47CB005BA97F /* AlternativePickerViewController.m */; };
 		AD9CFBBE19EE5AF4005BA97F /* WalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD9CFBBD19EE5AF4005BA97F /* WalletViewController.m */; };
 		AD9CFBC119EF1E40005BA97F /* API.m in Sources */ = {isa = PBXBuildFile; fileRef = AD9CFBC019EF1E40005BA97F /* API.m */; };
-		ADE93F5819DF9A5D00C187FA /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE93F5719DF9A5D00C187FA /* ProfileViewController.m */; };
 		ADE93F5A19DF9AAE00C187FA /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE93F5919DF9AAE00C187FA /* AddressBook.framework */; };
 		E70140F219C104AA00476F42 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70140F119C104AA00476F42 /* Foundation.framework */; };
 		E70140F419C104AA00476F42 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70140F319C104AA00476F42 /* CoreGraphics.framework */; };
@@ -46,6 +47,10 @@
 /* Begin PBXFileReference section */
 		102B85BA405B43108D479D86 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		5472BF9ABC994393BF6ABED1 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD15DA9E19F775CA0041EBE1 /* ProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewController.h; sourceTree = "<group>"; };
+		AD15DA9F19F775CA0041EBE1 /* ProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileTableViewController.m; sourceTree = "<group>"; };
+		AD15DAA119F782290041EBE1 /* FieldValuesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldValuesViewController.h; sourceTree = "<group>"; };
+		AD15DAA219F782290041EBE1 /* FieldValuesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldValuesViewController.m; sourceTree = "<group>"; };
 		AD45C57219C693DB00198F95 /* FieldsDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldsDataStore.m; sourceTree = "<group>"; };
 		AD45C57419C693E200198F95 /* FieldsDataStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FieldsDataStore.h; sourceTree = "<group>"; };
 		AD81363D19C2C326000FD998 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
@@ -56,8 +61,6 @@
 		AD9CFBBD19EE5AF4005BA97F /* WalletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletViewController.m; sourceTree = "<group>"; };
 		AD9CFBBF19EF1E40005BA97F /* API.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = API.h; sourceTree = "<group>"; };
 		AD9CFBC019EF1E40005BA97F /* API.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = API.m; sourceTree = "<group>"; };
-		ADE93F5619DF9A5D00C187FA /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
-		ADE93F5719DF9A5D00C187FA /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		ADE93F5919DF9AAE00C187FA /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		E70140EE19C104AA00476F42 /* slide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = slide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E70140F119C104AA00476F42 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -158,10 +161,12 @@
 				AD81363F19C2C338000FD998 /* NavigationController.h */,
 				AD81363D19C2C326000FD998 /* NavigationController.m */,
 				E701410C19C104AA00476F42 /* Main.storyboard */,
-				ADE93F5619DF9A5D00C187FA /* ProfileViewController.h */,
-				ADE93F5719DF9A5D00C187FA /* ProfileViewController.m */,
 				E79B8D3F19C14E4600DE3111 /* FormTableViewController.h */,
 				E79B8D4019C14E4600DE3111 /* FormTableViewController.m */,
+				AD15DA9E19F775CA0041EBE1 /* ProfileTableViewController.h */,
+				AD15DA9F19F775CA0041EBE1 /* ProfileTableViewController.m */,
+				AD15DAA119F782290041EBE1 /* FieldValuesViewController.h */,
+				AD15DAA219F782290041EBE1 /* FieldValuesViewController.m */,
 				AD9CFBB919EE47CB005BA97F /* AlternativePickerViewController.h */,
 				AD9CFBBA19EE47CB005BA97F /* AlternativePickerViewController.m */,
 				AD9CFBBC19EE5AF4005BA97F /* WalletViewController.h */,
@@ -340,10 +345,11 @@
 				AD45C57319C693DB00198F95 /* FieldsDataStore.m in Sources */,
 				E701410219C104AA00476F42 /* AppDelegate.m in Sources */,
 				AD9CFBBE19EE5AF4005BA97F /* WalletViewController.m in Sources */,
+				AD15DAA319F782290041EBE1 /* FieldValuesViewController.m in Sources */,
 				AD9CFBC119EF1E40005BA97F /* API.m in Sources */,
+				AD15DAA019F775CA0041EBE1 /* ProfileTableViewController.m in Sources */,
 				E70140FE19C104AA00476F42 /* main.m in Sources */,
 				AD81363E19C2C326000FD998 /* NavigationController.m in Sources */,
-				ADE93F5819DF9A5D00C187FA /* ProfileViewController.m in Sources */,
 				E701410519C104AA00476F42 /* QRReaderViewController.m in Sources */,
 				E79B8D4119C14E4600DE3111 /* FormTableViewController.m in Sources */,
 			);

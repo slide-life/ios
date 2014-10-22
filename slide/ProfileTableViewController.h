@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "XLFormViewController.h"
 
-@interface ProfileTableViewController : UITableViewController
+@interface ProfileTableViewController : XLFormViewController
 
+@property (nonatomic, strong) NSMutableArray *rows;
+@property (nonatomic, strong) NSArray *fields;
 @end
