@@ -10,4 +10,10 @@
 
 @implementation AppDelegate
 
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"Solid Bar"] forBarMetrics:UIBarMetricsDefault];
+    [[UITabBar appearance] setBackgroundImage:[UIImage imageNamed:@"Solid Bar"]];
+    return YES;
+}
+
 @end

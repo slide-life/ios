@@ -25,11 +25,11 @@
             </objects>
             <point key="canvasLocation" x="-771" y="476"/>
         </scene>
-        <!--Scan-->
+        <!--Navigation Controller-->
         <scene sceneID="iy9-C5-OPF">
             <objects>
                 <navigationController id="mYP-Rb-5jY" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Scan" id="Wst-ge-Azg"/>
+                    <tabBarItem key="tabBarItem" title="" image="Scan Icon" id="Wst-ge-Azg"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qtR-R9-lZS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -75,7 +75,7 @@
         <!--Profile-->
         <scene sceneID="Kg7-fi-OML">
             <objects>
-                <tableViewController id="iIy-Na-Rbx" customClass="ProfileViewController" sceneMemberID="viewController">
+                <tableViewController id="iIy-Na-Rbx" customClass="ProfileTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Atu-6q-KcE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -103,15 +103,30 @@
         <scene sceneID="IQW-WK-ROU">
             <objects>
                 <tableViewController id="yDk-zy-RGf" customClass="WalletViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ecj-K4-7Kp">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="91" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ecj-K4-7Kp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ffs-lo-d4o">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="card" rowHeight="91" id="ffs-lo-d4o">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ffs-lo-d4o" id="aTh-33-Nc1">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="The Coop" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGl-eL-u2y">
+                                            <rect key="frame" x="20" y="21" width="280" height="29"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="5 forms" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1fK-ZO-EH9">
+                                            <rect key="frame" x="20" y="50" width="280" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.63926630434782616" green="0.0026665053034806269" blue="0.03167527275469418" alpha="1" colorSpace="calibratedRGB"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -124,13 +139,13 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pXl-ie-B42" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="154" y="1840"/>
+            <point key="canvasLocation" x="154" y="1821"/>
         </scene>
-        <!--Wallet-->
+        <!--Navigation Controller-->
         <scene sceneID="9zE-WK-mEf">
             <objects>
                 <navigationController id="BDX-3G-Ih7" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Wallet" id="yWe-ix-sop"/>
+                    <tabBarItem key="tabBarItem" title="" image="Wallet Icon" id="yWe-ix-sop"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZgW-81-eOB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -143,11 +158,11 @@
             </objects>
             <point key="canvasLocation" x="-301" y="1840"/>
         </scene>
-        <!--Profile-->
+        <!--Navigation Controller-->
         <scene sceneID="XZO-dU-QmP">
             <objects>
                 <navigationController id="DVt-wA-x9T" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" id="8VL-nn-e61"/>
+                    <tabBarItem key="tabBarItem" title="" image="Profile Icon" id="8VL-nn-e61"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="8jn-vj-ugD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -237,7 +252,40 @@
             </objects>
             <point key="canvasLocation" x="1474" y="476"/>
         </scene>
+        <!--Profile-->
+        <scene sceneID="uYX-Rm-Ryh">
+            <objects>
+                <tableViewController storyboardIdentifier="fieldValues" id="L2K-L3-FVs" customClass="FieldValuesViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="LFn-RV-Qix">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="MZk-dl-16Z">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MZk-dl-16Z" id="CBM-4W-TnB">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="L2K-L3-FVs" id="2BQ-D0-6Po"/>
+                            <outlet property="delegate" destination="L2K-L3-FVs" id="lN3-s4-tfj"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Profile" id="jtb-vb-PjA"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WqL-cP-yHc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="571" y="1201"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="Profile Icon" width="25" height="25"/>
+        <image name="Scan Icon" width="24" height="24"/>
+        <image name="Wallet Icon" width="25" height="25"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
