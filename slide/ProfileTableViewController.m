@@ -13,6 +13,34 @@
 
 @implementation ProfileTableViewController
 
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    searchbar.showsCancelButton = YES;
+}
+- (void)performSearch: (NSString *)searchText {
+    filteredFields = [[NSMutableArray alloc] initWithCapacity:self.fields.count];
+    for( NSDictionary *field in self.fields ) {
+        if( [[field[@"field"][@"name"] lowercaseString] componentsSeparatedByString:searchText].count > 1 || [searchText isEqualToString:@""] ) {
+            [filteredFields addObject:field];
+        }
+    }
+    [self reloadForm];
+}
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    [self performSearch:searchText];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    searchbar.showsCancelButton = NO;
+    [searchbar resignFirstResponder];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    searchbar.text = @"";
+    [self performSearch:@""];
+    searchbar.showsCancelButton = NO;
+    [searchbar resignFirstResponder];
+}
+
 - (NSArray *)uniqueValues: (NSArray *)values {
     NSMutableDictionary *hash = [[NSMutableDictionary alloc] initWithCapacity:values.count];
     for( NSDictionary *value in values ) {
@@ -41,7 +69,7 @@
     }
 }
 - (void)initForm {
-    _rows = [[NSMutableArray alloc] initWithCapacity:self.fields.count];
+    _rows = [[NSMutableArray alloc] initWithCapacity:filteredFields.count];
     
     XLFormDescriptor * form;
     XLFormSectionDescriptor * section;
@@ -53,7 +81,7 @@
     section = [XLFormSectionDescriptor formSection];
     [form addFormSection:section];
     
-    for( NSDictionary *kv in self.fields ) {
+    for( NSDictionary *kv in filteredFields ) {
         NSDictionary *field = kv[@"field"];
         NSDictionary *types = @{
                                 @"text": XLFormRowDescriptorTypeText,
@@ -84,13 +112,20 @@
     self.form = form;
     self.form.delegate = self;
 }
-- (void)reload {
-    self.fields = [[FieldsDataStore sharedInstance] getMergedKVs];
+- (void)reloadForm {
     [self initForm];
     [self.tableView reloadData];
 }
+- (void)reload {
+    searchbar.text = @"";
+    searchbar.showsCancelButton = NO;
+    self.fields = [[FieldsDataStore sharedInstance] getMergedKVs];
+    filteredFields = [NSMutableArray arrayWithArray:self.fields];
+    [self reloadForm];
+}
 - (void)viewDidLoad {
     [self reload];
+    searchbar.delegate = self;
 }
 - (void)viewDidAppear:(BOOL)animated {
     [self reload];

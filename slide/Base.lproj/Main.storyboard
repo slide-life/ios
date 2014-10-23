@@ -80,6 +80,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="Ds8-j7-g7v">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Jbp-he-VmH">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -94,6 +99,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Profile" id="VKC-PY-8GD"/>
+                    <connections>
+                        <outlet property="searchbar" destination="Ds8-j7-g7v" id="HTM-mz-wtz"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tgI-GY-idX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -252,7 +260,7 @@
             </objects>
             <point key="canvasLocation" x="1474" y="476"/>
         </scene>
-        <!--Profile-->
+        <!--Field Values-->
         <scene sceneID="uYX-Rm-Ryh">
             <objects>
                 <tableViewController storyboardIdentifier="fieldValues" id="L2K-L3-FVs" customClass="FieldValuesViewController" sceneMemberID="viewController">
@@ -273,7 +281,7 @@
                             <outlet property="delegate" destination="L2K-L3-FVs" id="lN3-s4-tfj"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Profile" id="jtb-vb-PjA"/>
+                    <navigationItem key="navigationItem" title="Field Values" id="jtb-vb-PjA"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WqL-cP-yHc" userLabel="First Responder" sceneMemberID="firstResponder"/>

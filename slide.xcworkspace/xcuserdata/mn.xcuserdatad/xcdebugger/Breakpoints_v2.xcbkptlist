@@ -232,11 +232,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "slide/ProfileTableViewController.m"
-            timestampString = "435724914.982294"
+            timestampString = "435731158.633821"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
             landmarkName = "-initForm"
             landmarkType = "5">
          </BreakpointContent>

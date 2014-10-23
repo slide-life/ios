@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "XLFormViewController.h"
 
-@interface ProfileTableViewController : XLFormViewController
+@interface ProfileTableViewController : XLFormViewController <UISearchBarDelegate> {
+    IBOutlet UISearchBar *searchbar;
+    NSMutableArray *filteredFields;
+}
 
 @property (nonatomic, strong) NSMutableArray *rows;
 @property (nonatomic, strong) NSArray *fields;
