@@ -25,22 +25,32 @@ NSString *const userstore = @"userstore.json";
     return file;
 }
 
-- (void)addForm: (NSDictionary *)form forUser: (NSDictionary *)user {
+- (void)addForm: (NSDictionary *)form forUser: (NSDictionary *)user withTime: (NSString *)time {
     NSError *error;
     NSMutableArray *keystore = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[self documentsDirectoryFile:userstore]] options:NSJSONReadingMutableContainers error:&error];
-    [keystore addObject:@{@"user": user, @"form": form}];
+    NSMutableDictionary *mForm = [NSMutableDictionary dictionaryWithDictionary:form];
+    mForm[@"time"] = time;
+    [keystore addObject:@{@"user": user, @"form": mForm}];
     NSData *data = [NSJSONSerialization dataWithJSONObject:keystore options:0 error:&error];
     [data writeToFile:[self documentsDirectoryFile:userstore] atomically:YES];
 }
 
-- (void)registerUserForm: (NSDictionary *)form forUser: (NSString *)user {
-    NSLog(@"registering: %@ %@", form, user);
+- (void)registerUserForm: (NSDictionary *)form forUser: (NSString *)user withTime: (NSString *)time {
     [[API sharedInstance] getUser:user onSuccess:^(NSDictionary *user) {
         // TODO: save user details with a link to the form in a new table
-        [self addForm:form forUser:user];
+        [self addForm:form forUser:user withTime:time];
     } onFailure:^(NSError *error) {
         NSLog(@"Error: %@", error);
     }];
+}
+
+- (void)registerUserForm:(NSDictionary *)form forUser:(NSString *)user withPatch:(NSDictionary *)patch {
+    NSDateFormatter *formatter;
+    formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd-MM-yyyy HH:mm"];
+    NSString *dateString = [formatter stringFromDate:[NSDate date]];
+    [self registerUserForm:form forUser:user withTime:dateString];
+    [self patch:patch forForm:form withTime:dateString];
 }
 
 - (NSArray *)getUserForms {
@@ -72,14 +82,14 @@ NSString *const userstore = @"userstore.json";
 - (NSDictionary *)getUserInfo: (NSString *)user {
     NSArray *userForms = [self getUserForms];
     NSMutableDictionary *userInfo;
-    NSNumber *formCount = @0;
+    NSMutableArray *forms = [[NSMutableArray alloc] initWithCapacity:userForms.count];
     for( NSDictionary *userForm in userForms ) {
         if( [userForm[@"user"][@"id"] isEqualToString:user] ) {
             userInfo = userForm[@"user"];
-            formCount = [NSNumber numberWithInt:formCount.intValue + 1];
+            [forms addObject:userForm];
         }
     }
-    userInfo[@"formCount"] = formCount;
+    userInfo[@"forms"] = forms;
     return userInfo;
 }
 
@@ -92,10 +102,10 @@ NSString *const userstore = @"userstore.json";
     return users;
 }
 
-- (void)setField: (NSString *)value forKey: (NSDictionary *)key onForm: (NSDictionary *)form {
+- (void)setField: (NSString *)value forKey: (NSDictionary *)key onForm: (NSDictionary *)form withDate: (NSString *)date {
     NSMutableArray *keystore = [NSMutableArray arrayWithArray:[self getKVs]];
     if (value) {
-        NSMutableDictionary *formDetails = [NSMutableDictionary dictionaryWithDictionary:@{@"name": form[@"name"], @"user": form[@"user"]}];        
+        NSMutableDictionary *formDetails = [NSMutableDictionary dictionaryWithDictionary:@{@"name": form[@"name"], @"user": form[@"user"], @"date": date}];
         [keystore addObject:@{@"key": key[@"id"], @"value": value, @"form": formDetails, @"field": key}];
         [self saveKVs:keystore];
     }
@@ -159,9 +169,22 @@ NSString *const userstore = @"userstore.json";
     return orgs;
 }
 
-- (void)patch: (NSDictionary *)values forForm: (NSDictionary *)form {
+- (NSArray *)getFieldsForForm: (NSDictionary *)form {
+    NSArray *kvs = [self getKVs];
+    NSMutableArray *fields = [[NSMutableArray alloc] initWithCapacity:kvs.count];
+    for( NSDictionary *kv in kvs ) {
+        if( [kv[@"form"][@"user"] isEqualToString:form[@"user"][@"id"]] &&
+            [kv[@"form"][@"name"] isEqualToString:form[@"form"][@"name"]] &&
+            [kv[@"form"][@"date"] isEqualToString:form[@"form"][@"time"]]) {
+            [fields addObject:kv];
+        }
+    }
+    return fields;
+}
+
+- (void)patch: (NSDictionary *)values forForm: (NSDictionary *)form withTime: (NSString *)time {
     for( NSDictionary *key in values ) {
-        [self setField:values[key] forKey:key onForm:form];
+        [self setField:values[key] forKey:key onForm:form withDate:time];
     }
 }
 

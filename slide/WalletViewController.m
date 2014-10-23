@@ -8,6 +8,7 @@
 
 #import "WalletViewController.h"
 #import "FieldsDataStore.h"
+#import "RelationshipFormsViewController.h"
 
 @implementation WalletViewController
 
@@ -26,9 +27,17 @@
     return color;
 }
 
+- (void)reload {
+    cards = [[FieldsDataStore sharedInstance] getRegisteredUsers];
+    [self.tableView reloadData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    cards = [[FieldsDataStore sharedInstance] getRegisteredUsers];
+    [self reload];
+}
+- (void)viewDidAppear:(BOOL)animated {
+    [self reload];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,7 +45,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    RelationshipFormsViewController *rfvc = [[RelationshipFormsViewController alloc] init];
+    rfvc.forms = [NSArray arrayWithArray:cards[indexPath.row][@"forms"]];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.navigationController pushViewController:rfvc animated:YES];
 }
 
 #pragma mark - Table view data source
@@ -55,7 +67,7 @@
     NSDictionary *card = cards[indexPath.row];
     cell.contentView.backgroundColor = [self colorwithHexString:card[@"color"] alpha:1.0];
     title.text = card[@"orgName"];
-    formCount.text = [NSString stringWithFormat:@"%@ forms", card[@"formCount"]];
+    formCount.text = [NSString stringWithFormat:@"%lu forms", (unsigned long)((NSArray *)card[@"forms"]).count];
     return cell;
 }
 

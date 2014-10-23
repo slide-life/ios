@@ -101,8 +101,7 @@
         }
     }
     // Update the keystore
-    [[FieldsDataStore sharedInstance] registerUserForm:_formData[@"form"] forUser:_formData[@"form"][@"user"]];
-    [[FieldsDataStore sharedInstance] patch:fieldValues forForm:_formData[@"form"]];
+    [[FieldsDataStore sharedInstance] registerUserForm:_formData[@"form"] forUser:_formData[@"form"][@"user"] withPatch:fieldValues];
     // Push the response to the backend.
     [[API sharedInstance] postForm:_formId withValues:postValues onSuccess:^(id responseObject) {
         UIViewController *thanks = [self.storyboard instantiateViewControllerWithIdentifier:@"thanks"];

@@ -13,13 +13,12 @@
 - (void)redactValue: (NSString *)value forField:(NSDictionary *)field;
 - (NSArray *)getRegisteredUsers;
 - (NSArray *)getUserForms: (NSString *)user;
-- (void)registerUserForm: (NSDictionary *)form forUser: (NSString *)user;
-- (void)setField: (NSString *)value forKey: (NSDictionary *)key onForm: (NSDictionary *)form;
+- (void)registerUserForm: (NSDictionary *)form forUser: (NSString *)user withPatch: (NSDictionary *)patch;
 - (NSArray *)getField: (NSString *)key withConstraints: (NSArray *)constraints;
 - (NSArray *)getKVs;
 - (NSArray *)getMergedKVs;
 - (NSArray *)getForms;
-- (void)patch: (NSDictionary *)values forForm: (NSDictionary *)form;
+- (NSArray *)getFieldsForForm: (NSDictionary *)form;
 + (id)sharedInstance;
 
 @end
