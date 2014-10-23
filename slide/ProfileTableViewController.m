@@ -20,6 +20,9 @@
     }
     return hash.allKeys;
 }
+- (BOOL)isTextField: (NSString *)fieldType {
+    return [fieldType isEqualToString:@"text"] || [fieldType isEqualToString:@"email"] || [fieldType isEqualToString:@"number"] || [fieldType isEqualToString:@"password"];
+}
 - (void)didSelectFormRow:(XLFormRowDescriptor *)formRow
 {
     [super didSelectFormRow:formRow];
@@ -30,10 +33,12 @@
             kvInfo = row[@"kv"];
         }
     }
-    fvvc.title = kvInfo[@"field"][@"name"];
-    fvvc.values = [NSMutableArray arrayWithArray:[self uniqueValues:kvInfo[@"values"]]];
-    fvvc.field = kvInfo[@"field"];
-    [self.navigationController pushViewController:fvvc animated:YES];
+    if( [self isTextField:kvInfo[@"field"][@"typeName"]] ) {
+        fvvc.title = kvInfo[@"field"][@"name"];
+        fvvc.values = [NSMutableArray arrayWithArray:[self uniqueValues:kvInfo[@"values"]]];
+        fvvc.field = kvInfo[@"field"];
+        [self.navigationController pushViewController:fvvc animated:YES];
+    }
 }
 - (void)initForm {
     _rows = [[NSMutableArray alloc] initWithCapacity:self.fields.count];
@@ -61,7 +66,7 @@
         NSString *fieldType = field[@"typeName"];
         if(fieldType) {
             row = [XLFormRowDescriptor formRowDescriptorWithTag:@"notes" rowType:types[fieldType]];
-            BOOL isTextField = [fieldType isEqualToString:@"text"] || [fieldType isEqualToString:@"email"] || [fieldType isEqualToString:@"number"] || [fieldType isEqualToString:@"password"];
+            BOOL isTextField = [self isTextField:fieldType];
             if(isTextField) {
                 [row.cellConfig setObject:@(NSTextAlignmentRight) forKey:@"textField.textAlignment"];
                 [row.cellConfig setObject:@NO forKey:@"textField.enabled"];

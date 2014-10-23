@@ -13,8 +13,11 @@
 
 @implementation FieldValuesViewController
 
+- (BOOL)isTextField: (NSString *)fieldType {
+    return [fieldType isEqualToString:@"text"] || [fieldType isEqualToString:@"email"] || [fieldType isEqualToString:@"number"] || [fieldType isEqualToString:@"password"];
+}
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    return [self isTextField:self.fieldType];
 }
 - (void)deleteRows {
     for( NSIndexPath *indexPath in self.tableView.indexPathsForSelectedRows  ) {
@@ -54,7 +57,7 @@
                                 };
         NSString *fieldType = types[self.fieldType];
         row = [XLFormRowDescriptor formRowDescriptorWithTag:@"notes" rowType:fieldType];
-        BOOL isTextField = [fieldType isEqualToString:@"text"] || [fieldType isEqualToString:@"email"] || [fieldType isEqualToString:@"number"] || [fieldType isEqualToString:@"password"];
+        BOOL isTextField = [self isTextField:fieldType];
         if(isTextField) {
             [row.cellConfig setObject:@NO forKey:@"textField.enabled"];
         }
