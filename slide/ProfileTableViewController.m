@@ -31,8 +31,8 @@
         }
     }
     fvvc.title = kvInfo[@"field"][@"name"];
-    fvvc.values = [self uniqueValues:kvInfo[@"values"]];
-    fvvc.fieldType = kvInfo[@"field"][@"typeName"];
+    fvvc.values = [NSMutableArray arrayWithArray:[self uniqueValues:kvInfo[@"values"]]];
+    fvvc.field = kvInfo[@"field"];
     [self.navigationController pushViewController:fvvc animated:YES];
 }
 - (void)initForm {
@@ -79,9 +79,16 @@
     self.form = form;
     self.form.delegate = self;
 }
-- (void)viewDidLoad {
+- (void)reload {
     self.fields = [[FieldsDataStore sharedInstance] getMergedKVs];
     [self initForm];
+    [self.tableView reloadData];
+}
+- (void)viewDidLoad {
+    [self reload];
+}
+- (void)viewDidAppear:(BOOL)animated {
+    [self reload];
 }
 
 @end

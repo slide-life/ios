@@ -10,6 +10,7 @@
 
 @interface FieldsDataStore : NSObject
 
+- (void)redactValue: (NSString *)value forField:(NSDictionary *)field;
 - (NSArray *)getRegisteredUsers;
 - (NSArray *)getUserForms: (NSString *)user;
 - (void)registerUserForm: (NSDictionary *)form forUser: (NSString *)user;

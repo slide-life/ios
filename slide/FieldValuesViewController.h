@@ -12,6 +12,7 @@
 @interface FieldValuesViewController : XLFormViewController
 
 @property (nonatomic, strong) NSMutableArray *rows;
-@property (nonatomic, strong) NSArray *values;
+@property (nonatomic, strong) NSMutableArray *values;
+@property (nonatomic, strong) NSDictionary *field;
 @property (nonatomic, strong) NSString *fieldType;
 @end

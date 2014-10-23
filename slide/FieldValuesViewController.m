@@ -13,17 +13,35 @@
 
 @implementation FieldValuesViewController
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+- (void)deleteRows {
+    for( NSIndexPath *indexPath in self.tableView.indexPathsForSelectedRows  ) {
+        NSDictionary *row = self.rows[indexPath.row];
+        [[FieldsDataStore sharedInstance] redactValue:row[@"value"] forField:self.field];
+    }
+    NSIndexSet *indices = [self.tableView.indexPathsForSelectedRows indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return YES;
+    }];
+    [self.values removeObjectsAtIndexes:indices];
+    [self initForm];
+    [self.tableView reloadData];
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStylePlain target:self action:@selector(deleteRows)];
+}
 - (void)initForm {
     _rows = [[NSMutableArray alloc] initWithCapacity:self.values.count];
+    for( int i = 0; i < [self.form formSections].count; i++ ) {
+        [self.form removeFormSectionAtIndex:i];
+    }
     
-    XLFormDescriptor * form;
     XLFormSectionDescriptor * section;
     XLFormRowDescriptor * row;
     
-    form = [XLFormDescriptor formDescriptorWithTitle:@"Add Event"];
-    
     section = [XLFormSectionDescriptor formSection];
-    [form addFormSection:section];
+    [self.form addFormSection:section];
     
     for( id value in self.values ) {
         NSDictionary *types = @{
@@ -34,17 +52,29 @@
                                 @"number": XLFormRowDescriptorTypePhone,
                                 @"password": XLFormRowDescriptorTypePassword
                                 };
-        row = [XLFormRowDescriptor formRowDescriptorWithTag:@"notes" rowType:types[self.fieldType]];
+        NSString *fieldType = types[self.fieldType];
+        row = [XLFormRowDescriptor formRowDescriptorWithTag:@"notes" rowType:fieldType];
+        BOOL isTextField = [fieldType isEqualToString:@"text"] || [fieldType isEqualToString:@"email"] || [fieldType isEqualToString:@"number"] || [fieldType isEqualToString:@"password"];
+        if(isTextField) {
+            [row.cellConfig setObject:@NO forKey:@"textField.enabled"];
+        }
         row.value = value;
         [_rows addObject:@{@"row": row, @"value": value}];
         [section addFormRow:row];
     }
-    
-    self.form = form;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+    return cell;
 }
 - (void)viewDidLoad {
-    NSLog(@"%@", self.values);
+    self.fieldType = self.field[@"typeName"];
+    self.form = [XLFormDescriptor formDescriptorWithTitle:@"Field Values"];
     [self initForm];
+    self.tableView.allowsMultipleSelectionDuringEditing = YES;
+    self.tableView.allowsSelectionDuringEditing = YES;
+    [self.tableView setEditing:YES animated:YES];
 }
 
 @end

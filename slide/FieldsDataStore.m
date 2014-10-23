@@ -93,22 +93,19 @@ NSString *const userstore = @"userstore.json";
 }
 
 - (void)setField: (NSString *)value forKey: (NSDictionary *)key onForm: (NSDictionary *)form {
-    NSError *error;
-    NSMutableArray *keystore = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[self documentsDirectoryFile:filestore]] options:NSJSONReadingMutableContainers error:&error];
+    NSMutableArray *keystore = [NSMutableArray arrayWithArray:[self getKVs]];
     if (value) {
         NSMutableDictionary *formDetails = [NSMutableDictionary dictionaryWithDictionary:@{@"name": form[@"name"], @"user": form[@"user"]}];        
         [keystore addObject:@{@"key": key[@"id"], @"value": value, @"form": formDetails, @"field": key}];
-        NSData *data = [NSJSONSerialization dataWithJSONObject:keystore options:0 error:&error];
-        [data writeToFile:[self documentsDirectoryFile:filestore] atomically:YES];
+        [self saveKVs:keystore];
     }
 }
 
 - (NSArray *)getField: (NSString *)key withConstraints: (NSArray *)constraints {
-    NSError *error;
-    NSArray *kvs = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[self documentsDirectoryFile:filestore]] options:0 error:&error];
+    NSArray *kvs = [self getKVs];
     NSMutableArray *values = [[NSMutableArray alloc] initWithCapacity:kvs.count];
     for( NSDictionary *kv in kvs ) {
-        if( [kv[@"key"] isEqualToString:key] ) {
+        if( [kv[@"key"] isEqualToString:key] && ![kv[@"value"] isEqual:@"[*redacted*]"] ) {
             [values addObject:kv[@"value"]];
         }
     }
@@ -117,15 +114,27 @@ NSString *const userstore = @"userstore.json";
 
 - (NSArray *)getKVs {
     NSError *error;
-    return [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[self documentsDirectoryFile:filestore]] options:0 error:&error];
+    return [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[self documentsDirectoryFile:filestore]] options:NSJSONReadingMutableContainers error:&error];
+}
+
+- (void)saveKVs: (NSArray *)kvs toFile: (NSString *)file {
+    NSError *error;
+    NSData *data = [NSJSONSerialization dataWithJSONObject:kvs options:0 error:&error];
+    [data writeToFile:[self documentsDirectoryFile:filestore] atomically:YES];
+}
+
+- (void)saveKVs: (NSArray *)kvs {
+    [self saveKVs:kvs toFile:[self documentsDirectoryFile:filestore]];
 }
 
 - (NSArray *)getMergedKVs {
     NSArray *kvs = [self getKVs];
     NSMutableDictionary *merged = [[NSMutableDictionary alloc] initWithCapacity:kvs.count];
     for( NSDictionary *kv in kvs ) {
-        merged[kv[@"key"]] = merged[kv[@"key"]] == nil ? @{@"values": [[NSMutableArray alloc] initWithCapacity:kvs.count], @"field": kv[@"field"]} : merged[kv[@"key"]];
-        [merged[kv[@"key"]][@"values"] addObject:kv[@"value"]];
+        if( ![kv[@"value"] isEqual:@"[*redacted*]"] ) {
+            merged[kv[@"key"]] = merged[kv[@"key"]] == nil ? @{@"values": [[NSMutableArray alloc] initWithCapacity:kvs.count], @"field": kv[@"field"]} : merged[kv[@"key"]];
+            [merged[kv[@"key"]][@"values"] addObject:kv[@"value"]];
+        }
     }
     NSMutableArray *flat = [[NSMutableArray alloc] initWithCapacity:kvs.count];
     for( NSString *key in merged.allKeys ) {
@@ -154,6 +163,18 @@ NSString *const userstore = @"userstore.json";
     for( NSDictionary *key in values ) {
         [self setField:values[key] forKey:key onForm:form];
     }
+}
+
+- (void)redactValue: (NSString *)value forField:(NSDictionary *)field {
+    NSArray *kvs = [self getKVs];;
+    for( NSMutableDictionary *kv in kvs ) {
+        if( [kv[@"field"][@"id"] isEqualToString:field[@"id"]] &&
+            [kv[@"field"][@"name"] isEqualToString:field[@"name"]] &&
+            [kv[@"value"] isEqual:value]) {
+            kv[@"value"] = @"[*redacted*]";
+        }
+    }
+    [self saveKVs:kvs];
 }
 
 static FieldsDataStore *sharedInstance;
