@@ -25,6 +25,7 @@
     for( NSDictionary *fieldValue in self.fieldValues ) {
         NSString *fieldType = types[fieldValue[@"field"][@"typeName"]];
         row = [XLFormRowDescriptor formRowDescriptorWithTag:@"notes" rowType:fieldType];
+        [self configureRow:row withType:fieldType title:fieldValue[@"field"][@"name"] andValue:fieldValue[@"value"]];
         BOOL isTextField = [self isTextField:fieldType];
         if(isTextField) {
             [row.cellConfig setObject:@(NSTextAlignmentRight) forKey:@"textField.textAlignment"];
@@ -32,8 +33,6 @@
         } else if( [fieldType isEqualToString:XLFormRowDescriptorTypeBooleanSwitch] ) {
             [row.cellConfig setObject:@NO forKey:@"switchControl.enabled"];
         }
-        row.title = fieldValue[@"field"][@"name"];
-        row.value = fieldValue[@"value"];
         [section addFormRow:row];
     }
 }

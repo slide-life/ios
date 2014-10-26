@@ -30,10 +30,8 @@
     
     for( NSDictionary *form in self.forms ) {
         row = [XLFormRowDescriptor formRowDescriptorWithTag:@"notes" rowType:XLFormRowDescriptorTypeText];
-        [row.cellConfig setObject:@(NSTextAlignmentRight) forKey:@"textField.textAlignment"];
+        [self configureRow:row withType:@"text" title:form[@"form"][@"name"] andValue:form[@"form"][@"time"]];
         [row.cellConfig setObject:@NO forKey:@"textField.enabled"];
-        row.title = form[@"form"][@"name"];
-        row.value = form[@"form"][@"time"];
         [section addFormRow:row];
     }
     self.form = form;

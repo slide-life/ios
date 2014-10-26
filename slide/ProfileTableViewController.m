@@ -76,15 +76,13 @@
         NSString *fieldType = field[@"typeName"];
         if(fieldType) {
             row = [XLFormRowDescriptor formRowDescriptorWithTag:@"notes" rowType:types[fieldType]];
-            BOOL isTextField = [self isTextField:fieldType];
-            if(isTextField) {
-                [row.cellConfig setObject:@(NSTextAlignmentRight) forKey:@"textField.textAlignment"];
-                [row.cellConfig setObject:@NO forKey:@"textField.enabled"];
-            }
-            row.title = field[@"name"];
             NSArray *values = kv[@"values"];
             values = [self uniqueValues:values];
-            row.value = values.lastObject;
+            [self configureRow:row withType:fieldType title:field[@"name"] andValue:values.lastObject];
+            BOOL isTextField = [self isTextField:fieldType];
+            if(isTextField) {
+                [row.cellConfig setObject:@NO forKey:@"textField.enabled"];
+            }
             [_rows addObject:@{@"row": row, @"kv": kv}];
             [section addFormRow:row];
         } else {

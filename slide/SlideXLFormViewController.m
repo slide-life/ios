@@ -21,13 +21,25 @@
     return [fieldType isEqualToString:@"text"] || [fieldType isEqualToString:@"email"] || [fieldType isEqualToString:@"number"] || [fieldType isEqualToString:@"password"];
 }
 - (void)configureRow: (XLFormRowDescriptor *)row withType: (NSString *)fieldType title: (NSString *)title andValue: (NSString *)value {
-    NSLog(@"configuring: %@ %@ %@", fieldType, title, value);    
     if([self isTextField:fieldType]) {
         [row.cellConfig setObject:@(NSTextAlignmentRight) forKey:@"textField.textAlignment"];
+        [row.cellConfig setObject:[UIFont fontWithName:@"Helvetica" size:16] forKey:@"textField.font"];
+        [row.cellConfig setObject:[UIColor grayColor] forKey:@"textField.textColor"];
+        NSMutableParagraphStyle *style =  [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+        style.alignment = NSTextAlignmentRight;
+        style.firstLineHeadIndent = 0.0f;
+        style.headIndent = 0.0f;
+        style.tailIndent = -12.0f;
+        
+        if( value != nil ) {
+            NSAttributedString *attrText = [[NSAttributedString alloc] initWithString:value attributes:@{ NSParagraphStyleAttributeName : style}];
+            [row.cellConfig setObject:attrText forKey:@"textField.attributedText"];
+        }
     }
-    row.title = title;
+    row.title = [title uppercaseString];
+    [row.cellConfig setObject:[UIFont fontWithName:@"Helvetica-Bold" size:12] forKey:@"textLabel.font"];
     if( value ) {
-        row.value = value;
+        //row.value = value;
     }
 }
 - (void)initialize {

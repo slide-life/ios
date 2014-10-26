@@ -46,11 +46,11 @@
     for( id value in self.values ) {
         NSString *fieldType = types[self.fieldType];
         row = [XLFormRowDescriptor formRowDescriptorWithTag:@"notes" rowType:fieldType];
+        [self configureRow:row withType:fieldType title:@"" andValue:value];
         BOOL isTextField = [self isTextField:fieldType];
         if(isTextField) {
             [row.cellConfig setObject:@NO forKey:@"textField.enabled"];
         }
-        row.value = value;
         [_rows addObject:@{@"row": row, @"value": value}];
         [section addFormRow:row];
     }
