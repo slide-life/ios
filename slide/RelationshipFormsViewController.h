@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 slide. All rights reserved.
 //
 
-#import "XLFormViewController.h"
+#import "SlideXLFormViewController.h"
 
-@interface RelationshipFormsViewController : XLFormViewController
+@interface RelationshipFormsViewController : SlideXLFormViewController
 @property NSArray *forms;
 @end

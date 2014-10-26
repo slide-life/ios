@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "XLFormViewController.h"
+#import "SlideXLFormViewController.h"
 
-@interface FieldValuesViewController : XLFormViewController
+@interface FieldValuesViewController : SlideXLFormViewController
 
 @property (nonatomic, strong) NSMutableArray *rows;
 @property (nonatomic, strong) NSMutableArray *values;

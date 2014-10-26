@@ -13,9 +13,6 @@
 
 @implementation FieldValuesViewController
 
-- (BOOL)isTextField: (NSString *)fieldType {
-    return [fieldType isEqualToString:@"text"] || [fieldType isEqualToString:@"email"] || [fieldType isEqualToString:@"number"] || [fieldType isEqualToString:@"password"];
-}
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return [self isTextField:self.fieldType];
 }
@@ -47,14 +44,6 @@
     [self.form addFormSection:section];
     
     for( id value in self.values ) {
-        NSDictionary *types = @{
-                                @"text": XLFormRowDescriptorTypeText,
-                                @"email": XLFormRowDescriptorTypeEmail,
-                                @"checkbox": XLFormRowDescriptorTypeBooleanSwitch,
-                                @"date": XLFormRowDescriptorTypeDatePicker,
-                                @"number": XLFormRowDescriptorTypePhone,
-                                @"password": XLFormRowDescriptorTypePassword
-                                };
         NSString *fieldType = types[self.fieldType];
         row = [XLFormRowDescriptor formRowDescriptorWithTag:@"notes" rowType:fieldType];
         BOOL isTextField = [self isTextField:fieldType];

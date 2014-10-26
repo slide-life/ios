@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "XLFormViewController.h"
+#import "SlideXLFormViewController.h"
 
-@interface FormTableViewController : XLFormViewController {
+@interface FormTableViewController : SlideXLFormViewController {
     NSMutableArray *altViews;
 }
 

@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "XLFormViewController.h"
+#import "SlideXLFormViewController.h"
 
-@interface ProfileTableViewController : XLFormViewController <UISearchBarDelegate> {
+@interface ProfileTableViewController : SlideXLFormViewController <UISearchBarDelegate> {
     IBOutlet UISearchBar *searchbar;
     NSMutableArray *filteredFields;
 }

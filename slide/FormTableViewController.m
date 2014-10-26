@@ -15,13 +15,6 @@
 
 @implementation FormTableViewController
 
-- (NSArray *)uniqueValues: (NSArray *)values {
-    NSMutableDictionary *hash = [[NSMutableDictionary alloc] initWithCapacity:values.count];
-    for( NSDictionary *value in values ) {
-        hash[value] = @YES;
-    }
-    return hash.allKeys;
-}
 - (void)initForm {
     _rows = [[NSMutableArray alloc] initWithCapacity:((NSArray *) _formData[@"fields"]).count];
     
@@ -38,40 +31,19 @@
     NSArray *fields = _formData[@"form"][@"fields"];
     for( NSDictionary *fieldInfo in fields ) {
         NSDictionary *field = fieldInfo[@"field"];
-        NSDictionary *types = @{
-          @"text": XLFormRowDescriptorTypeText,
-          @"email": XLFormRowDescriptorTypeEmail,
-          @"checkbox": XLFormRowDescriptorTypeBooleanSwitch,
-          @"date": XLFormRowDescriptorTypeDatePicker,
-          @"number": XLFormRowDescriptorTypePhone,
-          @"password": XLFormRowDescriptorTypePassword
-        };
         NSString *fieldType = field[@"typeName"];
         if(fieldType) {
             row = [XLFormRowDescriptor formRowDescriptorWithTag:@"notes" rowType:types[fieldType]];
-            BOOL isTextField = [fieldType isEqualToString:@"text"] || [fieldType isEqualToString:@"email"] || [fieldType isEqualToString:@"number"] || [fieldType isEqualToString:@"password"];
-            if(isTextField) {
-                [row.cellConfig setObject:@(NSTextAlignmentRight) forKey:@"textField.textAlignment"];
-            }
-            row.title = field[@"name"];
             NSArray *values = [[FieldsDataStore sharedInstance] getField:field[@"id"] withConstraints:@[]];
-            /*
-             TODO: Add alias support back in.
-             if(field[@"aliasId"]) {
-                values = values.count ? values : [[FieldsDataStore sharedInstance] getField:field[@"aliasId"]];
-             } */
+            [self configureRow:row withType:fieldType title:field[@"name"] andValue:values.lastObject];
             values = [self uniqueValues:values];
-            if( values.count == 1 ) {
-                row.value = values.lastObject;
-            } else if( values.count && isTextField ) {
+            if( values.count > 1 && [self isTextField:fieldType] ) {
                 AlternativePickerViewController *alts = [[AlternativePickerViewController alloc] initWithData:values forUpdate:^(NSString *choice) {
                     [row.cellConfig setValue:choice forKey:@"textField.text"];
                     [self reloadFormRow:row];
                 }];
                 [altViews addObject:alts];
                 [row.cellConfig setObject:((AlternativePickerViewController *)altViews.lastObject).picker forKey:@"textField.inputView"];
-                row.value = values.lastObject;
-            } else if( values.count ) {
                 row.value = values.lastObject;
             }
             [_rows addObject:@{@"row": row, @"field": field}];
@@ -115,9 +87,10 @@
     }];
 }
 - (void)viewDidLoad {
+    [self initialize];
     altViews = [[NSMutableArray alloc] initWithCapacity:255];
     [self initForm];
-    self.navigationItem.title = _formData[@"name"];
+    self.navigationItem.title = _formData[@"form"][@"name"];
 }
 - (void)didSelectFormRow:(XLFormRowDescriptor *)formRow {
     if( [formRow.tag isEqualToString:@"sendButton"] ) {

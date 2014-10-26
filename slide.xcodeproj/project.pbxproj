@@ -17,6 +17,8 @@
 		AD9CFBBB19EE47CB005BA97F /* AlternativePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD9CFBBA19EE47CB005BA97F /* AlternativePickerViewController.m */; };
 		AD9CFBBE19EE5AF4005BA97F /* WalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD9CFBBD19EE5AF4005BA97F /* WalletViewController.m */; };
 		AD9CFBC119EF1E40005BA97F /* API.m in Sources */ = {isa = PBXBuildFile; fileRef = AD9CFBC019EF1E40005BA97F /* API.m */; };
+		ADA4A25D19FCA80D008222AA /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA4A25C19FCA80D008222AA /* TabBarController.m */; };
+		ADA4A26019FCA8E7008222AA /* SlideXLFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA4A25F19FCA8E7008222AA /* SlideXLFormViewController.m */; };
 		ADE93F5A19DF9AAE00C187FA /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE93F5919DF9AAE00C187FA /* AddressBook.framework */; };
 		E70140F219C104AA00476F42 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70140F119C104AA00476F42 /* Foundation.framework */; };
 		E70140F419C104AA00476F42 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70140F319C104AA00476F42 /* CoreGraphics.framework */; };
@@ -67,6 +69,10 @@
 		AD9CFBBD19EE5AF4005BA97F /* WalletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletViewController.m; sourceTree = "<group>"; };
 		AD9CFBBF19EF1E40005BA97F /* API.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = API.h; sourceTree = "<group>"; };
 		AD9CFBC019EF1E40005BA97F /* API.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = API.m; sourceTree = "<group>"; };
+		ADA4A25B19FCA80D008222AA /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TabBarController.h; path = ../TabBarController.h; sourceTree = "<group>"; };
+		ADA4A25C19FCA80D008222AA /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TabBarController.m; path = ../TabBarController.m; sourceTree = "<group>"; };
+		ADA4A25E19FCA8E7008222AA /* SlideXLFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideXLFormViewController.h; sourceTree = "<group>"; };
+		ADA4A25F19FCA8E7008222AA /* SlideXLFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideXLFormViewController.m; sourceTree = "<group>"; };
 		ADE93F5919DF9AAE00C187FA /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		E70140EE19C104AA00476F42 /* slide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = slide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E70140F119C104AA00476F42 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -158,6 +164,8 @@
 			children = (
 				E701410019C104AA00476F42 /* AppDelegate.h */,
 				E701410119C104AA00476F42 /* AppDelegate.m */,
+				ADA4A25B19FCA80D008222AA /* TabBarController.h */,
+				ADA4A25C19FCA80D008222AA /* TabBarController.m */,
 				E701410319C104AA00476F42 /* QRReaderViewController.h */,
 				E701410419C104AA00476F42 /* QRReaderViewController.m */,
 				AD45C57419C693E200198F95 /* FieldsDataStore.h */,
@@ -167,6 +175,8 @@
 				AD81363F19C2C338000FD998 /* NavigationController.h */,
 				AD81363D19C2C326000FD998 /* NavigationController.m */,
 				E701410C19C104AA00476F42 /* Main.storyboard */,
+				ADA4A25E19FCA8E7008222AA /* SlideXLFormViewController.h */,
+				ADA4A25F19FCA8E7008222AA /* SlideXLFormViewController.m */,
 				E79B8D3F19C14E4600DE3111 /* FormTableViewController.h */,
 				E79B8D4019C14E4600DE3111 /* FormTableViewController.m */,
 				AD15DA9E19F775CA0041EBE1 /* ProfileTableViewController.h */,
@@ -358,6 +368,8 @@
 				AD91E07419F8A519000F4054 /* HistoricFormViewController.m in Sources */,
 				AD9CFBBE19EE5AF4005BA97F /* WalletViewController.m in Sources */,
 				AD15DAA319F782290041EBE1 /* FieldValuesViewController.m in Sources */,
+				ADA4A25D19FCA80D008222AA /* TabBarController.m in Sources */,
+				ADA4A26019FCA8E7008222AA /* SlideXLFormViewController.m in Sources */,
 				AD9CFBC119EF1E40005BA97F /* API.m in Sources */,
 				AD15DAA019F775CA0041EBE1 /* ProfileTableViewController.m in Sources */,
 				E70140FE19C104AA00476F42 /* main.m in Sources */,

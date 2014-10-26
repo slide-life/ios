@@ -41,16 +41,6 @@
     [searchbar resignFirstResponder];
 }
 
-- (NSArray *)uniqueValues: (NSArray *)values {
-    NSMutableDictionary *hash = [[NSMutableDictionary alloc] initWithCapacity:values.count];
-    for( NSDictionary *value in values ) {
-        hash[value] = @YES;
-    }
-    return hash.allKeys;
-}
-- (BOOL)isTextField: (NSString *)fieldType {
-    return [fieldType isEqualToString:@"text"] || [fieldType isEqualToString:@"email"] || [fieldType isEqualToString:@"number"] || [fieldType isEqualToString:@"password"];
-}
 - (void)didSelectFormRow:(XLFormRowDescriptor *)formRow
 {
     [super didSelectFormRow:formRow];
@@ -83,14 +73,6 @@
     
     for( NSDictionary *kv in filteredFields ) {
         NSDictionary *field = kv[@"field"];
-        NSDictionary *types = @{
-                                @"text": XLFormRowDescriptorTypeText,
-                                @"email": XLFormRowDescriptorTypeEmail,
-                                @"checkbox": XLFormRowDescriptorTypeBooleanSwitch,
-                                @"date": XLFormRowDescriptorTypeDatePicker,
-                                @"number": XLFormRowDescriptorTypePhone,
-                                @"password": XLFormRowDescriptorTypePassword
-                                };
         NSString *fieldType = field[@"typeName"];
         if(fieldType) {
             row = [XLFormRowDescriptor formRowDescriptorWithTag:@"notes" rowType:types[fieldType]];
@@ -124,6 +106,7 @@
     [self reloadForm];
 }
 - (void)viewDidLoad {
+    [self initialize];
     [self reload];
     searchbar.delegate = self;
 }
