@@ -38,6 +38,7 @@
     }
 }
 - (void)viewDidLoad {
+    [self initialize];
     self.form = [XLFormDescriptor formDescriptorWithTitle:@"Field Values"];
     [self initForm];
 }

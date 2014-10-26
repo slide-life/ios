@@ -61,6 +61,7 @@
     return cell;
 }
 - (void)viewDidLoad {
+    [self initialize];
     self.fieldType = self.field[@"typeName"];
     self.form = [XLFormDescriptor formDescriptorWithTitle:@"Field Values"];
     [self initForm];

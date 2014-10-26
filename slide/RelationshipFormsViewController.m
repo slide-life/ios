@@ -44,6 +44,7 @@
     [self.tableView reloadData];
 }
 - (void)viewDidLoad {
+    [self initialize];
     [self reload];
 }
 @end
