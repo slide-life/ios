@@ -29,18 +29,89 @@
         <scene sceneID="iy9-C5-OPF">
             <objects>
                 <navigationController id="mYP-Rb-5jY" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="Scan Icon" id="Wst-ge-Azg"/>
+                    <tabBarItem key="tabBarItem" title="" image="Request Icom" id="Wst-ge-Azg"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qtR-R9-lZS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="PxF-Ax-wPy" kind="relationship" relationship="rootViewController" id="WQ2-FH-aig"/>
+                        <segue destination="Ze1-9k-rxD" kind="relationship" relationship="rootViewController" id="KUL-vG-0GC"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KpK-Sc-ue6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-303" y="476"/>
+        </scene>
+        <!--Requests View Controller-->
+        <scene sceneID="sSI-Oo-dGv">
+            <objects>
+                <tableViewController id="Ze1-9k-rxD" customClass="RequestsViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="dEd-2l-scv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="U5X-fu-tMU">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="U5X-fu-tMU" id="tPp-ML-i4x">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Ze1-9k-rxD" id="BhR-ad-U4E"/>
+                            <outlet property="delegate" destination="Ze1-9k-rxD" id="KG9-R2-F1T"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems>
+                        <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="2dr-Xq-l0c"/>
+                        <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="IqX-b9-QO9"/>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" id="LGz-zI-DB6">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="EIW-X4-L0Q">
+                            <connections>
+                                <segue destination="PxF-Ax-wPy" kind="modal" id="T0C-AK-XOT"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oRL-cw-Pgd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="168" y="476"/>
+        </scene>
+        <!--Request Details View Controller-->
+        <scene sceneID="hNf-1S-jYk">
+            <objects>
+                <viewController id="abv-cn-ZcO" customClass="RequestDetailsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="AwL-w3-Mhe"/>
+                        <viewControllerLayoutGuide type="bottom" id="OLC-UX-XqK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qAo-Dr-tFf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="LzJ-gm-YnY">
+                                <rect key="frame" x="20" y="20" width="280" height="391"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="LzJ-gm-YnY" firstAttribute="top" secondItem="AwL-w3-Mhe" secondAttribute="bottom" id="JGA-zn-dDm"/>
+                            <constraint firstItem="OLC-UX-XqK" firstAttribute="top" secondItem="LzJ-gm-YnY" secondAttribute="bottom" constant="157" id="hH5-Fe-htT"/>
+                            <constraint firstAttribute="trailing" secondItem="LzJ-gm-YnY" secondAttribute="trailing" constant="20" id="sEB-EC-dGu"/>
+                            <constraint firstItem="LzJ-gm-YnY" firstAttribute="leading" secondItem="qAo-Dr-tFf" secondAttribute="leading" constant="20" id="smE-se-Vyk"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="LzJ-gm-YnY" id="gPA-Do-YjE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QIO-mO-ezO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="609" y="476"/>
         </scene>
         <!--Reader View Controller-->
         <scene sceneID="3GU-QQ-JyJ">
@@ -56,6 +127,17 @@
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vR1-Ue-kRA">
                                 <rect key="frame" x="0.0" y="20" width="320" height="554"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="07p-GV-WpA">
+                                        <rect key="frame" x="137" y="490" width="46" height="30"/>
+                                        <state key="normal" title="Dimiss">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="dismiss" destination="PxF-Ax-wPy" eventType="touchUpInside" id="U8w-QF-2z0"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -70,7 +152,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BPC-vx-IW7" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="154" y="476"/>
+            <point key="canvasLocation" x="609" y="-189"/>
         </scene>
         <!--Profile-->
         <scene sceneID="Kg7-fi-OML">
@@ -210,7 +292,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M9j-Fh-A0a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="772" y="476"/>
+            <point key="canvasLocation" x="1116" y="-189"/>
         </scene>
         <!--Form Table View Controller-->
         <scene sceneID="UGj-Uz-VLU">
@@ -228,7 +310,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l4U-6s-R14" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1117" y="476"/>
+            <point key="canvasLocation" x="1461" y="-189"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="YiO-K0-cZJ">
@@ -258,7 +340,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RRr-8c-BM7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1474" y="476"/>
+            <point key="canvasLocation" x="1818" y="-189"/>
         </scene>
         <!--Field Values-->
         <scene sceneID="uYX-Rm-Ryh">
@@ -291,7 +373,7 @@
     </scenes>
     <resources>
         <image name="Profile Icon" width="25" height="25"/>
-        <image name="Scan Icon" width="24" height="24"/>
+        <image name="Request Icom" width="25" height="25"/>
         <image name="Wallet Icon" width="25" height="25"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

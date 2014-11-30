@@ -19,6 +19,7 @@ static API *sharedInstance;
     return self;
 }
 - (void)getUser: (NSString *)userId onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure {
+    // TODO: get the organization details of a channel.
     NSString *path = [NSString stringWithFormat:@"%@/users/%@", self.domain, userId];
     [self.manager GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(responseObject);
@@ -27,6 +28,7 @@ static API *sharedInstance;
     }];
 }
 - (void)getForm: (NSString *)formId onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure {
+    // TODO: get the fields requested by a channel.
     NSString *path = [NSString stringWithFormat:@"%@/forms/%@", self.domain, formId];
     [self.manager GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(responseObject);
@@ -35,6 +37,7 @@ static API *sharedInstance;
     }];
 }
 - (void)postForm: (NSString *)formId withValues: (NSDictionary *)values onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure {
+    // TODO: push to channel instead.
     NSString *path = [NSString stringWithFormat:@"%@/forms/%@/responses", self.domain, formId];
     [self.jsonManager POST:path parameters:values success:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(responseObject);

@@ -22,6 +22,10 @@
     [self startReading];
 }
 
+- (IBAction)dismiss {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - QRCode reader
 
 - (void)startReading {

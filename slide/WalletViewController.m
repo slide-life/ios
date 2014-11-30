@@ -65,8 +65,9 @@
     UILabel *title = sviews[0];
     UILabel *formCount = sviews[1];
     NSDictionary *card = cards[indexPath.row];
-    cell.contentView.backgroundColor = [self colorwithHexString:card[@"color"] alpha:1.0];
-    title.text = card[@"orgName"];
+    NSString *color = card[@"color"] ? card[@"color"] : @"#3385FF";
+    cell.contentView.backgroundColor = [self colorwithHexString:color alpha:1.0];
+    title.text = card[@"orgName"] ? card[@"orgName"] : @"Unaffiliated Forms";
     formCount.text = [NSString stringWithFormat:@"%lu forms", (unsigned long)((NSArray *)card[@"forms"]).count];
     return cell;
 }

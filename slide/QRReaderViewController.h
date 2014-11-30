@@ -20,7 +20,8 @@
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *videoPreviewLayer;
 @property BOOL stoppedCapture;
 
--(void)startReading;
--(void)stopReading;
+- (void)startReading;
+- (void)stopReading;
+- (IBAction)dismiss;
 
 @end

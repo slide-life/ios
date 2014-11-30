@@ -31,16 +31,13 @@
         style.headIndent = 0.0f;
         style.tailIndent = -12.0f;
         
-        if( value != nil ) {
+        if( value ) {
             NSAttributedString *attrText = [[NSAttributedString alloc] initWithString:value attributes:@{ NSParagraphStyleAttributeName : style}];
             [row.cellConfig setObject:attrText forKey:@"textField.attributedText"];
         }
     }
     row.title = [title uppercaseString];
     [row.cellConfig setObject:[UIFont fontWithName:@"Helvetica-Bold" size:12] forKey:@"textLabel.font"];
-    if( value ) {
-        //row.value = value;
-    }
 }
 - (void)initialize {
     types = @{

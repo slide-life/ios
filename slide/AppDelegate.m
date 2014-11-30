@@ -11,9 +11,20 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // Override point for customization after application launch.
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"Solid Bar"] forBarMetrics:UIBarMetricsDefault];
     [[UITabBar appearance] setBackgroundImage:[UIImage imageNamed:@"Solid Bar"]];
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];        
+    
     return YES;
+}
+- (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken {
+    NSLog(@"%@", devToken);    
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    // This notification is listened for in RequestsViewController
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"notification" object:nil userInfo:userInfo];
 }
 
 @end

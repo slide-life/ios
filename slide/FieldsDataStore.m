@@ -13,6 +13,7 @@
 
 NSString *const filestore = @"keystore.json";
 NSString *const userstore = @"userstore.json";
+NSString *const requestStore = @"requestStore.json";
 
 - (NSString *)documentsDirectoryFile: (NSString *)fileName {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -57,6 +58,23 @@ NSString *const userstore = @"userstore.json";
     NSError *error;
     NSMutableArray *keystore = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[self documentsDirectoryFile:userstore]] options:NSJSONReadingMutableContainers error:&error];
     return keystore;
+}
+
+- (NSArray *)getRequests {
+    NSError *error;
+    NSData *data = [NSData dataWithContentsOfFile:[self documentsDirectoryFile:requestStore]];
+    NSMutableArray *keystore = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    return keystore;
+}
+
+- (void)saveRequests: (NSArray *)requests {
+    [self saveKVs:requests toFile:[self documentsDirectoryFile:requestStore]];
+}
+
+- (void)insertRequest: (NSDictionary *)request {
+    NSMutableArray *requests = [[self getRequests] mutableCopy];
+    [requests addObject:request];
+    [self saveRequests:requests];
 }
 
 - (NSArray *)getUserForms: (NSString *)user {
@@ -130,7 +148,7 @@ NSString *const userstore = @"userstore.json";
 - (void)saveKVs: (NSArray *)kvs toFile: (NSString *)file {
     NSError *error;
     NSData *data = [NSJSONSerialization dataWithJSONObject:kvs options:0 error:&error];
-    [data writeToFile:[self documentsDirectoryFile:filestore] atomically:YES];
+    [data writeToFile:file options:NSDataWritingAtomic error:&error];
 }
 
 - (void)saveKVs: (NSArray *)kvs {

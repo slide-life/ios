@@ -20,5 +20,7 @@
 - (NSArray *)getForms;
 - (NSArray *)getFieldsForForm: (NSDictionary *)form;
 + (id)sharedInstance;
+- (NSArray *)getRequests;
+- (void)insertRequest: (NSDictionary *)request;
 
 @end
