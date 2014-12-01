@@ -17,7 +17,8 @@
     NSLog(@"Get data: %@", notification.userInfo);
     NSArray *data = notification.userInfo[@"channel"][@"blocks"];
     NSString *bucket = notification.userInfo[@"channel"][@"id"];
-    [[FieldsDataStore sharedInstance] insertRequest:@{@"data": data, @"bucket": bucket, @"timestamp": [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970] * 1000]}];
+    NSDictionary *key = notification.userInfo[@"channel"][@"key"];
+    [[FieldsDataStore sharedInstance] insertRequest:@{@"data": data, @"bucket": bucket, @"timestamp": [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970] * 1000], @"key": key}];
     requests = [[FieldsDataStore sharedInstance] getRequests];
     [self.tableView reloadData];
     // TODO: jump to the detail request view which will use the new webview form.
@@ -78,6 +79,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     RequestViewController *rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"requestView"];
     rvc.blocks = requests[indexPath.row][@"data"];
+    rvc.pubKey = requests[indexPath.row][@"key"][@"pub"];
+    rvc.channelId = requests[indexPath.row][@"bucket"];
     [self.navigationController pushViewController:rvc animated:YES];
 }
 

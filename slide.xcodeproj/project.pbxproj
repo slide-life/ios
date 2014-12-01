@@ -11,6 +11,7 @@
 		AD15DAA019F775CA0041EBE1 /* ProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD15DA9F19F775CA0041EBE1 /* ProfileTableViewController.m */; };
 		AD15DAA319F782290041EBE1 /* FieldValuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD15DAA219F782290041EBE1 /* FieldValuesViewController.m */; };
 		AD45C57319C693DB00198F95 /* FieldsDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AD45C57219C693DB00198F95 /* FieldsDataStore.m */; };
+		AD60E2111A2C40B1005F9681 /* slide.js in Resources */ = {isa = PBXBuildFile; fileRef = AD60E2101A2C40B1005F9681 /* slide.js */; };
 		AD81363E19C2C326000FD998 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD81363D19C2C326000FD998 /* NavigationController.m */; };
 		AD908A791A2C247E00D61A1A /* slide-form.js in Resources */ = {isa = PBXBuildFile; fileRef = AD908A781A2C247E00D61A1A /* slide-form.js */; };
 		AD908A7C1A2C249200D61A1A /* RequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD908A7B1A2C249200D61A1A /* RequestViewController.m */; };
@@ -65,6 +66,7 @@
 		AD15DAA219F782290041EBE1 /* FieldValuesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldValuesViewController.m; sourceTree = "<group>"; };
 		AD45C57219C693DB00198F95 /* FieldsDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldsDataStore.m; sourceTree = "<group>"; };
 		AD45C57419C693E200198F95 /* FieldsDataStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FieldsDataStore.h; sourceTree = "<group>"; };
+		AD60E2101A2C40B1005F9681 /* slide.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = slide.js; sourceTree = "<group>"; };
 		AD81363D19C2C326000FD998 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		AD81363F19C2C338000FD998 /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		AD908A781A2C247E00D61A1A /* slide-form.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "slide-form.js"; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 		E70140F819C104AA00476F42 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AD60E2101A2C40B1005F9681 /* slide.js */,
 				AD908A7F1A2C279E00D61A1A /* jquery.js */,
 				AD908A801A2C279E00D61A1A /* styles.css */,
 				AD908A7D1A2C25D300D61A1A /* form-template.html */,
@@ -342,6 +345,7 @@
 				AD908A791A2C247E00D61A1A /* slide-form.js in Resources */,
 				E70140FC19C104AA00476F42 /* InfoPlist.strings in Resources */,
 				AD908A7E1A2C25D300D61A1A /* form-template.html in Resources */,
+				AD60E2111A2C40B1005F9681 /* slide.js in Resources */,
 				AD908A821A2C279E00D61A1A /* styles.css in Resources */,
 				AD908A811A2C279E00D61A1A /* jquery.js in Resources */,
 				E701410E19C104AA00476F42 /* Main.storyboard in Resources */,

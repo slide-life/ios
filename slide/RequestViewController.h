@@ -12,6 +12,8 @@
     IBOutlet UIWebView *web;
 }
 
+@property NSString *channelId;
+@property NSString *pubKey;
 @property NSArray *blocks;
 
 @end
