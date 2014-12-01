@@ -37,12 +37,12 @@ NSString *const requestStore = @"requestStore.json";
 }
 
 - (void)registerUserForm: (NSDictionary *)form forUser: (NSString *)user withTime: (NSString *)time {
-    [[API sharedInstance] getUser:user onSuccess:^(NSDictionary *user) {
-        // TODO: save user details with a link to the form in a new table
-        [self addForm:form forUser:user withTime:time];
-    } onFailure:^(NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
+    // TODO: We will need to get the vendor's details.
+    // [[API sharedInstance] getUser:user onSuccess:^(NSDictionary *user) {
+    [self addForm:form forUser:@{@"username": user} withTime:time];
+    // } onFailure:^(NSError *error) {
+    //    NSLog(@"Error: %@", error);
+    // }];
 }
 
 - (void)registerUserForm:(NSDictionary *)form forUser:(NSString *)user withPatch:(NSDictionary *)patch {
@@ -92,7 +92,7 @@ NSString *const requestStore = @"requestStore.json";
     NSArray *userForms = [self getUserForms];
     NSMutableDictionary *users = [[NSMutableDictionary alloc] initWithCapacity:userForms.count];
     for( NSDictionary *userForm in userForms ) {
-        users[userForm[@"user"][@"id"]] = @YES;
+        users[userForm[@"user"][@"username"]] = @YES;
     }
     return users.allKeys;
 }
@@ -102,7 +102,7 @@ NSString *const requestStore = @"requestStore.json";
     NSMutableDictionary *userInfo;
     NSMutableArray *forms = [[NSMutableArray alloc] initWithCapacity:userForms.count];
     for( NSDictionary *userForm in userForms ) {
-        if( [userForm[@"user"][@"id"] isEqualToString:user] ) {
+        if( [userForm[@"user"][@"username"] isEqualToString:user] ) {
             userInfo = userForm[@"user"];
             [forms addObject:userForm];
         }
@@ -123,8 +123,10 @@ NSString *const requestStore = @"requestStore.json";
 - (void)setField: (NSString *)value forKey: (NSDictionary *)key onForm: (NSDictionary *)form withDate: (NSString *)date {
     NSMutableArray *keystore = [NSMutableArray arrayWithArray:[self getKVs]];
     if (value) {
-        NSMutableDictionary *formDetails = [NSMutableDictionary dictionaryWithDictionary:@{@"name": form[@"name"], @"user": form[@"user"], @"date": date}];
-        [keystore addObject:@{@"key": key[@"id"], @"value": value, @"form": formDetails, @"field": key}];
+        // TODO: get form details figured out.
+        NSMutableDictionary *formDetails = [NSMutableDictionary dictionaryWithDictionary:@{@"name": form[@"name"], @"user": @"Unknown", @"date": date}];
+        // TODO: key needs to hold more information than just name, e.g., type.
+        [keystore addObject:@{@"key": key, @"value": value, @"form": formDetails, @"field": key}];
         [self saveKVs:keystore];
     }
 }

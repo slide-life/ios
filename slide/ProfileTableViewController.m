@@ -72,13 +72,13 @@
     [form addFormSection:section];
     
     for( NSDictionary *kv in filteredFields ) {
-        NSDictionary *field = kv[@"field"];
-        NSString *fieldType = field[@"typeName"];
+        NSString *field = kv[@"field"];
+        NSString *fieldType = @"text";
         if(fieldType) {
             row = [XLFormRowDescriptor formRowDescriptorWithTag:@"notes" rowType:types[fieldType]];
             NSArray *values = kv[@"values"];
             values = [self uniqueValues:values];
-            [self configureRow:row withType:fieldType title:field[@"name"] andValue:values.lastObject];
+            [self configureRow:row withType:fieldType title:field andValue:values.lastObject];
             BOOL isTextField = [self isTextField:fieldType];
             if(isTextField) {
                 [row.cellConfig setObject:@NO forKey:@"textField.enabled"];
@@ -101,6 +101,7 @@
     searchbar.showsCancelButton = NO;
     self.fields = [[FieldsDataStore sharedInstance] getMergedKVs];
     filteredFields = [NSMutableArray arrayWithArray:self.fields];
+    // TODO: switch to custom form view
     [self reloadForm];
 }
 - (void)viewDidLoad {

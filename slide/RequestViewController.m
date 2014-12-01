@@ -7,6 +7,7 @@
 //
 
 #import "RequestViewController.h"
+#import "FieldsDataStore.h"
 
 @implementation RequestViewController
 
@@ -20,7 +21,9 @@
 }
 
 - (void)confirm {
-    NSLog(@"serialize: %@", [web stringByEvaluatingJavaScriptFromString:@"Forms.serializeForm()"]);
+    NSError *error;
+    NSDictionary *responses = [NSJSONSerialization JSONObjectWithData:[[web stringByEvaluatingJavaScriptFromString:@"Forms.serializeForm()"] dataUsingEncoding:NSStringEncodingConversionExternalRepresentation] options:nil error:&error];
+    [[FieldsDataStore sharedInstance] registerUserForm:@{@"name": @"Unknown"} forUser:@"Unknown" withPatch:responses];
 }
 
 - (void)viewDidLoad {
