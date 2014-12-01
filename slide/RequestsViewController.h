@@ -12,4 +12,6 @@
     NSArray *requests;
 }
 
+@property NSString *number;
+
 @end

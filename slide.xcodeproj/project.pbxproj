@@ -12,6 +12,11 @@
 		AD15DAA319F782290041EBE1 /* FieldValuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD15DAA219F782290041EBE1 /* FieldValuesViewController.m */; };
 		AD45C57319C693DB00198F95 /* FieldsDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AD45C57219C693DB00198F95 /* FieldsDataStore.m */; };
 		AD81363E19C2C326000FD998 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD81363D19C2C326000FD998 /* NavigationController.m */; };
+		AD908A791A2C247E00D61A1A /* slide-form.js in Resources */ = {isa = PBXBuildFile; fileRef = AD908A781A2C247E00D61A1A /* slide-form.js */; };
+		AD908A7C1A2C249200D61A1A /* RequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD908A7B1A2C249200D61A1A /* RequestViewController.m */; };
+		AD908A7E1A2C25D300D61A1A /* form-template.html in Resources */ = {isa = PBXBuildFile; fileRef = AD908A7D1A2C25D300D61A1A /* form-template.html */; };
+		AD908A811A2C279E00D61A1A /* jquery.js in Resources */ = {isa = PBXBuildFile; fileRef = AD908A7F1A2C279E00D61A1A /* jquery.js */; };
+		AD908A821A2C279E00D61A1A /* styles.css in Resources */ = {isa = PBXBuildFile; fileRef = AD908A801A2C279E00D61A1A /* styles.css */; };
 		AD91E07119F8A2DA000F4054 /* RelationshipFormsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD91E07019F8A2DA000F4054 /* RelationshipFormsViewController.m */; };
 		AD91E07419F8A519000F4054 /* HistoricFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD91E07319F8A519000F4054 /* HistoricFormViewController.m */; };
 		AD9CFBBB19EE47CB005BA97F /* AlternativePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD9CFBBA19EE47CB005BA97F /* AlternativePickerViewController.m */; };
@@ -62,6 +67,12 @@
 		AD45C57419C693E200198F95 /* FieldsDataStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FieldsDataStore.h; sourceTree = "<group>"; };
 		AD81363D19C2C326000FD998 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		AD81363F19C2C338000FD998 /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
+		AD908A781A2C247E00D61A1A /* slide-form.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "slide-form.js"; sourceTree = "<group>"; };
+		AD908A7A1A2C249200D61A1A /* RequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RequestViewController.h; path = "../../../Slide/slide-ios/slide/RequestViewController.h"; sourceTree = "<group>"; };
+		AD908A7B1A2C249200D61A1A /* RequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RequestViewController.m; path = "../../../Slide/slide-ios/slide/RequestViewController.m"; sourceTree = "<group>"; };
+		AD908A7D1A2C25D300D61A1A /* form-template.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "form-template.html"; sourceTree = "<group>"; };
+		AD908A7F1A2C279E00D61A1A /* jquery.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.js; sourceTree = "<group>"; };
+		AD908A801A2C279E00D61A1A /* styles.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = styles.css; sourceTree = "<group>"; };
 		AD91E06F19F8A2DA000F4054 /* RelationshipFormsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RelationshipFormsViewController.h; sourceTree = "<group>"; };
 		AD91E07019F8A2DA000F4054 /* RelationshipFormsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RelationshipFormsViewController.m; sourceTree = "<group>"; };
 		AD91E07219F8A519000F4054 /* HistoricFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoricFormViewController.h; sourceTree = "<group>"; };
@@ -180,6 +191,8 @@
 				E701410419C104AA00476F42 /* QRReaderViewController.m */,
 				ADD5EBA31A19527D00EFCE83 /* RequestsViewController.h */,
 				ADD5EBA41A19527D00EFCE83 /* RequestsViewController.m */,
+				AD908A7A1A2C249200D61A1A /* RequestViewController.h */,
+				AD908A7B1A2C249200D61A1A /* RequestViewController.m */,
 				ADD5EBA61A195B5F00EFCE83 /* RequestDetailsViewController.h */,
 				ADD5EBA71A195B5F00EFCE83 /* RequestDetailsViewController.m */,
 				AD9CFBBF19EF1E40005BA97F /* API.h */,
@@ -212,7 +225,11 @@
 		E70140F819C104AA00476F42 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AD908A7F1A2C279E00D61A1A /* jquery.js */,
+				AD908A801A2C279E00D61A1A /* styles.css */,
+				AD908A7D1A2C25D300D61A1A /* form-template.html */,
 				ADAF3DF81A22BD0A00CE5A61 /* slide-crypto.js */,
+				AD908A781A2C247E00D61A1A /* slide-form.js */,
 				E70140F919C104AA00476F42 /* slide-Info.plist */,
 				E70140FA19C104AA00476F42 /* InfoPlist.strings */,
 				E70140FD19C104AA00476F42 /* main.m */,
@@ -322,7 +339,11 @@
 			files = (
 				E701411019C104AA00476F42 /* Images.xcassets in Resources */,
 				ADAF3DF91A22BD0A00CE5A61 /* slide-crypto.js in Resources */,
+				AD908A791A2C247E00D61A1A /* slide-form.js in Resources */,
 				E70140FC19C104AA00476F42 /* InfoPlist.strings in Resources */,
+				AD908A7E1A2C25D300D61A1A /* form-template.html in Resources */,
+				AD908A821A2C279E00D61A1A /* styles.css in Resources */,
+				AD908A811A2C279E00D61A1A /* jquery.js in Resources */,
 				E701410E19C104AA00476F42 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -389,6 +410,7 @@
 				AD15DAA019F775CA0041EBE1 /* ProfileTableViewController.m in Sources */,
 				E70140FE19C104AA00476F42 /* main.m in Sources */,
 				AD81363E19C2C326000FD998 /* NavigationController.m in Sources */,
+				AD908A7C1A2C249200D61A1A /* RequestViewController.m in Sources */,
 				E701410519C104AA00476F42 /* QRReaderViewController.m in Sources */,
 				ADD5EBA51A19527D00EFCE83 /* RequestsViewController.m in Sources */,
 				E79B8D4119C14E4600DE3111 /* FormTableViewController.m in Sources */,

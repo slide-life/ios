@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.11" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="sSu-12-vBm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="sSu-12-vBm">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6190.4"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
         <!--Tab Bar Controller-->
@@ -112,6 +112,37 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QIO-mO-ezO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="609" y="476"/>
+        </scene>
+        <!--Request View Controller-->
+        <scene sceneID="WBm-Rl-iCO">
+            <objects>
+                <viewController storyboardIdentifier="requestView" id="dEc-x4-G8K" customClass="RequestViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="snJ-o7-i4W"/>
+                        <viewControllerLayoutGuide type="bottom" id="SrK-4b-4DF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="YMI-TB-7TT">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t3B-gm-nhH">
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="t3B-gm-nhH" firstAttribute="top" secondItem="snJ-o7-i4W" secondAttribute="bottom" id="Ngn-l8-Uvh"/>
+                            <constraint firstItem="SrK-4b-4DF" firstAttribute="top" secondItem="t3B-gm-nhH" secondAttribute="bottom" id="SMj-Cd-jaI"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="web" destination="t3B-gm-nhH" id="BtF-71-9b6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vxE-tI-cWA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1022" y="476"/>
         </scene>
         <!--Reader View Controller-->
         <scene sceneID="3GU-QQ-JyJ">
@@ -379,9 +410,6 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4">
-            <size key="portraitSize" width="320" height="568"/>
-            <size key="landscapeSize" width="568" height="320"/>
-        </simulatedScreenMetrics>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
 </document>

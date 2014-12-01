@@ -19,7 +19,9 @@
     return YES;
 }
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken {
-    NSLog(@"%@", devToken);    
+    NSLog(@"%@", devToken);
+    // This notification is listened for in RequestsViewController
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"deviceToken" object:nil userInfo:@{@"token": devToken}];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
