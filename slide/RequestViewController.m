@@ -31,24 +31,37 @@
     [web stringByEvaluatingJavaScriptFromString:fieldList];
 }
 
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    return YES;
+}
+
+- (void)continueConfirm: (NSString *)encryptedJSON {
+    NSError *error;
+    NSData *data = [encryptedJSON dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    NSDictionary *payload = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    [[API sharedInstance] postPayload:payload forChannel:self.channelId onSuccess:^(id resp) {
+        NSLog(@"resp: %@", resp);
+    } onFailure:^(NSURLResponse *resp) {
+        NSLog(@"failed: %@", resp);        
+    }];
+}
+
 - (void)confirm {
     NSError *error;
     NSDictionary *responses = [NSJSONSerialization JSONObjectWithData:[[web stringByEvaluatingJavaScriptFromString:@"Forms.serializeForm()"] dataUsingEncoding:NSStringEncodingConversionExternalRepresentation] options:NSJSONReadingAllowFragments error:&error];
     [[FieldsDataStore sharedInstance] registerUserForm:@{@"name": @"Unknown"} forUser:@"Unknown" withPatch:responses];
     NSString *json = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:responses options:NSJSONWritingPrettyPrinted error:&error] encoding:NSStringEncodingConversionExternalRepresentation];
-    NSString *code = [NSString stringWithFormat:@"var e = Slide.crypto.encryptDataSync(%@, '%@'); JSON.stringify({fields: e.fields, cipherkey: e.cipherkey})", json, self.pubKey];
-    NSString *encryptedJSON = [web stringByEvaluatingJavaScriptFromString:code];
-    NSDictionary *payload = [NSJSONSerialization JSONObjectWithData:[encryptedJSON dataUsingEncoding:NSStringEncodingConversionExternalRepresentation] options:NSJSONReadingAllowFragments error:&error];
-    [[API sharedInstance] postPayload:payload forChannel:self.channelId onSuccess:^(id resp) {
-        NSLog(@"resp: %@", resp);
-    } onFailure:^(id resp) {
-    }];
+    web.delegate = self;
+    NSString *pem = self.pubKey;
+    [web stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.pem = forge.util.decode64('%@'); window.encrypted = Slide.crypto.encryptData(%@, window.pem);", pem, json]];
+    NSString *code = [NSString stringWithFormat:
+                      @"JSON.stringify({fields: window.encrypted, blocks: []})"];
+    [self continueConfirm:[web stringByEvaluatingJavaScriptFromString:code]];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Confirm" style:UIBarButtonItemStylePlain target:self action:@selector(confirm)];
 
     NSString *contents = [[NSString alloc] initWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"form-template" ofType:@"html"]] encoding:NSStringEncodingConversionExternalRepresentation];
@@ -59,9 +72,9 @@
     contents = [contents stringByReplacingOccurrencesOfString:@"{{slide-form.js}}" withString:slideForm];
     contents = [contents stringByReplacingOccurrencesOfString:@"{{jquery.js}}" withString:jquery];
     contents = [contents stringByReplacingOccurrencesOfString:@"{{styles.css}}" withString:styles];
-    contents = [contents stringByReplacingOccurrencesOfString:@"{{slide.js}}" withString:slide];
     web.delegate = self;
-    [web loadHTMLString:contents baseURL:nil];
+    // TODO: store slide.js locally and make it a CocoaPods dependency
+    [web loadHTMLString:contents baseURL:[NSURL URLWithString:@"http://slide-dev.ngrok.com"]];
 }
 
 - (void)didReceiveMemoryWarning {

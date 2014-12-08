@@ -78,8 +78,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     RequestViewController *rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"requestView"];
+    NSError *error;
     rvc.blocks = requests[indexPath.row][@"data"];
-    rvc.pubKey = requests[indexPath.row][@"key"][@"pub"];
+    rvc.pubKey = requests[indexPath.row][@"key"];
     rvc.channelId = requests[indexPath.row][@"bucket"];
     [self.navigationController pushViewController:rvc animated:YES];
 }
