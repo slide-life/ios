@@ -13,7 +13,6 @@
 		AD45C57319C693DB00198F95 /* FieldsDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AD45C57219C693DB00198F95 /* FieldsDataStore.m */; };
 		AD81363E19C2C326000FD998 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD81363D19C2C326000FD998 /* NavigationController.m */; };
 		AD908A791A2C247E00D61A1A /* slide-form.js in Resources */ = {isa = PBXBuildFile; fileRef = AD908A781A2C247E00D61A1A /* slide-form.js */; };
-		AD908A7C1A2C249200D61A1A /* RequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD908A7B1A2C249200D61A1A /* RequestViewController.m */; };
 		AD908A7E1A2C25D300D61A1A /* form-template.html in Resources */ = {isa = PBXBuildFile; fileRef = AD908A7D1A2C25D300D61A1A /* form-template.html */; };
 		AD908A811A2C279E00D61A1A /* jquery.js in Resources */ = {isa = PBXBuildFile; fileRef = AD908A7F1A2C279E00D61A1A /* jquery.js */; };
 		AD908A821A2C279E00D61A1A /* styles.css in Resources */ = {isa = PBXBuildFile; fileRef = AD908A801A2C279E00D61A1A /* styles.css */; };
@@ -22,7 +21,6 @@
 		AD9CFBBB19EE47CB005BA97F /* AlternativePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD9CFBBA19EE47CB005BA97F /* AlternativePickerViewController.m */; };
 		AD9CFBBE19EE5AF4005BA97F /* WalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD9CFBBD19EE5AF4005BA97F /* WalletViewController.m */; };
 		AD9CFBC119EF1E40005BA97F /* API.m in Sources */ = {isa = PBXBuildFile; fileRef = AD9CFBC019EF1E40005BA97F /* API.m */; };
-		ADA4A25D19FCA80D008222AA /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA4A25C19FCA80D008222AA /* TabBarController.m */; };
 		ADA4A26019FCA8E7008222AA /* SlideXLFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA4A25F19FCA8E7008222AA /* SlideXLFormViewController.m */; };
 		ADD5EBA51A19527D00EFCE83 /* RequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD5EBA41A19527D00EFCE83 /* RequestsViewController.m */; };
 		ADD5EBA81A195B5F00EFCE83 /* RequestDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD5EBA71A195B5F00EFCE83 /* RequestDetailsViewController.m */; };
@@ -43,6 +41,7 @@
 		E701412319C104AA00476F42 /* slideTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E701412219C104AA00476F42 /* slideTests.m */; };
 		E701412D19C1069000476F42 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E701412C19C1069000476F42 /* AVFoundation.framework */; };
 		E79B8D4119C14E4600DE3111 /* FormTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E79B8D4019C14E4600DE3111 /* FormTableViewController.m */; };
+		E7A1FE921A40B4D800087061 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A1FE911A40B4D800087061 /* TabBarController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,8 +66,6 @@
 		AD81363D19C2C326000FD998 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		AD81363F19C2C338000FD998 /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		AD908A781A2C247E00D61A1A /* slide-form.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "slide-form.js"; sourceTree = "<group>"; };
-		AD908A7A1A2C249200D61A1A /* RequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RequestViewController.h; path = "../../../Slide/slide-ios/slide/RequestViewController.h"; sourceTree = "<group>"; };
-		AD908A7B1A2C249200D61A1A /* RequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RequestViewController.m; path = "../../../Slide/slide-ios/slide/RequestViewController.m"; sourceTree = "<group>"; };
 		AD908A7D1A2C25D300D61A1A /* form-template.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "form-template.html"; sourceTree = "<group>"; };
 		AD908A7F1A2C279E00D61A1A /* jquery.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.js; sourceTree = "<group>"; };
 		AD908A801A2C279E00D61A1A /* styles.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = styles.css; sourceTree = "<group>"; };
@@ -82,8 +79,6 @@
 		AD9CFBBD19EE5AF4005BA97F /* WalletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletViewController.m; sourceTree = "<group>"; };
 		AD9CFBBF19EF1E40005BA97F /* API.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = API.h; sourceTree = "<group>"; };
 		AD9CFBC019EF1E40005BA97F /* API.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = API.m; sourceTree = "<group>"; };
-		ADA4A25B19FCA80D008222AA /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TabBarController.h; path = ../TabBarController.h; sourceTree = "<group>"; };
-		ADA4A25C19FCA80D008222AA /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TabBarController.m; path = ../TabBarController.m; sourceTree = "<group>"; };
 		ADA4A25E19FCA8E7008222AA /* SlideXLFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideXLFormViewController.h; sourceTree = "<group>"; };
 		ADA4A25F19FCA8E7008222AA /* SlideXLFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideXLFormViewController.m; sourceTree = "<group>"; };
 		ADD5EBA31A19527D00EFCE83 /* RequestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestsViewController.h; sourceTree = "<group>"; };
@@ -113,6 +108,8 @@
 		E701412C19C1069000476F42 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		E79B8D3F19C14E4600DE3111 /* FormTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormTableViewController.h; sourceTree = "<group>"; };
 		E79B8D4019C14E4600DE3111 /* FormTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormTableViewController.m; sourceTree = "<group>"; };
+		E7A1FE901A40B4D800087061 /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
+		E7A1FE911A40B4D800087061 /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,14 +180,12 @@
 				E701410119C104AA00476F42 /* AppDelegate.m */,
 				AD45C57419C693E200198F95 /* FieldsDataStore.h */,
 				AD45C57219C693DB00198F95 /* FieldsDataStore.m */,
-				ADA4A25B19FCA80D008222AA /* TabBarController.h */,
-				ADA4A25C19FCA80D008222AA /* TabBarController.m */,
+				E7A1FE901A40B4D800087061 /* TabBarController.h */,
+				E7A1FE911A40B4D800087061 /* TabBarController.m */,
 				E701410319C104AA00476F42 /* QRReaderViewController.h */,
 				E701410419C104AA00476F42 /* QRReaderViewController.m */,
 				ADD5EBA31A19527D00EFCE83 /* RequestsViewController.h */,
 				ADD5EBA41A19527D00EFCE83 /* RequestsViewController.m */,
-				AD908A7A1A2C249200D61A1A /* RequestViewController.h */,
-				AD908A7B1A2C249200D61A1A /* RequestViewController.m */,
 				ADD5EBA61A195B5F00EFCE83 /* RequestDetailsViewController.h */,
 				ADD5EBA71A195B5F00EFCE83 /* RequestDetailsViewController.m */,
 				AD9CFBBF19EF1E40005BA97F /* API.h */,
@@ -303,7 +298,7 @@
 				ORGANIZATIONNAME = slide;
 				TargetAttributes = {
 					E70140ED19C104AA00476F42 = {
-						DevelopmentTeam = 2QNE754S2P;
+						DevelopmentTeam = 8F2ST36GNC;
 					};
 					E701411419C104AA00476F42 = {
 						TestTargetID = E70140ED19C104AA00476F42;
@@ -395,18 +390,17 @@
 				AD91E07119F8A2DA000F4054 /* RelationshipFormsViewController.m in Sources */,
 				AD9CFBBB19EE47CB005BA97F /* AlternativePickerViewController.m in Sources */,
 				AD45C57319C693DB00198F95 /* FieldsDataStore.m in Sources */,
+				E7A1FE921A40B4D800087061 /* TabBarController.m in Sources */,
 				ADD5EBA81A195B5F00EFCE83 /* RequestDetailsViewController.m in Sources */,
 				E701410219C104AA00476F42 /* AppDelegate.m in Sources */,
 				AD91E07419F8A519000F4054 /* HistoricFormViewController.m in Sources */,
 				AD9CFBBE19EE5AF4005BA97F /* WalletViewController.m in Sources */,
 				AD15DAA319F782290041EBE1 /* FieldValuesViewController.m in Sources */,
-				ADA4A25D19FCA80D008222AA /* TabBarController.m in Sources */,
 				ADA4A26019FCA8E7008222AA /* SlideXLFormViewController.m in Sources */,
 				AD9CFBC119EF1E40005BA97F /* API.m in Sources */,
 				AD15DAA019F775CA0041EBE1 /* ProfileTableViewController.m in Sources */,
 				E70140FE19C104AA00476F42 /* main.m in Sources */,
 				AD81363E19C2C326000FD998 /* NavigationController.m in Sources */,
-				AD908A7C1A2C249200D61A1A /* RequestViewController.m in Sources */,
 				E701410519C104AA00476F42 /* QRReaderViewController.m in Sources */,
 				ADD5EBA51A19527D00EFCE83 /* RequestsViewController.m in Sources */,
 				E79B8D4119C14E4600DE3111 /* FormTableViewController.m in Sources */,
