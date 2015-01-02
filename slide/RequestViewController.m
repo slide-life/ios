@@ -53,9 +53,7 @@
     NSString *json = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:responses options:NSJSONWritingPrettyPrinted error:&error] encoding:NSStringEncodingConversionExternalRepresentation];
     web.delegate = self;
     NSString *pem = self.pubKey;
-    [web stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.pem = forge.util.decode64('%@'); window.encrypted = Slide.crypto.encryptData(%@, window.pem);", pem, json]];
-    NSString *code = [NSString stringWithFormat:
-                      @"JSON.stringify({fields: window.encrypted, blocks: []})"];
+    NSString *code = [NSString stringWithFormat:@"JSON.stringify({fields: Slide.crypto.encryptData(%@, forge.util.decode64('%@')), blocks: []})", json, pem];
     [self continueConfirm:[web stringByEvaluatingJavaScriptFromString:code]];
 }
 
@@ -72,6 +70,7 @@
     contents = [contents stringByReplacingOccurrencesOfString:@"{{slide-form.js}}" withString:slideForm];
     contents = [contents stringByReplacingOccurrencesOfString:@"{{jquery.js}}" withString:jquery];
     contents = [contents stringByReplacingOccurrencesOfString:@"{{styles.css}}" withString:styles];
+    contents = [contents stringByReplacingOccurrencesOfString:@"{{slide.js}}" withString:slide];
     web.delegate = self;
     // TODO: store slide.js locally and make it a CocoaPods dependency
     [web loadHTMLString:contents baseURL:[NSURL URLWithString:@"http://slide-dev.ngrok.com"]];

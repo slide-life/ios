@@ -27,9 +27,8 @@ static API *sharedInstance;
         failure(responseObject);
     }];
 }
-- (void)getForm: (NSString *)formId onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure {
-    // TODO: get the fields requested by a channel.
-    NSString *path = [NSString stringWithFormat:@"%@/forms/%@", self.domain, formId];
+- (void)getChannel: (NSString *)formId onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure {
+    NSString *path = [NSString stringWithFormat:@"%@/channels/%@", self.domain, formId];
     [self.manager GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, id responseObject) {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="sSu-12-vBm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="sSu-12-vBm">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
@@ -42,7 +42,7 @@
             </objects>
             <point key="canvasLocation" x="-303" y="476"/>
         </scene>
-        <!--Requests View Controller-->
+        <!--Requests-->
         <scene sceneID="sSI-Oo-dGv">
             <objects>
                 <tableViewController id="Ze1-9k-rxD" customClass="RequestsViewController" sceneMemberID="viewController">
@@ -67,10 +67,10 @@
                         <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="2dr-Xq-l0c"/>
                         <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="IqX-b9-QO9"/>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" id="LGz-zI-DB6">
+                    <navigationItem key="navigationItem" title="Requests" id="LGz-zI-DB6">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="EIW-X4-L0Q">
                             <connections>
-                                <segue destination="PxF-Ax-wPy" kind="modal" id="T0C-AK-XOT"/>
+                                <segue destination="PxF-Ax-wPy" kind="push" identifier="qrShow" id="T0C-AK-XOT"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

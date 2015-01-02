@@ -135,7 +135,7 @@ NSString *const requestStore = @"requestStore.json";
     NSArray *kvs = [self getKVs];
     NSMutableArray *values = [[NSMutableArray alloc] initWithCapacity:kvs.count];
     for( NSDictionary *kv in kvs ) {
-        if( [kv[@"key"] isEqualToString:key] && ![kv[@"value"] isEqual:@"[*redacted*]"] ) {
+        if( [kv[@"key"] isEqualToString:key] && ![kv[@"value"] isEqual:@"[*redacted*]"] &&  ![kv[@"value"] isEqual:@""]) {
             [values addObject:kv[@"value"]];
         }
     }

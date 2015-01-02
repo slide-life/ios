@@ -15,6 +15,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *scanPreview;
 @property (nonatomic, strong) NSDictionary *form;
+@property (nonatomic, strong) UIViewController *delegate;
 
 @property (nonatomic, strong) AVCaptureSession *captureSession;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *videoPreviewLayer;

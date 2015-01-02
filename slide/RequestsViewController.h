@@ -13,5 +13,6 @@
 }
 
 @property NSString *number;
+- (void)addRequest: (NSDictionary *)request;
 
 @end

@@ -10,16 +10,22 @@
 #import "RequestViewController.h"
 #import "FieldsDataStore.h"
 #import "API.h"
+#import "QRReaderViewController.h"
 
 @implementation RequestsViewController
 
 - (void)getData:(NSNotification *)notification {
-    NSLog(@"Get data: %@", notification.userInfo);
     NSArray *data = notification.userInfo[@"channel"][@"blocks"];
     NSString *bucket = notification.userInfo[@"channel"][@"id"];
     NSDictionary *key = notification.userInfo[@"channel"][@"key"];
-    [[FieldsDataStore sharedInstance] insertRequest:@{@"data": data, @"bucket": bucket, @"timestamp": [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970] * 1000], @"key": key}];
-    requests = [[FieldsDataStore sharedInstance] getRequests];
+    [self addRequest:@{@"data": data, @"bucket": bucket, @"key": key}];
+}
+
+- (void)addRequest: (NSDictionary *)request {
+    NSMutableDictionary *r = request.mutableCopy;
+    r[@"timestamp"] = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970] * 1000];
+    [[FieldsDataStore sharedInstance] insertRequest:r];
+    requests = [[FieldsDataStore sharedInstance] getRequests].reverseObjectEnumerator.allObjects;
     [self.tableView reloadData];
     // TODO: jump to the detail request view which will use the new webview form.
 }
@@ -50,7 +56,7 @@
         self.number = number;
     }
     
-    requests = [[FieldsDataStore sharedInstance] getRequests];
+    requests = [[FieldsDataStore sharedInstance] getRequests].reverseObjectEnumerator.allObjects;
     [[NSNotificationCenter defaultCenter]
      addObserver:self selector:@selector(getData:) name:@"notification" object:nil];
     [[NSNotificationCenter defaultCenter]
@@ -72,17 +78,29 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-    cell.textLabel.text = requests[indexPath.row][@"timestamp"];
+    double epochTime = [requests[indexPath.row][@"timestamp"] doubleValue] / 1000;
+    NSDate *epochNSDate = [[NSDate alloc] initWithTimeIntervalSince1970:epochTime];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy – hh:mm:ss a"];
+
+    cell.textLabel.text = [dateFormatter stringFromDate:epochNSDate];
+
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     RequestViewController *rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"requestView"];
-    NSError *error;
     rvc.blocks = requests[indexPath.row][@"data"];
     rvc.pubKey = requests[indexPath.row][@"key"];
     rvc.channelId = requests[indexPath.row][@"bucket"];
     [self.navigationController pushViewController:rvc animated:YES];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if( [segue.identifier isEqualToString:@"qrShow"] ) {
+        QRReaderViewController *qvc = segue.destinationViewController;
+        qvc.delegate = self;
+    }
 }
 
 @end
