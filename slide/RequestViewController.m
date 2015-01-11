@@ -9,6 +9,7 @@
 #import "RequestViewController.h"
 #import "FieldsDataStore.h"
 #import "API.h"
+#import "TemplateLoader.h"
 
 @implementation RequestViewController
 
@@ -63,17 +64,9 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Confirm" style:UIBarButtonItemStylePlain target:self action:@selector(confirm)];
 
     NSString *contents = [[NSString alloc] initWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"form-template" ofType:@"html"]] encoding:NSStringEncodingConversionExternalRepresentation];
-    NSString *slideForm = [[NSString alloc] initWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"slide-form" ofType:@"js"]] encoding:NSStringEncodingConversionExternalRepresentation];
-    NSString *jquery = [[NSString alloc] initWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"jquery" ofType:@"js"]] encoding:NSStringEncodingConversionExternalRepresentation];
-    NSString *styles = [[NSString alloc] initWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"styles" ofType:@"css"]] encoding:NSStringEncodingConversionExternalRepresentation];
-    NSString *slide = [[NSString alloc] initWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"slide" ofType:@"js"]] encoding:NSStringEncodingConversionExternalRepresentation];
-    contents = [contents stringByReplacingOccurrencesOfString:@"{{slide-form.js}}" withString:slideForm];
-    contents = [contents stringByReplacingOccurrencesOfString:@"{{jquery.js}}" withString:jquery];
-    contents = [contents stringByReplacingOccurrencesOfString:@"{{styles.css}}" withString:styles];
-    contents = [contents stringByReplacingOccurrencesOfString:@"{{slide.js}}" withString:slide];
     web.delegate = self;
     // TODO: store slide.js locally and make it a CocoaPods dependency
-    [web loadHTMLString:contents baseURL:[NSURL URLWithString:@"http://slide-dev.ngrok.com"]];
+    [web loadHTMLString:[TemplateLoader loadTemplate:contents withVariables:@{}] baseURL:[NSURL URLWithString:@"http://slide-dev.ngrok.com"]];
 }
 
 - (void)didReceiveMemoryWarning {

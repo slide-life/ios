@@ -5,13 +5,13 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>D8BDC9C1-DD15-4AB8-ACDA-D8674765C1E5</string>
+	<string>DA4F3B9D-7CF5-4800-B17D-1680C7A3A2F0</string>
 	<key>IDESourceControlProjectName</key>
 	<string>slide</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>A0C80B8788C415073F3F4CA573B5877A33DF36F3</key>
-		<string>https://github.com/slide-life/ios.git</string>
+		<string>github.com:slide-life/ios.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>slide.xcworkspace</string>
@@ -21,7 +21,7 @@
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/slide-life/ios.git</string>
+	<string>github.com:slide-life/ios.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
@@ -34,7 +34,7 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>A0C80B8788C415073F3F4CA573B5877A33DF36F3</string>
 			<key>IDESourceControlWCCName</key>
-			<string>ios</string>
+			<string>slide-ios</string>
 		</dict>
 	</array>
 </dict>

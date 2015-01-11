@@ -26,6 +26,9 @@
 		ADD5EBA51A19527D00EFCE83 /* RequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD5EBA41A19527D00EFCE83 /* RequestsViewController.m */; };
 		ADD5EBA81A195B5F00EFCE83 /* RequestDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD5EBA71A195B5F00EFCE83 /* RequestDetailsViewController.m */; };
 		ADE93F5A19DF9AAE00C187FA /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE93F5919DF9AAE00C187FA /* AddressBook.framework */; };
+		ADEE18DE1A632E9200460A89 /* RequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADEE18DD1A632E9200460A89 /* RequestViewController.m */; };
+		ADEE18E11A63349D00460A89 /* Crypto.m in Sources */ = {isa = PBXBuildFile; fileRef = ADEE18E01A63349D00460A89 /* Crypto.m */; };
+		ADEE18E41A6335A900460A89 /* TemplateLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = ADEE18E31A6335A900460A89 /* TemplateLoader.m */; };
 		E70140F219C104AA00476F42 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70140F119C104AA00476F42 /* Foundation.framework */; };
 		E70140F419C104AA00476F42 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70140F319C104AA00476F42 /* CoreGraphics.framework */; };
 		E70140F619C104AA00476F42 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70140F519C104AA00476F42 /* UIKit.framework */; };
@@ -88,6 +91,12 @@
 		ADD5EBA61A195B5F00EFCE83 /* RequestDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestDetailsViewController.h; sourceTree = "<group>"; };
 		ADD5EBA71A195B5F00EFCE83 /* RequestDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestDetailsViewController.m; sourceTree = "<group>"; };
 		ADE93F5919DF9AAE00C187FA /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		ADEE18DC1A632E9200460A89 /* RequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestViewController.h; sourceTree = "<group>"; };
+		ADEE18DD1A632E9200460A89 /* RequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestViewController.m; sourceTree = "<group>"; };
+		ADEE18DF1A63349D00460A89 /* Crypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crypto.h; sourceTree = "<group>"; };
+		ADEE18E01A63349D00460A89 /* Crypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Crypto.m; sourceTree = "<group>"; };
+		ADEE18E21A6335A900460A89 /* TemplateLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateLoader.h; sourceTree = "<group>"; };
+		ADEE18E31A6335A900460A89 /* TemplateLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateLoader.m; sourceTree = "<group>"; };
 		E70140EE19C104AA00476F42 /* slide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = slide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E70140F119C104AA00476F42 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E70140F319C104AA00476F42 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -180,6 +189,10 @@
 			children = (
 				E701410019C104AA00476F42 /* AppDelegate.h */,
 				E701410119C104AA00476F42 /* AppDelegate.m */,
+				ADEE18DF1A63349D00460A89 /* Crypto.h */,
+				ADEE18E01A63349D00460A89 /* Crypto.m */,
+				ADEE18E21A6335A900460A89 /* TemplateLoader.h */,
+				ADEE18E31A6335A900460A89 /* TemplateLoader.m */,
 				AD45C57419C693E200198F95 /* FieldsDataStore.h */,
 				AD45C57219C693DB00198F95 /* FieldsDataStore.m */,
 				E7A1FE901A40B4D800087061 /* TabBarController.h */,
@@ -188,6 +201,8 @@
 				E701410419C104AA00476F42 /* QRReaderViewController.m */,
 				ADD5EBA31A19527D00EFCE83 /* RequestsViewController.h */,
 				ADD5EBA41A19527D00EFCE83 /* RequestsViewController.m */,
+				ADEE18DC1A632E9200460A89 /* RequestViewController.h */,
+				ADEE18DD1A632E9200460A89 /* RequestViewController.m */,
 				ADD5EBA61A195B5F00EFCE83 /* RequestDetailsViewController.h */,
 				ADD5EBA71A195B5F00EFCE83 /* RequestDetailsViewController.m */,
 				AD9CFBBF19EF1E40005BA97F /* API.h */,
@@ -301,7 +316,7 @@
 				ORGANIZATIONNAME = slide;
 				TargetAttributes = {
 					E70140ED19C104AA00476F42 = {
-						DevelopmentTeam = 8F2ST36GNC;
+						DevelopmentTeam = 2QNE754S2P;
 					};
 					E701411419C104AA00476F42 = {
 						TestTargetID = E70140ED19C104AA00476F42;
@@ -397,6 +412,7 @@
 				E7A1FE921A40B4D800087061 /* TabBarController.m in Sources */,
 				ADD5EBA81A195B5F00EFCE83 /* RequestDetailsViewController.m in Sources */,
 				E701410219C104AA00476F42 /* AppDelegate.m in Sources */,
+				ADEE18E11A63349D00460A89 /* Crypto.m in Sources */,
 				AD91E07419F8A519000F4054 /* HistoricFormViewController.m in Sources */,
 				AD9CFBBE19EE5AF4005BA97F /* WalletViewController.m in Sources */,
 				AD15DAA319F782290041EBE1 /* FieldValuesViewController.m in Sources */,
@@ -405,8 +421,10 @@
 				AD15DAA019F775CA0041EBE1 /* ProfileTableViewController.m in Sources */,
 				E70140FE19C104AA00476F42 /* main.m in Sources */,
 				AD81363E19C2C326000FD998 /* NavigationController.m in Sources */,
+				ADEE18DE1A632E9200460A89 /* RequestViewController.m in Sources */,
 				E701410519C104AA00476F42 /* QRReaderViewController.m in Sources */,
 				ADD5EBA51A19527D00EFCE83 /* RequestsViewController.m in Sources */,
+				ADEE18E41A6335A900460A89 /* TemplateLoader.m in Sources */,
 				E79B8D4119C14E4600DE3111 /* FormTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
