@@ -8,5 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Crypto : NSObject
+@interface Crypto : NSObject <UIWebViewDelegate> {
+    BOOL ready;
+}
+
+@property UIWebView *webview;
+@property NSMutableArray *queue;
++ (instancetype)sharedInstance;
+- (void)encrypt: (NSDictionary *)payload withKey: (NSString *)key andCallback: (void (^)(NSString *))cb;
 @end

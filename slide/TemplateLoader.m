@@ -7,17 +7,15 @@
 //
 
 #import "TemplateLoader.h"
+#import "JSON.h"
 
 @implementation TemplateLoader
 
 NSMutableDictionary *cache;
 + (NSString *)loadTemplate: (NSString *)tmpl withVariables: (NSDictionary *)variables {
-    NSNumber *hash = @(tmpl.hash);
+    NSNumber *hash = @(tmpl.hash + [JSON serialize:variables].hash);
     if( cache == nil ) {
         cache = [[NSMutableDictionary alloc] initWithCapacity:255];
-    }
-    if( variables.count == 0 && cache[hash] != nil ) {
-        return cache[hash];
     }
     NSArray *results = [[NSRegularExpression regularExpressionWithPattern:@"\\{\\{[^}]+\\}\\}" options:0 error:nil] matchesInString:tmpl options:kNilOptions range:NSMakeRange(0, tmpl.length)];
     
@@ -28,8 +26,13 @@ NSMutableDictionary *cache;
         if( [name rangeOfString:@"@"].location == 0 ) {
             NSString *filename = [name substringFromIndex:1];
             replacement = [[NSString alloc] initWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:filename ofType:@""]] encoding:NSStringEncodingConversionExternalRepresentation];
+            replacement = [self loadTemplate:replacement withVariables:variables];
         } else {
-            replacement = variables[name];
+            if( variables[name] ) {
+                replacement = variables[name];
+            } else {
+                replacement = pattern;
+            }
         }
         tmpl = [tmpl stringByReplacingCharactersInRange:result.range withString:replacement];
     }

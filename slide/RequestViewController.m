@@ -10,6 +10,7 @@
 #import "FieldsDataStore.h"
 #import "API.h"
 #import "TemplateLoader.h"
+#import "Crypto.h"
 
 @implementation RequestViewController
 
@@ -36,26 +37,19 @@
     return YES;
 }
 
-- (void)continueConfirm: (NSString *)encryptedJSON {
-    NSError *error;
-    NSData *data = [encryptedJSON dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-    NSDictionary *payload = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-    [[API sharedInstance] postPayload:payload forChannel:self.channelId onSuccess:^(id resp) {
-        NSLog(@"resp: %@", resp);
-    } onFailure:^(NSURLResponse *resp) {
-        NSLog(@"failed: %@", resp);        
-    }];
-}
-
 - (void)confirm {
     NSError *error;
     NSDictionary *responses = [NSJSONSerialization JSONObjectWithData:[[web stringByEvaluatingJavaScriptFromString:@"Forms.serializeForm()"] dataUsingEncoding:NSStringEncodingConversionExternalRepresentation] options:NSJSONReadingAllowFragments error:&error];
-    [[FieldsDataStore sharedInstance] registerUserForm:@{@"name": @"Unknown"} forUser:@"Unknown" withPatch:responses];
-    NSString *json = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:responses options:NSJSONWritingPrettyPrinted error:&error] encoding:NSStringEncodingConversionExternalRepresentation];
-    web.delegate = self;
-    NSString *pem = self.pubKey;
-    NSString *code = [NSString stringWithFormat:@"JSON.stringify({fields: Slide.crypto.encryptData(%@, forge.util.decode64('%@')), blocks: []})", json, pem];
-    [self continueConfirm:[web stringByEvaluatingJavaScriptFromString:code]];
+    // TODO: form history should be saved.
+    [[Crypto sharedInstance] encrypt:responses withKey:self.pubKey andCallback:^(NSString *encryptedJSON) {
+        NSError *error;
+        NSData *data = [encryptedJSON dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+        NSDictionary *payload = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+        [[API sharedInstance] postPayload:payload forChannel:self.channelId onSuccess:^(id resp) {
+            // TODO: handle response
+        } onFailure:^(NSURLResponse *resp) {
+        }];
+    }];
 }
 
 - (void)viewDidLoad {
@@ -65,13 +59,13 @@
 
     NSString *contents = [[NSString alloc] initWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"form-template" ofType:@"html"]] encoding:NSStringEncodingConversionExternalRepresentation];
     web.delegate = self;
+    
     // TODO: store slide.js locally and make it a CocoaPods dependency
     [web loadHTMLString:[TemplateLoader loadTemplate:contents withVariables:@{}] baseURL:[NSURL URLWithString:@"http://slide-dev.ngrok.com"]];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end
