@@ -41,13 +41,15 @@
     NSError *error;
     NSDictionary *responses = [NSJSONSerialization JSONObjectWithData:[[web stringByEvaluatingJavaScriptFromString:@"Forms.serializeForm()"] dataUsingEncoding:NSStringEncodingConversionExternalRepresentation] options:NSJSONReadingAllowFragments error:&error];
     // TODO: form history should be saved.
-    [[Crypto sharedInstance] encrypt:responses withKey:self.pubKey andCallback:^(NSString *encryptedJSON) {
-        NSError *error;
-        NSData *data = [encryptedJSON dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-        NSDictionary *payload = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-        [[API sharedInstance] postPayload:payload forChannel:self.channelId onSuccess:^(id resp) {
-            // TODO: handle response
-        } onFailure:^(NSURLResponse *resp) {
+    [[Crypto sharedInstance] decryptSymmetricKey:self.pubKey withCallback:^(NSString *key) {
+        [[Crypto sharedInstance] encrypt:responses withKey:key andCallback:^(NSString *encryptedJSON) {
+            NSError *error;
+            NSData *data = [encryptedJSON dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+            NSDictionary *payload = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+            [[API sharedInstance] postPayload:payload forChannel:self.channelId onSuccess:^(id resp) {
+                // TODO: handle response
+            } onFailure:^(NSURLResponse *resp) {
+            }];
         }];
     }];
 }

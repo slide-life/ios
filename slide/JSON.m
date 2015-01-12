@@ -14,4 +14,8 @@
     NSData *data = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:&error];
     return [[NSString alloc] initWithData:data encoding:NSStringEncodingConversionExternalRepresentation];
 }
++ (NSDictionary *)deserializeObject: (NSString *)data {
+    NSError *error;
+    return [NSJSONSerialization JSONObjectWithData:[data dataUsingEncoding:NSStringEncodingConversionExternalRepresentation] options:0 error:&error];
+}
 @end

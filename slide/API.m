@@ -15,7 +15,7 @@ static API *sharedInstance;
     self.manager = [AFHTTPRequestOperationManager manager];
     self.jsonManager = [AFHTTPRequestOperationManager manager];
     self.jsonManager.requestSerializer = [AFJSONRequestSerializer serializer];
-    self.domain = @"http://api-sandbox.slide.life";
+    self.domain = @"http://slide-dev.ngrok.com";
     return self;
 }
 - (void)getUser: (NSString *)userId onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure {
@@ -44,10 +44,9 @@ static API *sharedInstance;
         failure(responseObject);
     }];
 }
-- (void)postDevice: (NSString *)token forUser: (NSString *)number onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure {
-    // TODO: push to channel instead.
+- (void)postDevice: (NSString *)token forUser: (NSString *)number withKey: (NSString *)key onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure {
     NSString *path = [NSString stringWithFormat:@"%@/users", self.domain];
-    [self.jsonManager POST:path parameters:@{@"device": token, @"user": number} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.jsonManager POST:path parameters:@{@"device": token, @"user": number, @"public_key": key} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, id responseObject) {
         failure(responseObject);

@@ -10,4 +10,5 @@
 
 @interface JSON : NSObject
 + (NSString *)serialize: (NSDictionary *)dictionary;
++ (NSDictionary *)deserializeObject: (NSString *)data;
 @end

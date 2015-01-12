@@ -11,6 +11,8 @@
 #import "FieldsDataStore.h"
 #import "API.h"
 #import "QRReaderViewController.h"
+#import "JSON.h"
+#import "Crypto.h"
 
 @implementation RequestsViewController
 
@@ -36,10 +38,14 @@
     deviceToken = [deviceToken stringByReplacingOccurrencesOfString:@" " withString:@""];
     // TODO: check if device has been registered.
     if( NO ) {
-        [[API sharedInstance] postDevice:deviceToken forUser:self.number onSuccess:^(id resp) {
-            NSLog(@"success");
-        } onFailure:^(id resp) {
-            NSLog(@"failure: %@", resp);
+        [[Crypto sharedInstance] generateKeysWithCallback:^(NSString *keyString) {
+            NSDictionary *keys = [JSON deserializeObject:keyString];
+            [[NSUserDefaults standardUserDefaults] setObject:keys[@"privateKey"] forKey:@"privateKey"];
+            [[API sharedInstance] postDevice:deviceToken forUser:self.number withKey:keys[@"publicKey"] onSuccess:^(id resp) {
+                NSLog(@"success");
+            } onFailure:^(id resp) {
+                NSLog(@"failure: %@", resp);
+            }];
         }];
     }
 }

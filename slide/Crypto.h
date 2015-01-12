@@ -16,4 +16,6 @@
 @property NSMutableArray *queue;
 + (instancetype)sharedInstance;
 - (void)encrypt: (NSDictionary *)payload withKey: (NSString *)key andCallback: (void (^)(NSString *))cb;
+- (void)generateKeysWithCallback: (void (^)(NSString *))cb;
+- (void)decryptSymmetricKey: (NSString *)key withCallback: (void (^)(NSString *))cb;
 @end

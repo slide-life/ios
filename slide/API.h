@@ -16,7 +16,7 @@
 - (void)getUser: (NSString *)userId onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure;
 - (void)getChannel: (NSString *)formId onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure;
 - (void)postForm: (NSString *)formId withValues: (NSDictionary *)values onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure;
-- (void)postDevice: (NSString *)token forUser: (NSString *)number onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure;
+- (void)postDevice: (NSString *)token forUser: (NSString *)number withKey: (NSString *)key onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure;
 - (void)postPayload: (NSDictionary *)token forChannel: (NSString *)channelId onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure;
 + (id)sharedInstance;
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "API.h"
+#import "JSON.h"
 #import "Crypto.h"
 #import "TemplateLoader.h"
 
@@ -30,12 +31,16 @@ static Crypto *sharedInstance;
 - (void)performTask: (NSDictionary *)task withCallback: (void (^)(NSString *))cb {
     if( [task[@"type"] isEqualToString:@"encrypt"] ) {
         [self encrypt:task[@"payload"] withKey:task[@"key"] andCallback:cb];
+    } else if( [task[@"type"] isEqualToString:@"generateKeys"] ) {
+        [self generateKeysWithCallback:cb];
+    } else if( [task[@"type"] isEqualToString:@"decryptKey"] ) {
+        [self decryptSymmetricKey:task[@"key"] withCallback:cb];
     }
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     ready = YES;
     NSLog(@"ready");
-    int index = self.queue.count - 1;
+    int index = (int)self.queue.count - 1;
     for( NSDictionary *task in self.queue.reverseObjectEnumerator ) {
         [self performTask:task[@"task"] withCallback:task[@"callback"]];
         [self.queue removeObjectAtIndex:index];
@@ -44,13 +49,28 @@ static Crypto *sharedInstance;
 }
 - (void)encrypt: (NSDictionary *)payload withKey: (NSString *)key andCallback: (void (^)(NSString *))cb {
     // NB: key is a pem
-    NSError *error;
-    NSString *json = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:payload options:NSJSONWritingPrettyPrinted error:&error] encoding:NSStringEncodingConversionExternalRepresentation];
+    NSString *json = [JSON serialize:payload];
     if( ready ) {
-        cb([self.webview stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"JSON.stringify({fields: Slide.crypto.encryptData(%@, atob('%@')), blocks: []})", json, key]]);
+        cb([self.webview stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"JSON.stringify({fields: Slide.crypto.AES.encryptData(%@, '%@'), blocks: []})", json, key]]);
     } else {
-        NSLog(@"slide: %@", [self.webview stringByEvaluatingJavaScriptFromString:@"Slide.toString()"]);
         [self.queue addObject:@{@"task": @{@"type": @"encrypt", @"payload": payload, @"key": key}, @"callback": cb}];
+    }
+}
+- (void)generateKeysWithCallback: (void (^)(NSString *))cb {
+    if( ready ) {
+        NSString *keyString = [self.webview stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"var keys; Slide.crypto.generateKeys(function(k) {keys = k;}); JSON.stringify(Slide.crypto.packKeys(keys))"]];
+        cb(keyString);
+    } else {
+        [self.queue addObject:@{@"task": @{@"type": @"generateKeys"}, @"callback": cb}];
+    }
+}
+- (void)decryptSymmetricKey: (NSString *)key withCallback: (void (^)(NSString *))cb {
+    if( ready ) {
+        NSString *privateKey = [[NSUserDefaults standardUserDefaults] objectForKey:@"privateKey"];
+        NSString *keyString = [self.webview stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"Slide.crypto.decryptStringWithPackedKey('%@', '%@')", key, privateKey]];
+        cb(keyString);
+    } else {
+        [self.queue addObject:@{@"task": @{@"type": @"decryptKey", @"key": key}, @"callback": cb}];
     }
 }
 
