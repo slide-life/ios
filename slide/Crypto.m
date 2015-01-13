@@ -57,6 +57,12 @@ static Crypto *sharedInstance;
     };
     [self addJob:@{@"task": task}];
 }
+- (void)decryptPackedString: (NSString *)payload withKey: (NSString *)key andCallback: (void (^)(NSString *))cb {
+    void (^task)() = ^{
+        cb([self.webview stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"Slide.crypto.AES.decrypt(atob('%@'), '%@')", payload, key]]);
+    };
+    [self addJob:@{@"task": task}];
+}
 - (void)generateKeysWithCallback: (void (^)(NSString *))cb {
     void (^task)() = ^{
         NSString *keyString = [self.webview stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"var keys; Slide.crypto.generateKeys(function(k) {keys = k;}); JSON.stringify(Slide.crypto.packKeys(keys))"]];

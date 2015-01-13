@@ -27,8 +27,8 @@ static API *sharedInstance;
         failure(responseObject);
     }];
 }
-- (void)getChannel: (NSString *)formId onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure {
-    NSString *path = [NSString stringWithFormat:@"%@/channels/%@", self.domain, formId];
+- (void)getProfileForUser: (NSString *)userId onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure {
+    NSString *path = [NSString stringWithFormat:@"%@/users/%@/profile", self.domain, userId];
     [self.manager GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, id responseObject) {

@@ -11,6 +11,7 @@
 #import "API.h"
 #import "TemplateLoader.h"
 #import "Crypto.h"
+#import "JSON.h"
 
 @implementation RequestViewController
 
@@ -18,7 +19,10 @@
     NSSet *uniq = [NSSet setWithArray:values];
     NSMutableArray *output = [[NSMutableArray alloc] initWithCapacity:values.count];
     for(NSString *elm in uniq) {
-        [output addObject:[NSString stringWithFormat:@"\"%@\"", elm]];
+        NSString *wrapped = [NSString stringWithFormat:@"\"%@\"", elm];
+        if( ![elm isEqualToString:@""] ) {
+            [output addObject:wrapped];
+        }
     }
     return output;
 }
@@ -26,11 +30,14 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     NSMutableArray *fields = [[NSMutableArray alloc] initWithCapacity:self.blocks.count];
     for( NSString *block in self.blocks ) {
-        NSArray *matches = [self uniqueLiteralValues:[[FieldsDataStore sharedInstance] getField:block withConstraints:@[]]];
-        [fields addObject:[NSString stringWithFormat:@"Forms.selectField('%@', [%@], true)", block, [matches componentsJoinedByString:@", "]]];
+        [[FieldsDataStore sharedInstance] valuesForBlock:block withCallback:^(NSArray *values) {
+           [fields addObject:[NSString stringWithFormat:@"Forms.selectField('%@', [%@], true)", block, [[self uniqueLiteralValues:values] componentsJoinedByString:@", "]]];
+            if( fields.count == self.blocks.count ) {
+                NSString *fieldList = [NSString stringWithFormat:@"Forms.populateForm([%@])", [fields componentsJoinedByString:@", "]];
+                [web stringByEvaluatingJavaScriptFromString:fieldList];
+            }
+        }];
     }
-    NSString *fieldList = [NSString stringWithFormat:@"Forms.populateForm([%@])", [fields componentsJoinedByString:@", "]];
-    [web stringByEvaluatingJavaScriptFromString:fieldList];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
@@ -38,14 +45,12 @@
 }
 
 - (void)confirm {
-    NSError *error;
-    NSDictionary *responses = [NSJSONSerialization JSONObjectWithData:[[web stringByEvaluatingJavaScriptFromString:@"Forms.serializeForm()"] dataUsingEncoding:NSStringEncodingConversionExternalRepresentation] options:NSJSONReadingAllowFragments error:&error];
+    NSString *responseJSON = [web stringByEvaluatingJavaScriptFromString:@"Forms.serializeForm();"];
+    NSDictionary *responses = [JSON deserializeObject:responseJSON];
     // TODO: form history should be saved.
     [[Crypto sharedInstance] decryptSymmetricKey:self.pubKey withCallback:^(NSString *key) {
         [[Crypto sharedInstance] encrypt:responses withKey:key andCallback:^(NSString *encryptedJSON) {
-            NSError *error;
-            NSData *data = [encryptedJSON dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-            NSDictionary *payload = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+            NSDictionary *payload = [JSON deserializeObject:encryptedJSON];
             [[API sharedInstance] postPayload:payload forConversation:self.conversationId onSuccess:^(id resp) {
                 // TODO: handle response
             } onFailure:^(NSURLResponse *resp) {

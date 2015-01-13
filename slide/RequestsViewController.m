@@ -25,8 +25,7 @@
 - (void)addRequest: (NSDictionary *)request {
     NSMutableDictionary *r = request.mutableCopy;
     r[@"timestamp"] = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970] * 1000];
-    [[FieldsDataStore sharedInstance] insertRequest:r];
-    requests = [[FieldsDataStore sharedInstance] getRequests].reverseObjectEnumerator.allObjects;
+    requests = @[r];
     [self.tableView reloadData];
     // TODO: jump to the detail request view which will use the new webview form.
 }
@@ -62,7 +61,8 @@
         self.number = number;
     }
     
-    requests = [[FieldsDataStore sharedInstance] getRequests].reverseObjectEnumerator.allObjects;
+    // TODO: read in request history
+    requests = @[];
     [[NSNotificationCenter defaultCenter]
      addObserver:self selector:@selector(getData:) name:@"notification" object:nil];
     [[NSNotificationCenter defaultCenter]

@@ -9,6 +9,7 @@
 #import "JSON.h"
 
 @implementation JSON
+
 + (NSString *)serialize: (NSDictionary *)dictionary {
     NSError *error;
     NSData *data = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:&error];
@@ -18,4 +19,9 @@
     NSError *error;
     return [NSJSONSerialization JSONObjectWithData:[data dataUsingEncoding:NSStringEncodingConversionExternalRepresentation] options:0 error:&error];
 }
++ (NSArray *)deserializeArray: (NSString *)data {
+    NSError *error;
+    return [NSJSONSerialization JSONObjectWithData:[data dataUsingEncoding:NSStringEncodingConversionExternalRepresentation] options:0 error:&error];
+}
+
 @end
