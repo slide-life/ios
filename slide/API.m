@@ -7,6 +7,7 @@
 //
 
 #import "API.h"
+#import "Crypto.h"
 
 @implementation API
 static API *sharedInstance;
@@ -44,20 +45,25 @@ static API *sharedInstance;
         failure(responseObject);
     }];
 }
-- (void)postDevice: (NSString *)token forUser: (NSString *)number withKey: (NSString *)key onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure {
+- (void)postDevice: (NSString *)token forUser: (NSString *)number withKey: (NSString *)key andPublicKey: (NSString *)pKey onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure {
     NSString *path = [NSString stringWithFormat:@"%@/users", self.domain];
-    [self.jsonManager POST:path parameters:@{@"device": token, @"user": number, @"public_key": key} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    // TODO: encrypt key with public key
+    [self.jsonManager POST:path parameters:@{@"device": token, @"user": number, @"public_key": pKey, @"key": key} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, id responseObject) {
         failure(responseObject);
     }];
 }
 - (void)postPayload: (NSDictionary *)payload forConversation: (NSString *)conversationId onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure {
+    NSMutableDictionary *post = payload.mutableCopy;
     NSString *path = [NSString stringWithFormat:@"%@/conversations/%@", self.domain, conversationId];
-    [self.jsonManager PUT:path parameters:payload success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        success(responseObject);
-    } failure:^(AFHTTPRequestOperation *operation, id responseObject) {
-        failure(responseObject);
+    [[Crypto sharedInstance] encryptSymmetricKey:payload[@"key"] withCallback:^(NSString *key) {
+        post[@"key"] = key;
+        [self.jsonManager PUT:path parameters:post success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            success(responseObject);
+        } failure:^(AFHTTPRequestOperation *operation, id responseObject) {
+            failure(responseObject);
+        }];
     }];
 }
 + (instancetype)sharedInstance {

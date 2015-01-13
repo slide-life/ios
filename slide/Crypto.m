@@ -49,8 +49,13 @@ static Crypto *sharedInstance;
         index -= 1;
     }
 }
+- (void)encryptString: (NSString *)string withKey: (NSString *)key andCallback: (void (^)(NSString *))cb {
+    void (^task)() = ^{
+        cb([self.webview stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"Slide.crypto.AES.encrypt('%@', '%@')", string, key]]);
+    };
+    [self addJob:@{@"task": task}];
+}
 - (void)encrypt: (NSDictionary *)payload withKey: (NSString *)key andCallback: (void (^)(NSString *))cb {
-    // NB: key is a pem
     void (^task)() = ^{
         NSString *json = [JSON serialize:payload];
         cb([self.webview stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"JSON.stringify({fields: Slide.crypto.AES.encryptData(%@, '%@'), blocks: []})", json, key]]);
@@ -70,10 +75,25 @@ static Crypto *sharedInstance;
     };
     [self addJob:@{@"task": task}];
 }
+- (void)generateSymmetricKey: (void (^)(NSString *))cb {
+    void (^task)() = ^{
+        NSString *keyString = [self.webview stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"Slide.crypto.AES.generateKey();"]];
+        cb(keyString);
+    };
+    [self addJob:@{@"task": task}];
+}
 - (void)decryptSymmetricKey: (NSString *)key withCallback: (void (^)(NSString *))cb {
     void (^task)() = ^{
         NSString *privateKey = [[NSUserDefaults standardUserDefaults] objectForKey:@"privateKey"];
         NSString *keyString = [self.webview stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"Slide.crypto.decryptStringWithPackedKey('%@', '%@')", key, privateKey]];
+        cb(keyString);
+    };
+    [self addJob:@{@"task": task}];
+}
+- (void)encryptSymmetricKey: (NSString *)key withCallback: (void (^)(NSString *))cb {
+    void (^task)() = ^{
+        NSString *publicKey = [[NSUserDefaults standardUserDefaults] objectForKey:@"publicKey"];
+        NSString *keyString = [self.webview stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"Slide.crypto.encryptStringWithPackedKey('%@', '%@')", key, publicKey]];
         cb(keyString);
     };
     [self addJob:@{@"task": task}];

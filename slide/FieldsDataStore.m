@@ -12,17 +12,15 @@
 
 @implementation FieldsDataStore
 
-- (void)decodeField: (NSDictionary *)field withCallback: (void (^)(NSString *))cb {
-    [[Crypto sharedInstance] decryptSymmetricKey:field[@"key"] withCallback:^(NSString *key) {
-        [[Crypto sharedInstance] decryptPackedString:field[@"value"] withKey:key andCallback:^(NSString *field) {
-            cb(field);
-        }];
+- (void)decodeField: (NSString *)field withCallback: (void (^)(NSString *))cb {
+    [[Crypto sharedInstance] decryptPackedString:field withKey:[[NSUserDefaults standardUserDefaults] objectForKey:@"key"] andCallback:^(NSString *field) {
+        cb(field);
     }];
 }
 
 - (void)decodeFields: (NSArray *)fields withCallback: (void (^)(NSArray *))cb {
     NSMutableArray *decoded = [[NSMutableArray alloc] initWithCapacity:fields.count];
-    for (NSDictionary *field in fields) {
+    for (NSString *field in fields) {
         [self decodeField:field withCallback:^(NSString *field) {
             [decoded addObject:field];
             if( decoded.count == fields.count ) {

@@ -36,13 +36,17 @@
     deviceToken = [deviceToken stringByReplacingOccurrencesOfString:@" " withString:@""];
     // TODO: check if device has been registered.
     if( NO ) {
-        [[Crypto sharedInstance] generateKeysWithCallback:^(NSString *keyString) {
-            NSDictionary *keys = [JSON deserializeObject:keyString];
-            [[NSUserDefaults standardUserDefaults] setObject:keys[@"privateKey"] forKey:@"privateKey"];
-            [[API sharedInstance] postDevice:deviceToken forUser:self.number withKey:keys[@"publicKey"] onSuccess:^(id resp) {
-                NSLog(@"success");
-            } onFailure:^(id resp) {
-                NSLog(@"failure: %@", resp);
+        [[Crypto sharedInstance] generateSymmetricKey:^(NSString *key) {
+            [[Crypto sharedInstance] generateKeysWithCallback:^(NSString *keyString) {
+                NSDictionary *keys = [JSON deserializeObject:keyString];
+                [[NSUserDefaults standardUserDefaults] setObject:keys[@"privateKey"] forKey:@"privateKey"];
+                [[NSUserDefaults standardUserDefaults] setObject:keys[@"publicKey"] forKey:@"publicKey"];
+                [[NSUserDefaults standardUserDefaults] setObject:key forKey:@"key"];
+                [[API sharedInstance] postDevice:deviceToken forUser:self.number withKey:key andPublicKey:keys[@"publicKey"] onSuccess:^(id resp) {
+                    NSLog(@"success");
+                } onFailure:^(id resp) {
+                    NSLog(@"failure: %@", resp);
+                }];
             }];
         }];
     }

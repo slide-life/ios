@@ -44,6 +44,20 @@
     return YES;
 }
 
+- (void)publishResponse: (NSDictionary *)encryptedResponse withPatch: (NSDictionary *)patch {
+    NSMutableDictionary *payload = [[NSMutableDictionary alloc] initWithCapacity:encryptedResponse.count + 1];
+    for (NSString *block in encryptedResponse) {
+        payload[block] = encryptedResponse[block];
+    }
+    [[Crypto sharedInstance] encrypt:patch withKey:[[NSUserDefaults standardUserDefaults] objectForKey:@"key"] andCallback:^(NSString *encryptedPatch) {
+        payload[@"patch"] = [JSON deserializeObject:encryptedPatch][@"fields"];
+        [[API sharedInstance] postPayload:payload forConversation:self.conversationId onSuccess:^(id resp) {
+            // TODO: handle response
+        } onFailure:^(NSURLResponse *resp) {
+        }];
+    }];
+}
+
 - (void)confirm {
     NSString *responseJSON = [web stringByEvaluatingJavaScriptFromString:@"Forms.serializeForm();"];
     NSDictionary *responses = [JSON deserializeObject:responseJSON];
@@ -51,10 +65,7 @@
     [[Crypto sharedInstance] decryptSymmetricKey:self.pubKey withCallback:^(NSString *key) {
         [[Crypto sharedInstance] encrypt:responses withKey:key andCallback:^(NSString *encryptedJSON) {
             NSDictionary *payload = [JSON deserializeObject:encryptedJSON];
-            [[API sharedInstance] postPayload:payload forConversation:self.conversationId onSuccess:^(id resp) {
-                // TODO: handle response
-            } onFailure:^(NSURLResponse *resp) {
-            }];
+            [self publishResponse:payload withPatch:responses];
         }];
     }];
 }
