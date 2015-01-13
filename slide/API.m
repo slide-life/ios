@@ -52,9 +52,9 @@ static API *sharedInstance;
         failure(responseObject);
     }];
 }
-- (void)postPayload: (NSDictionary *)payload forChannel: (NSString *)channelId onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure {
-    NSString *path = [NSString stringWithFormat:@"%@/channels/%@", self.domain, channelId];
-    [self.jsonManager POST:path parameters:payload success:^(AFHTTPRequestOperation *operation, id responseObject) {
+- (void)postPayload: (NSDictionary *)payload forConversation: (NSString *)conversationId onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure {
+    NSString *path = [NSString stringWithFormat:@"%@/conversations/%@", self.domain, conversationId];
+    [self.jsonManager PUT:path parameters:payload success:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, id responseObject) {
         failure(responseObject);

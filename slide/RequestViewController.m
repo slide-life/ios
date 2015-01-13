@@ -46,7 +46,7 @@
             NSError *error;
             NSData *data = [encryptedJSON dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
             NSDictionary *payload = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-            [[API sharedInstance] postPayload:payload forChannel:self.channelId onSuccess:^(id resp) {
+            [[API sharedInstance] postPayload:payload forConversation:self.conversationId onSuccess:^(id resp) {
                 // TODO: handle response
             } onFailure:^(NSURLResponse *resp) {
             }];

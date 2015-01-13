@@ -17,10 +17,9 @@
 @implementation RequestsViewController
 
 - (void)getData:(NSNotification *)notification {
-    NSArray *data = notification.userInfo[@"channel"][@"blocks"];
-    NSString *bucket = notification.userInfo[@"channel"][@"id"];
-    NSDictionary *key = notification.userInfo[@"channel"][@"key"];
-    [self addRequest:@{@"data": data, @"bucket": bucket, @"key": key}];
+    NSDictionary *conversation = notification.userInfo[@"conversation"];
+    NSArray *blocks = notification.userInfo[@"blocks"];
+    [self addRequest:@{@"data": blocks, @"conversation": conversation[@"id"], @"key": conversation[@"key"]}];
 }
 
 - (void)addRequest: (NSDictionary *)request {
@@ -99,7 +98,7 @@
     RequestViewController *rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"requestView"];
     rvc.blocks = requests[indexPath.row][@"data"];
     rvc.pubKey = requests[indexPath.row][@"key"];
-    rvc.channelId = requests[indexPath.row][@"bucket"];
+    rvc.conversationId = requests[indexPath.row][@"conversation"];
     [self.navigationController pushViewController:rvc animated:YES];
 }
 

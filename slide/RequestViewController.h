@@ -12,7 +12,7 @@
     IBOutlet UIWebView *web;
 }
 
-@property NSString *channelId;
+@property NSString *conversationId;
 @property NSString *pubKey;
 @property NSArray *blocks;
 

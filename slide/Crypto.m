@@ -59,7 +59,6 @@ static Crypto *sharedInstance;
 }
 - (void)generateKeysWithCallback: (void (^)(NSString *))cb {
     void (^task)() = ^{
-        NSLog(@"generate keys");
         NSString *keyString = [self.webview stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"var keys; Slide.crypto.generateKeys(function(k) {keys = k;}); JSON.stringify(Slide.crypto.packKeys(keys))"]];
         cb(keyString);
     };
