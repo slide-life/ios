@@ -16,5 +16,6 @@
 + (id)sharedInstance;
 - (void)valuesForBlock: (NSString *)field withCallback: (void (^)(NSArray *))cb;
 - (void)preparePatch: (NSDictionary *)patch withCallback: (void (^)(NSDictionary *))cb;
+- (void)getProfileWithCallback: (void (^)(NSDictionary *))cb;
 
 @end

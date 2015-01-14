@@ -13,12 +13,6 @@
 
 @implementation FieldsDataStore
 
-- (void)decodeField: (NSString *)field withCallback: (void (^)(NSString *))cb {
-    [[Crypto sharedInstance] decryptPackedString:field withKey:[[NSUserDefaults standardUserDefaults] objectForKey:@"key"] andCallback:^(NSString *field) {
-        cb(field);
-    }];
-}
-
 - (void)valuesForBlock: (NSString *)field withCallback: (void (^)(NSArray *))cb {
     void (^task)() = ^{
         if( self.profile[field] ) {
@@ -43,6 +37,13 @@
             fullPatch[block] = [JSON serializeArray:values];
         }
         cb(fullPatch);
+    };
+    [self performJob:@{@"task": task}];
+}
+
+- (void)getProfileWithCallback: (void (^)(NSDictionary *))cb {
+    void (^task)() = ^{
+        cb(self.profile);
     };
     [self performJob:@{@"task": task}];
 }

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		433EDBD494374E9FBE8F4E15 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5472BF9ABC994393BF6ABED1 /* libPods.a */; };
+		AD2B73E21A65F37300F540E4 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2B73E11A65F37300F540E4 /* ProfileViewController.m */; };
+		AD2B73E51A65F7CD00F540E4 /* FieldValuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2B73E41A65F7CD00F540E4 /* FieldValuesViewController.m */; };
 		AD45C57319C693DB00198F95 /* FieldsDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AD45C57219C693DB00198F95 /* FieldsDataStore.m */; };
 		AD81363E19C2C326000FD998 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD81363D19C2C326000FD998 /* NavigationController.m */; };
 		AD8F47671A380BFA001EC4D4 /* slide.js in Resources */ = {isa = PBXBuildFile; fileRef = AD8F47661A380BFA001EC4D4 /* slide.js */; };
@@ -54,6 +56,10 @@
 /* Begin PBXFileReference section */
 		102B85BA405B43108D479D86 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		5472BF9ABC994393BF6ABED1 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD2B73E01A65F37300F540E4 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		AD2B73E11A65F37300F540E4 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		AD2B73E31A65F7CD00F540E4 /* FieldValuesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldValuesViewController.h; sourceTree = "<group>"; };
+		AD2B73E41A65F7CD00F540E4 /* FieldValuesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldValuesViewController.m; sourceTree = "<group>"; };
 		AD45C57219C693DB00198F95 /* FieldsDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldsDataStore.m; sourceTree = "<group>"; };
 		AD45C57419C693E200198F95 /* FieldsDataStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FieldsDataStore.h; sourceTree = "<group>"; };
 		AD81363D19C2C326000FD998 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
@@ -186,6 +192,10 @@
 				ADEE18DD1A632E9200460A89 /* RequestViewController.m */,
 				ADD5EBA61A195B5F00EFCE83 /* RequestDetailsViewController.h */,
 				ADD5EBA71A195B5F00EFCE83 /* RequestDetailsViewController.m */,
+				AD2B73E01A65F37300F540E4 /* ProfileViewController.h */,
+				AD2B73E11A65F37300F540E4 /* ProfileViewController.m */,
+				AD2B73E31A65F7CD00F540E4 /* FieldValuesViewController.h */,
+				AD2B73E41A65F7CD00F540E4 /* FieldValuesViewController.m */,
 				AD9CFBBF19EF1E40005BA97F /* API.h */,
 				AD9CFBC019EF1E40005BA97F /* API.m */,
 				AD81363F19C2C338000FD998 /* NavigationController.h */,
@@ -372,9 +382,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD45C57319C693DB00198F95 /* FieldsDataStore.m in Sources */,
+				AD2B73E51A65F7CD00F540E4 /* FieldValuesViewController.m in Sources */,
 				E7A1FE921A40B4D800087061 /* TabBarController.m in Sources */,
 				ADEE18E71A63438D00460A89 /* JSON.m in Sources */,
 				ADD5EBA81A195B5F00EFCE83 /* RequestDetailsViewController.m in Sources */,
+				AD2B73E21A65F37300F540E4 /* ProfileViewController.m in Sources */,
 				E701410219C104AA00476F42 /* AppDelegate.m in Sources */,
 				ADEE18E11A63349D00460A89 /* Crypto.m in Sources */,
 				AD9CFBC119EF1E40005BA97F /* API.m in Sources */,
