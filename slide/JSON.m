@@ -15,6 +15,11 @@
     NSData *data = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:&error];
     return [[NSString alloc] initWithData:data encoding:NSStringEncodingConversionExternalRepresentation];
 }
++ (NSString *)serializeArray: (NSArray *)array {
+    NSError *error;
+    NSData *data = [NSJSONSerialization dataWithJSONObject:array options:0 error:&error];
+    return [[NSString alloc] initWithData:data encoding:NSStringEncodingConversionExternalRepresentation];
+}
 + (NSDictionary *)deserializeObject: (NSString *)data {
     NSError *error;
     return [NSJSONSerialization JSONObjectWithData:[data dataUsingEncoding:NSStringEncodingConversionExternalRepresentation] options:0 error:&error];

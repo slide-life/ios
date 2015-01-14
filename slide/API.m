@@ -8,6 +8,7 @@
 
 #import "API.h"
 #import "Crypto.h"
+#import "JSON.h"
 
 @implementation API
 static API *sharedInstance;
@@ -30,8 +31,16 @@ static API *sharedInstance;
 }
 - (void)getProfileForUser: (NSString *)userId onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure {
     NSString *path = [NSString stringWithFormat:@"%@/users/%@/profile", self.domain, userId];
-    [self.manager GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        success(responseObject);
+    [self.manager GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, NSDictionary *profile) {
+        NSMutableDictionary *decoded = [[NSMutableDictionary alloc] initWithCapacity:profile.count];
+        for (NSString *key in profile) {
+            [[Crypto sharedInstance] decryptPackedString:profile[key] withKey:[[NSUserDefaults standardUserDefaults] objectForKey:@"key"] andCallback:^(NSString *value) {
+                decoded[key] = [JSON deserializeArray:value];
+                if( decoded.count == profile.count ) {
+                    success(decoded);
+                }
+            }];
+        }
     } failure:^(AFHTTPRequestOperation *operation, id responseObject) {
         failure(responseObject);
     }];

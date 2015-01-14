@@ -49,11 +49,13 @@
     for (NSString *block in encryptedResponse) {
         payload[block] = encryptedResponse[block];
     }
-    [[Crypto sharedInstance] encrypt:patch withKey:[[NSUserDefaults standardUserDefaults] objectForKey:@"key"] andCallback:^(NSString *encryptedPatch) {
-        payload[@"patch"] = [JSON deserializeObject:encryptedPatch][@"fields"];
-        [[API sharedInstance] postPayload:payload forConversation:self.conversationId onSuccess:^(id resp) {
-            // TODO: handle response
-        } onFailure:^(NSURLResponse *resp) {
+    [[FieldsDataStore sharedInstance] preparePatch:patch withCallback:^(NSDictionary *patch) {
+        [[Crypto sharedInstance] encrypt:patch withKey:[[NSUserDefaults standardUserDefaults] objectForKey:@"key"] andCallback:^(NSString *encryptedPatch) {
+            payload[@"patch"] = [JSON deserializeObject:encryptedPatch][@"fields"];
+            [[API sharedInstance] postPayload:payload forConversation:self.conversationId onSuccess:^(id resp) {
+                // TODO: handle response
+            } onFailure:^(NSURLResponse *resp) {
+            }];
         }];
     }];
 }

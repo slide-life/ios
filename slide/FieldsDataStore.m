@@ -9,6 +9,7 @@
 #import "FieldsDataStore.h"
 #import "API.h"
 #import "Crypto.h"
+#import "JSON.h"
 
 @implementation FieldsDataStore
 
@@ -18,25 +19,30 @@
     }];
 }
 
-- (void)decodeFields: (NSArray *)fields withCallback: (void (^)(NSArray *))cb {
-    NSMutableArray *decoded = [[NSMutableArray alloc] initWithCapacity:fields.count];
-    for (NSString *field in fields) {
-        [self decodeField:field withCallback:^(NSString *field) {
-            [decoded addObject:field];
-            if( decoded.count == fields.count ) {
-                cb(decoded);
-            }
-        }];
-    }
-}
-
 - (void)valuesForBlock: (NSString *)field withCallback: (void (^)(NSArray *))cb {
     void (^task)() = ^{
         if( self.profile[field] ) {
-            [self decodeFields:self.profile[field] withCallback:cb];
+            cb(self.profile[field]);
         } else {
             cb(@[]);
         }
+    };
+    [self performJob:@{@"task": task}];
+}
+
+- (void)preparePatch: (NSDictionary *)patch withCallback: (void (^)(NSDictionary *))cb {
+    void (^task)() = ^{
+        NSMutableDictionary *fullPatch = [[NSMutableDictionary alloc] initWithCapacity:patch.count];
+        for (NSString *block in patch) {
+            NSArray *field = self.profile[block] == nil ? @[] : self.profile[block];
+            NSMutableArray *values = [[NSMutableArray alloc] initWithCapacity:field.count + 1];
+            for (NSString *value in field) {
+                [values addObject:value];
+            }
+            [values addObject:patch[block]];
+            fullPatch[block] = [JSON serializeArray:values];
+        }
+        cb(fullPatch);
     };
     [self performJob:@{@"task": task}];
 }

@@ -15,5 +15,6 @@
 @property NSMutableArray *queue;
 + (id)sharedInstance;
 - (void)valuesForBlock: (NSString *)field withCallback: (void (^)(NSArray *))cb;
+- (void)preparePatch: (NSDictionary *)patch withCallback: (void (^)(NSDictionary *))cb;
 
 @end

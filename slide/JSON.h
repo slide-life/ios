@@ -10,6 +10,7 @@
 
 @interface JSON : NSObject
 + (NSString *)serialize: (NSDictionary *)dictionary;
++ (NSString *)serializeArray: (NSArray *)dictionary;
 + (NSDictionary *)deserializeObject: (NSString *)data;
 + (NSArray *)deserializeArray: (NSString *)data;
 @end
