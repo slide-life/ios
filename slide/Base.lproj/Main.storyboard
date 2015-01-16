@@ -201,7 +201,7 @@
             </objects>
             <point key="canvasLocation" x="-303" y="1201"/>
         </scene>
-        <!--Profile View Controller-->
+        <!--Profile-->
         <scene sceneID="I2H-rf-Ptx">
             <objects>
                 <tableViewController id="bZh-SZ-4bm" customClass="ProfileViewController" sceneMemberID="viewController">
@@ -225,7 +225,7 @@
                             <outlet property="delegate" destination="bZh-SZ-4bm" id="7NW-Ya-Siq"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Qzc-dz-b6S"/>
+                    <navigationItem key="navigationItem" title="Profile" id="Qzc-dz-b6S"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AP6-LI-rur" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

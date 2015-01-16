@@ -33,6 +33,9 @@ static API *sharedInstance;
     NSString *path = [NSString stringWithFormat:@"%@/users/%@/profile", self.domain, userId];
     [self.manager GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, NSDictionary *profile) {
         NSMutableDictionary *decoded = [[NSMutableDictionary alloc] initWithCapacity:profile.count];
+        if( profile.count == 0 ) {
+            success(@{});
+        }
         for (NSString *key in profile) {
             [[Crypto sharedInstance] decryptPackedString:profile[key] withKey:[[NSUserDefaults standardUserDefaults] objectForKey:@"key"] andCallback:^(NSString *value) {
                 decoded[key] = [JSON deserializeArray:value];
@@ -57,7 +60,7 @@ static API *sharedInstance;
 - (void)postDevice: (NSString *)token forUser: (NSString *)number withKey: (NSString *)key andPublicKey: (NSString *)pKey onSuccess: (void (^)(id))success onFailure: (void (^)(id))failure {
     NSString *path = [NSString stringWithFormat:@"%@/users", self.domain];
     // TODO: encrypt key with public key
-    [self.jsonManager POST:path parameters:@{@"device": token, @"user": number, @"public_key": pKey, @"key": key} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.jsonManager POST:path parameters:@{@"device": @{@"registration_id": token, @"type": @"ios"}, @"user": number, @"public_key": pKey, @"key": key} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, id responseObject) {
         failure(responseObject);

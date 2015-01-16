@@ -78,6 +78,7 @@ static FieldsDataStore *sharedInstance;
                 sharedInstance.profile = profile;
                 [sharedInstance ready];
             } onFailure:^(id resp) {
+                NSLog(@"failed: %@", resp);
             }];
         });
     }
