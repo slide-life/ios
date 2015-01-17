@@ -16,10 +16,19 @@
 
 @implementation RequestsViewController
 
-- (void)getData:(NSNotification *)notification {
-    NSDictionary *conversation = notification.userInfo[@"conversation"];
-    NSArray *blocks = notification.userInfo[@"blocks"];
-    [self addRequest:@{@"data": blocks, @"conversation": conversation[@"id"], @"key": conversation[@"key"]}];
+- (void)getData: (NSNotification *)notification {
+    NSDictionary *payload = notification.userInfo;
+    if( [payload[@"verb"] isEqualToString:@"verb_request"] ) {
+        NSDictionary *conversation = payload[@"conversation"];
+        NSArray *blocks = payload[@"blocks"];
+        [self addRequest:@{@"data": blocks, @"conversation": conversation[@"id"], @"key": conversation[@"key"]}];
+    } else {
+        [[Crypto sharedInstance] decryptSymmetricKey:payload[@"conversation"][@"key"] withCallback:^(NSString *key) {
+            [[Crypto sharedInstance] decryptData:payload[@"fields"] withKey:key andCallback:^(NSDictionary *decoded) {
+                NSLog(@"decoded: %@", decoded);
+            }];
+        }];
+    }
 }
 
 - (void)addRequest: (NSDictionary *)request {
@@ -53,12 +62,13 @@
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];        
+    [super viewDidLoad];
     
     // Do any additional setup after loading the view.
     
     if( [[NSUserDefaults standardUserDefaults] objectForKey:@"number"] ) {
         self.number = [[NSUserDefaults standardUserDefaults] objectForKey:@"number"];
+        [FieldsDataStore sharedInstance];
     } else {
         NSString *number = @"16144408217";
         [[NSUserDefaults standardUserDefaults] setObject:number forKey:@"number"];
@@ -94,6 +104,7 @@
     [dateFormatter setDateFormat:@"MM/dd/yyyy – hh:mm:ss a"];
 
     cell.textLabel.text = [dateFormatter stringFromDate:epochNSDate];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     return cell;
 }

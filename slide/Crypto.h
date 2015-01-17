@@ -22,4 +22,5 @@
 - (void)generateSymmetricKey: (void (^)(NSString *))cb;
 - (void)encryptString: (NSString *)string withKey: (NSString *)key andCallback: (void (^)(NSString *))cb;
 - (void)encryptSymmetricKey: (NSString *)key withCallback: (void (^)(NSString *))cb;
+- (void)decryptData: (NSDictionary *)payload withKey: (NSString *)key andCallback: (void (^)(NSDictionary *))cb;
 @end

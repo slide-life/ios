@@ -63,6 +63,7 @@
     for (NSDictionary *job in self.queue.reverseObjectEnumerator) {
         [self performJob:job];
         [self.queue removeObjectAtIndex:index];
+        index -= 1;
     }
 }
 
